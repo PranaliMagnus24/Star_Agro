@@ -23,5 +23,17 @@ return [
     'Description' => 'वर्णन',
     'Status' => 'स्थिती',
     'Location' => 'पत्ता',
+    'Farmer' => 'शेतकरी',
+    'Registration' => 'नोंदणी',
+    'Farmer Registration' => 'शेतकरी नोंदणी',
+    'General Settings' => 'सामान्य सेटिंग्ज',
+    'Payment Gateway' => 'पेमेंट गेटवे',
+    'Api key' => 'एपीआई की',
+    'Secret key' => 'सीक्रेट की',
+    'Payment Method' => 'पेमेंट मेथड',
+    'SMS Gateway' => 'SMS गेटवे',
+    'Add' => 'ऐड',
+    'Edit' => 'एडिट',
+    'Whatsapp' => 'व्हाट्सप्प',
 
 ];

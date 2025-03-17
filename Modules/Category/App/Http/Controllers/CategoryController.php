@@ -13,9 +13,15 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {    $categories = Category::paginate(20);
-        return view('category::index', compact('categories'));
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
+
+        $categories = Category::when($search, function ($query) use ($search) {
+            return $query->where('category_name', 'like', "%{$search}%");
+        })->paginate(20);
+
+        return view('category::index', compact('categories', 'search'));
     }
 
     /**

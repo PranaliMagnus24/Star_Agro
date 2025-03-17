@@ -23,5 +23,18 @@ return [
     'Description' => 'Description',
     'Status' => 'Status',
     'Location' => 'Location',
+    'Farmer' => 'Farmer',
+    'Registration' => 'Registration',
+    'Farmer Registration' => 'Farmer Registration',
+    'General Settings' => 'General Settings',
+    'Payment Gateway' => 'Payment Gateway',
+    'Api key' => 'Api key',
+    'Secret key' => 'Secret key',
+    'Payment Method' => 'Payment Method',
+    'SMS Gateway' => 'SMS Gateway',
+    'Add' => 'Add',
+    'Edit' => 'Edit',
+    'Whatsapp' => 'Whatsapp',
+
 
 ];

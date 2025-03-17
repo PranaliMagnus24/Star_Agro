@@ -47,6 +47,40 @@
                   <i class="bi bi-circle"></i><span>{{ __('messages.Location') }}</span>
                 </a>
               </li>
+              <li>
+                <a href="{{ route('create.generalSetting')}}">
+                  <i class="bi bi-circle"></i><span>{{ __('messages.General Settings') }}</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('paymentGateway.list')}}">
+                  <i class="bi bi-circle"></i><span>{{ __('messages.Payment Gateway') }}</span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="bi bi-circle"></i><span>{{ __('messages.SMS Gateway') }}</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('whatsapp.index')}}">
+                  <i class="bi bi-circle"></i><span>{{ __('messages.Whatsapp') }}</span>
+                </a>
+              </li>
+
+        </ul>
+      </li><!-- End Master Setting -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#farmer-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-person"></i><span>{{ __('messages.Farmer Registration') }}</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="farmer-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li>
+                <a href="#">
+                  <i class="bi bi-circle"></i><span>{{ __('messages.Farmer') }}</span>
+                </a>
+              </li>
         </ul>
       </li><!-- End Master Setting -->
     </ul>

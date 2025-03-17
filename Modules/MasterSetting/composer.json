@@ -1,0 +1,31 @@
+{
+    "name": "nwidart/mastersetting",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\MasterSetting\\": "",
+            "Modules\\MasterSetting\\App\\": "app/",
+            "Modules\\MasterSetting\\Database\\Factories\\": "database/factories/",
+            "Modules\\MasterSetting\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\MasterSetting\\Tests\\": "tests/"
+        }
+    }
+}

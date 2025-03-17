@@ -23,6 +23,19 @@ return [
     'Description' => 'विवरण',
     'Status' => 'स्थिति',
     'Location' => 'पता',
+    'Farmer' => 'किसान',
+    'Registration' => 'पंजीकरण',
+    'Farmer Registration' => 'किसान पंजीकरण',
+    'General Settings' => 'सामान्य सेटिंग्स',
+    'Payment Gateway' => 'पेमेंट गेटवे',
+    'Api key' => 'एपीआई की',
+    'Secret key' => 'सीक्रेट की',
+    'Payment Method' => 'पेमेंट मेथड',
+    'SMS Gateway' => 'SMS गेटवे',
+    'Add' => 'ऐड',
+    'Edit' => 'एडिट',
+    'Whatsapp' => 'व्हाट्सप्प',
+
 
 
 

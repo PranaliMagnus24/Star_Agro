@@ -1,0 +1,11 @@
+{
+    "name": "MasterSetting",
+    "alias": "mastersetting",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\MasterSetting\\App\\Providers\\MasterSettingServiceProvider"
+    ],
+    "files": []
+}
