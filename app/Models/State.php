@@ -12,4 +12,11 @@ class State extends Model
     protected $fillable = [
        'name','country_id','country_code','fips_code','iso2','type','latitude','longitude','flag',
     ];
+
+    public function user()
+{
+    return $this->belongsTo(User::class, 'state', 'id');
+}
+
+
 }

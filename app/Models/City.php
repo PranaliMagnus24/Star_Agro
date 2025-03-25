@@ -12,4 +12,9 @@ class City extends Model
     protected $fillable = [
         'name','state_id','state_code','country_id','country_code','latitude','longitude','flag'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'city', 'id');
+    }
 }

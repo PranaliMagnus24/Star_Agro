@@ -58,7 +58,7 @@
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="{{ route('sms.index')}}">
                   <i class="bi bi-circle"></i><span>{{ __('messages.SMS Gateway') }}</span>
                 </a>
               </li>
@@ -77,7 +77,7 @@
         </a>
         <ul id="farmer-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
-                <a href="#">
+                <a href="{{ route('admin.farmer.index')}}">
                   <i class="bi bi-circle"></i><span>{{ __('messages.Farmer') }}</span>
                 </a>
               </li>

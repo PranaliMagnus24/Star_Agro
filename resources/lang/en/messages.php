@@ -35,6 +35,8 @@ return [
     'Add' => 'Add',
     'Edit' => 'Edit',
     'Whatsapp' => 'Whatsapp',
+    'Farmers' => 'Farmers',
+    'Farmer Registration' => 'Farmer Registration',
 
 
 ];

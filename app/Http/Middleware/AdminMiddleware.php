@@ -18,7 +18,7 @@ class AdminMiddleware
     {
         if (Auth::check()) {
             $user = Auth::user();
-            if ($user->hasRole(['admin', 'super-admin'])) {
+            if ($user->hasRole(['admin', 'super-admin','farmer'])) {
                 return $next($request);
             }
 

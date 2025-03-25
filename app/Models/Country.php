@@ -12,4 +12,10 @@ class Country extends Model
     protected $fillable = [
        'name','iso3','numeric_code','iso2','phonecode','capital','currency','currency_name','currency_symbol','tld','native','region','region_id','subregion','subregion_id','nationality','timezones','translations','latitude','emoji','emojiU','flag'
     ];
+
+    public function user()
+{
+    return $this->belongsTo(User::class, 'country', 'id');
+}
+
 }

@@ -35,5 +35,7 @@ return [
     'Add' => 'ऐड',
     'Edit' => 'एडिट',
     'Whatsapp' => 'व्हाट्सप्प',
+    'Farmers' => 'शेतकरी',
+    'Farmer Registration' => 'शेतकरी नोंदणी',
 
 ];

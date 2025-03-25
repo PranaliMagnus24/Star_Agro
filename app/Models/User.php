@@ -19,9 +19,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name','email','password','phone','gender','dob','state','district','taluka','town','referral_code','about_us',
     ];
 
     /**
@@ -43,4 +41,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function cities()
+    {
+        return $this->belongsTo(City::class, 'city', 'id');
+    }
+    public function states()
+    {
+        return $this->belongsTo(State::class, 'state', 'id');
+    }
+    public function countries()
+    {
+        return $this->belongsTo(Country::class, 'country', 'id');
+    }
+
+    public function zips()
+    {
+        return $this->belongsTo(Zipcode::class, 'zip_id', 'id');
+    }
+
 }

@@ -6,27 +6,33 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\RoleManagement\RoleController;
 use App\Http\Controllers\Admin\RoleManagement\PermissionController;
 use App\Http\Controllers\Admin\RoleManagement\UserRoleController;
+use App\Http\Controllers\Admin\FarmerRegistration\FarmerRegistrationController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\Frontend\HomeController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/', [HomeController::class,'mainIndex'])->name('home.index');
+Route::get('about', [HomeController::class,'mainAbout'])->name('home.about');
+Route::get('services', [HomeController::class,'mainServices'])->name('home.services');
+Route::get('gallery', [HomeController::class,'mainGallery'])->name('home.gallery');
+Route::get('blog', [HomeController::class,'mainBlog'])->name('home.blog');
+Route::get('contact', [HomeController::class,'mainContact'])->name('home.contact');
+Route::get('registration', [HomeController::class,'mainRegister'])->name('home.register');
+Route::post('registration', [HomeController::class,'mainStore'])->name('home.register.store');
+Route::post('api/fetch-states', [HomeController::class, 'fetchState']);
+Route::post('api/fetch-cities', [HomeController::class, 'fetchCity']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,8 +40,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 });
-
-
 
 Route::group(['middleware' => ['isAdmin']], function() {
 
@@ -73,12 +77,20 @@ Route::group(['middleware' => ['isAdmin']], function() {
         Route::get('/{id}/delete', [UserRoleController::class, 'delete'])->name('user.delete')->middleware('permission:delete user');
     });
     Route::get('language/{lang}', [LanguageController::class, 'switchLanguage']);
+
+    /////FarmerRegistrationController
+    Route::get('farmer',[FarmerRegistrationController::class,'farmerIndex'])->name('admin.farmer.index');
+    Route::get('farmer/create',[FarmerRegistrationController::class,'farmerCreate'])->name('admin.farmer.create');
 });
 
+/////Location Controller
 Route::post('/store-location', [LocationController::class, 'store'])->name('location.store');
 Route::post('/update-location/{id}', [LocationController::class, 'update'])->name('location.update');
 Route::delete('/delete-location/{id}', [LocationController::class, 'destroy'])->name('location.delete');
 Route::get('location',[LocationController::class,'create'])->name('create.location');
+
+
+////FarmerRegistrationController
 
 
 

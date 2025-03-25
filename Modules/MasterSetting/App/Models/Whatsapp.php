@@ -13,8 +13,9 @@ class Whatsapp extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [];
-    
+    protected $table = 'whatsapps';
+    protected $fillable = ['api_key','status'];
+
     protected static function newFactory(): WhatsappFactory
     {
         //return WhatsappFactory::new();

@@ -32,4 +32,14 @@ Route::group([], function () {
     Route::put('whatsapp/{id}/update',[MasterSettingController::class,'update'])->name('whatsapp.update');
     Route::delete('whatsapp/{id}/delete',[MasterSettingController::class,'destroy'])->name('whatsapp.delete');
 
+
+
+    /////SMS Gateway
+
+    Route::get('sms',[MasterSettingController::class,'smsList'])->name('sms.index');
+    Route::get('sms/create',[MasterSettingController::class,'smsCreate'])->name('sms.create');
+    Route::post('sms/create',[MasterSettingController::class,'storeSms'])->name('sms.store');
+    Route::get('sms/{id}/edit',[MasterSettingController::class,'smsCreate'])->name('sms.edit');
+    Route::put('sms/{id}/update',[MasterSettingController::class,'updateSms'])->name('sms.update');
+    Route::delete('sms/{id}/delete',[MasterSettingController::class,'destroySms'])->name('sms.delete');
 });
