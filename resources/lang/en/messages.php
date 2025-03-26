@@ -37,6 +37,8 @@ return [
     'Whatsapp' => 'Whatsapp',
     'Farmers' => 'Farmers',
     'Farmer Registration' => 'Farmer Registration',
+    'My Profile' => 'My Profile',
+    'Profile' => 'Profile',
 
 
 ];

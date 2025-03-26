@@ -9161,6 +9161,7 @@ div.single-cta:last-child {
     padding: 0 10px;
 }
 
+
 /*--------------------------------------------------------------
 # Success message
 --------------------------------------------------------------*/
@@ -9196,6 +9197,18 @@ div.single-cta:last-child {
     color: white;
   }
 
+/*----------------Farmer Registration------------*/
+  .farmer-registration-form {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: white;
+}
 
 
+@media (max-width: 768px) {
+    .farmer-registration-form {
+        padding: 15px;
+    }
+}
 

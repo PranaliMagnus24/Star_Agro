@@ -28,15 +28,17 @@
                             <td>{{ $roles->firstItem() + $loop->index }}</td>
                             <td>{{ $role->name}}</td>
                             <td>
+                                @can('view permission button')
                                 <a href="{{ route('role.permissions', $role->id) }}" class="btn btn-primary btn-sm">Add / Edit role permission</a>
-                                {{-- @can('update role') --}}
+                                @endcan
+                                @can('update role')
                                 {{-- @role('admin') --}}
                                 <a href="{{ route('role.edit', $role->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
                                 {{-- @endrole --}}
-                                {{-- @endcan --}}
-                                {{-- @can('delete role') --}}
+                                @endcan
+                                @can('delete role')
                                 <a href="{{ route('role.delete', $role->id) }}" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></a>
-                                {{-- @endcan --}}
+                                @endcan
                             </td>
                         </tr>
 

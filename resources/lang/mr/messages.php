@@ -37,5 +37,7 @@ return [
     'Whatsapp' => 'व्हाट्सप्प',
     'Farmers' => 'शेतकरी',
     'Farmer Registration' => 'शेतकरी नोंदणी',
+    'My Profile' => 'माझे प्रोफाइल',
+    'Profile' => 'प्रोफाइल',
 
 ];

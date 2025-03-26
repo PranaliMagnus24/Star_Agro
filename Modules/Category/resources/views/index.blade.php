@@ -19,7 +19,9 @@
                                 </button>
                             </div>
                         </form>
+                        @can('create category')
                         <a href="{{ route('category.create') }}" class="btn btn-primary btn-sm">+</a>
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body mt-3">
@@ -41,8 +43,12 @@
                             <td>{{ $category->description }}</td>
                             <td>{{ ucfirst($category->status) }}</td>
                             <td class="text-center text-nowrap">
+                                @can('update category')
                               <a href="{{ route('category.edit', $category->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
+                              @endcan
+                              @can('delete category')
                               <a href="{{ route('category.delete', $category->id) }}" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></a>
+                              @endcan
                             </td>
                         </tr>
                         @endforeach

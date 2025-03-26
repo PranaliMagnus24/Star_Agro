@@ -48,9 +48,11 @@
                 </a>
               </li>
               <li>
+                @can('view general setting')
                 <a href="{{ route('create.generalSetting')}}">
                   <i class="bi bi-circle"></i><span>{{ __('messages.General Settings') }}</span>
                 </a>
+                @endcan
               </li>
               <li>
                 <a href="{{ route('paymentGateway.list')}}">

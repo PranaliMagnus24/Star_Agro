@@ -9,6 +9,12 @@
 (function() {
   "use strict";
 
+
+
+
+
+
+
   /**
    * Easy selector helper function
    */
@@ -339,4 +345,33 @@
 
 
 
+document.getElementById('zip_code').addEventListener('blur', function () {
+    var pincode = this.value.trim();
+    if (pincode) {
+        fetch(`/get-taluka-town/${pincode}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.taluka && data.officename) {
+                    document.getElementById('taluka').value = data.taluka;
+                    document.getElementById('town').value = `${data.officename}, ${data.RelatedSuboffice || 'Unknown'}`;
+                } else {
+                    document.getElementById('taluka').value = 'Unknown';
+                    document.getElementById('town').value = 'Unknown';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching taluka and town:', error);
+                alert('Failed to fetch taluka and town. Please try again later.');
+            });
+    }
+});
+
+
 })();
+
+

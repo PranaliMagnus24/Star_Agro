@@ -18,14 +18,15 @@ class AdminMiddleware
     {
         if (Auth::check()) {
             $user = Auth::user();
-            if ($user->hasRole(['admin', 'super-admin','farmer'])) {
+            $userRoles = $user->getRoleNames();
+
+            if ($userRoles->isNotEmpty()) {
                 return $next($request);
             }
 
-            // dd($user->getAllPermissions()->pluck('name'));
-
-            abort(403, "User  does not have correct ROLE");
+            abort(403, "User  does not have the correct ROLE");
         }
-        abort(401);
+
+        abort(401); // Unauthorized if not authenticated
     }
 }

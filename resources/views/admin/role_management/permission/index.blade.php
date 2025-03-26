@@ -28,12 +28,12 @@
                             <td>{{ $permissions->firstItem() + $loop->index }}</td>
                             <td>{{ $permission->name}}</td>
                             <td>
-                                {{-- @can('update permission') --}}
+                                @can('update permission')
                               <a href="{{ route('permission.edit', $permission->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
-                              {{-- @endcan --}}
-                              {{-- @can('delete permission') --}}
+                              @endcan
+                              @can('delete permission')
                               <a href="{{ route('permission.delete', $permission->id) }}" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></a>
-                              {{-- @endcan --}}
+                              @endcan
                             </td>
                         </tr>
 

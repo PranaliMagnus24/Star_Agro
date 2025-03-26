@@ -1,5 +1,6 @@
 {
     "Category": true,
     "GeneralSetting": true,
-    "MasterSetting": true
+    "MasterSetting": true,
+    "Members": true
 }

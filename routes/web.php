@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\FarmerRegistration\FarmerRegistrationController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\UserRegistrationController;
 
 
 
@@ -22,16 +23,20 @@ use App\Http\Controllers\Frontend\HomeController;
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
+////Home Controller
 Route::get('/', [HomeController::class,'mainIndex'])->name('home.index');
 Route::get('about', [HomeController::class,'mainAbout'])->name('home.about');
 Route::get('services', [HomeController::class,'mainServices'])->name('home.services');
 Route::get('gallery', [HomeController::class,'mainGallery'])->name('home.gallery');
 Route::get('blog', [HomeController::class,'mainBlog'])->name('home.blog');
 Route::get('contact', [HomeController::class,'mainContact'])->name('home.contact');
-Route::get('registration', [HomeController::class,'mainRegister'])->name('home.register');
-Route::post('registration', [HomeController::class,'mainStore'])->name('home.register.store');
 Route::post('api/fetch-states', [HomeController::class, 'fetchState']);
 Route::post('api/fetch-cities', [HomeController::class, 'fetchCity']);
+
+////User Registration Controller
+Route::get('registration', [UserRegistrationController::class,'mainRegister'])->name('home.register');
+Route::post('registration', [UserRegistrationController::class,'mainStore'])->name('home.register.store');
+
 
 
 Route::middleware('auth')->group(function () {

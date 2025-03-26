@@ -10,7 +10,7 @@ class FarmerDocuments extends Model
     use HasFactory;
     protected $table = 'farmer_documents';
     protected $fillable = [
-      'farmer_certificate',
+      'farmer_certificate','user_id',
     ];
 
 }

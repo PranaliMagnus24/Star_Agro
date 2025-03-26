@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name','email','password','phone','gender','dob','state','district','taluka','town','referral_code','about_us',
+        'name','email','password','phone','first_name','last_name','terms','gender','dob','state','district','pincode','taluka','town','referral_code','known_about_us',
     ];
 
     /**
@@ -59,6 +59,11 @@ class User extends Authenticatable
     public function zips()
     {
         return $this->belongsTo(Zipcode::class, 'zip_id', 'id');
+    }
+
+    public function farmerDocument()
+    {
+        return $this->hasOne(FarmerDocuments::class, 'user_id', 'id');
     }
 
 }

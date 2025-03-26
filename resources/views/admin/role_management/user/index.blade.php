@@ -37,12 +37,12 @@
                                 @endif
                             </td>
                             <td>
-                                {{-- @can('update user') --}}
+                                @can('update user')
                               <a href="{{ route('user.edit', $user->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
-                              {{-- @endcan --}}
-                              {{-- @can('delete user') --}}
+                              @endcan
+                              @can('delete user')
                               <a href="{{ route('user.delete', $user->id) }}" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></a>
-                              {{-- @endcan --}}
+                              @endcan
                             </td>
                         </tr>
 
