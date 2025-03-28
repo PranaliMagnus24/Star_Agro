@@ -79,6 +79,18 @@ return [
     'Upload Photo' => 'Upload Photo',
     'Active' => 'Active',
     'Inactive' => 'Inactive',
+    'Company Name' => 'Company Name',
+    'Company Logo' => 'Company Logo',
+    'Upload Documents' => 'Upload Documents',
+    'GST certificate' => 'GST certificate',
+    'Udyog aadhar certificate' => 'Udyog aadhar certificate',
+    'About Us' => 'About Us',
+    'Gallery' => 'Gallery',
+    'Services' => 'Services',
+    'Contact' => 'Contact',
+    'Register' => 'Register',
+    'Crops' => 'Crops',
+    'Crops Managements' => 'Crops Managements',
 
 
 

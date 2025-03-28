@@ -69,7 +69,63 @@ class MembersController extends Controller
     }
 
     ///Update more information
-    public function store(Request $request): RedirectResponse
+//     public function store(Request $request): RedirectResponse
+// {
+//     $request->validate([
+//         'gender' => 'required|string',
+//         'state' => 'required|string',
+//         'district' => 'required|string',
+//         'taluka' => 'required|string',
+//         'town' => 'required|string',
+//         'dob' => 'nullable|date',
+//         'pincode' => 'nullable|string|max:10',
+//         'referral_code' => 'nullable|string|max:255',
+//         'known_about_us' => 'nullable|string|max:255',
+//         'farmer_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+//     ]);
+
+//     $user = auth()->user();
+//     $user->gender = $request->gender;
+//     $user->state = $request->state;
+//     $user->dob = $request->dob;
+//     $user->district = $request->district;
+//     $user->pincode = $request->pincode;
+//     $user->taluka = $request->taluka;
+//     $user->town = $request->town;
+//     $user->referral_code = $request->referral_code;
+//     $user->known_about_us = $request->known_about_us;
+
+//     $user->save();
+//     if ($request->hasFile('farmer_certificate')) {
+//         $userFolder = public_path('upload/farmer_documents/' . $user->id);
+//         if (!file_exists($userFolder)) {
+//             mkdir($userFolder, 0755, true);
+//         }
+
+//         $existingDocument = FarmerDocuments::where('user_id', $user->id)->first();
+//         if ($existingDocument) {
+//             $oldFilePath = public_path($existingDocument->file_path);
+//             if (file_exists($oldFilePath)) {
+//                 unlink($oldFilePath);
+//             }
+//             $existingDocument->delete();
+//         }
+
+//         $file = $request->file('farmer_certificate');
+//         $filename = Str::random(30) . '.' . $file->getClientOriginalExtension();
+//         $file->move($userFolder, $filename);
+
+//         FarmerDocuments::create([
+//             'user_id' => $user->id,
+//             'farmer_certificate' => $filename,
+//         ]);
+//     }
+
+//     return redirect()->back()->with('success', 'Information added successfully.');
+// }
+
+
+public function store(Request $request): RedirectResponse
 {
     $request->validate([
         'gender' => 'required|string',
@@ -82,6 +138,10 @@ class MembersController extends Controller
         'referral_code' => 'nullable|string|max:255',
         'known_about_us' => 'nullable|string|max:255',
         'farmer_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        'company_logo' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+        'upload_documents' => 'nullable|string',
+        'documents' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        'company_name' => 'nullable|string|max:255',
     ]);
 
     $user = auth()->user();
@@ -95,35 +155,69 @@ class MembersController extends Controller
     $user->referral_code = $request->referral_code;
     $user->known_about_us = $request->known_about_us;
 
+    if ($user->hasRole('company')) {
+        $user->company_name = $request->company_name;
+    }
+
     $user->save();
+
+    $farmerDocument = FarmerDocuments::where('user_id', $user->id)->first();
+
+    // Handle farmer certificate upload
     if ($request->hasFile('farmer_certificate')) {
-        $userFolder = public_path('upload/farmer_documents/' . $user->id);
-        if (!file_exists($userFolder)) {
-            mkdir($userFolder, 0755, true);
+        if ($farmerDocument) {
+            $this->uploadDocument($request->file('farmer_certificate'), $user->id, 'farmer_certificate', $farmerDocument);
+        } else {
+            $this->uploadDocument($request->file('farmer_certificate'), $user->id, 'farmer_certificate');
         }
+    }
 
-        $existingDocument = FarmerDocuments::where('user_id', $user->id)->first();
-        if ($existingDocument) {
-            $oldFilePath = public_path($existingDocument->file_path);
-            if (file_exists($oldFilePath)) {
-                unlink($oldFilePath);
-            }
-            $existingDocument->delete();
+    // Handle company logo upload only if user has role 'company'
+    if ($user->hasRole('company') && $request->hasFile('company_logo')) {
+        if ($farmerDocument) {
+            $this->uploadDocument($request->file('company_logo'), $user->id, 'company_logo', $farmerDocument);
+        } else {
+            $this->uploadDocument($request->file('company_logo'), $user->id, 'company_logo');
         }
+    }
 
-        $file = $request->file('farmer_certificate');
-        $filename = Str::random(30) . '.' . $file->getClientOriginalExtension();
-        $file->move($userFolder, $filename);
-
-        FarmerDocuments::create([
-            'user_id' => $user->id,
-            'farmer_certificate' => $filename,
-        ]);
+    // Handle additional documents upload
+    if ($request->upload_documents && $request->hasFile('documents')) {
+        $documentType = $request->upload_documents;
+        if ($farmerDocument) {
+            $this->uploadDocument($request->file('documents'), $user->id, $documentType, $farmerDocument);
+        } else {
+            $this->uploadDocument($request->file('documents'), $user->id, $documentType);
+        }
     }
 
     return redirect()->back()->with('success', 'Information added successfully.');
 }
 
+private function uploadDocument($file, $userId, $documentType, $farmerDocument = null)
+{
+    $userFolder = public_path('upload/farmer_documents/' . $userId);
+    if (!file_exists($userFolder)) {
+        mkdir($userFolder, 0755, true);
+    }
+
+    $filename = $documentType . '_' . Str::random(30) . '.' . $file->getClientOriginalExtension();
+    $file->move($userFolder, $filename);
+
+    if ($farmerDocument) {
+        $farmerDocument->file_path = $filename;
+        $farmerDocument->document_type = $documentType;
+        $farmerDocument->save();
+    } else {
+        FarmerDocuments::create([
+            'user_id' => $userId,
+            'file_path' => $filename,
+            'document_type' => $documentType,
+            'company_logo' => $documentType === 'company_logo' ? $filename : null,
+            'farmer_certificate' => $documentType === 'farmer_certificate' ? $filename : null,
+        ]);
+    }
+}
     /**
      * Show the specified resource.
      */

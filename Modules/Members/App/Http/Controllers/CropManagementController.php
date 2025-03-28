@@ -22,11 +22,23 @@ class CropManagementController extends Controller
      * Display a listing of the resource.
      */
     public function indexCrop(Request $request)
-    {
-        $datas = CropManagement::with('user')->paginate(10);
-        return view('members::crop_management.index', compact('datas'));
-    }
+{
+    $user = auth()->user();
+    $datas = CropManagement::with('user')
+                ->where('farmer_id', $user->id);
 
+    if ($request->has('search')) {
+        $searchTerm = $request->input('search');
+        $datas->where(function($query) use ($searchTerm) {
+            $query->where('crop_name', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('planating_date', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('harvesting_date', 'like', '%' . $searchTerm . '%');
+        });
+    }
+    $datas = $datas->orderBy('created_at', 'desc')->paginate(10);
+
+    return view('members::crop_management.index', compact('datas', 'user'));
+}
     /**
      * Show the form for creating a new resource.
      */
@@ -52,7 +64,7 @@ class CropManagementController extends Controller
             'max_qty' => 'nullable|numeric',
             'description' => 'nullable|string',
             'status' => 'required|in:active,inactive',
-            'crop_images' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+           'crop_images.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ]);
 
         $category = Category::find($request->crop_id);
@@ -114,7 +126,7 @@ class CropManagementController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Crop management data saved successfully!');
+        return redirect()->route('crop.index')->with('success', 'Crop management data saved successfully!');
     }
 
 

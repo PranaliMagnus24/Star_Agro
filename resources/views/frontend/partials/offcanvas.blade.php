@@ -8,15 +8,16 @@
 
                     <div id="cssmenu3" class="menu-one-page-menu-container">
                         <ul id="menu-one-page-menu-2" class="menu">
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.index')}}">Home</a></li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.about')}}">About Us</a></li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.services')}}">Services</a></li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.index')}}">{{ __('messages.Home') }}</a></li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.about')}}">{{ __('messages.About Us') }}</a></li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.services')}}">{{ __('messages.Services') }}</a></li>
                              {{-- <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="pricing.html">Pricing </a></li> --}}
                              {{-- <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="team.html">Team </a></li> --}}
 
-                             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.gallery')}}">Gallery</a></li>
-                             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.blog')}}">Blog</a></li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.contact')}}">Contact</a></li>
+                             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.gallery')}}">{{ __('messages.Gallery') }}</a></li>
+                             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.blog')}}">{{ __('messages.Blog') }}</a></li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.contact')}}">{{ __('messages.Contact') }}</a></li>
+
                         </ul>
                     </div>
 
@@ -24,6 +25,16 @@
                         <ul id="menu-one-page-menu-1" class="menu">
                             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#home"><span>+8 12 3456897</span></a></li>
                             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#howitwork"><span>info@example.com</span></a></li>
+                            <li>
+                                <a href="{{ url('language/en') }}" class="{{ App::getLocale() === 'en' ? 'active' : '' }}">English
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('language/mr') }}" class="{{ App::getLocale() === 'mr' ? 'active' : '' }}">Marathi</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('language/hi') }}" class="{{ App::getLocale() === 'hi' ? 'active' : '' }}">Hindi</a>
+                            </li>
                         </ul>
                     </div>
             </div>

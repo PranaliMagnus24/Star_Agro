@@ -141,10 +141,11 @@
                             <label for="" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Upload Photo') }}</label>
                             <div class="col-md-8 col-lg-3">
                                 <input type="file" name="crop_images[]" id="crop_images" class="form-control" multiple>
-                            </div>
-                            @error('crop_images')
+                                @error('crop_images')
                                 <span class="text-danger">{{$message}}</span>
-                            @enderror
+                                @enderror
+                            </div>
+
 
                         </div>
 

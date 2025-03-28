@@ -79,6 +79,19 @@ return [
     'Upload Photo' => 'फोटो अपलोड करा',
     'Active' => 'सक्रिय',
     'Inactive' => 'निष्क्रिय',
+    'Company Name' => 'कंपनीचे नाव',
+    'Company Logo' => 'कंपनीचा लोगो',
+    'Upload Documents' => 'कागदपत्रे अपलोड करा',
+    'GST certificate' => 'जीएसटी प्रमाणपत्र',
+    'Udyog aadhar certificate' => 'उद्योग आधार प्रमाणपत्र',
+    'About Us' => 'अबाउट उस',
+    'Gallery' => 'गैलरी',
+    'Services' => 'सर्विसेस',
+    'Contact' => 'कॉन्टैक्ट',
+    'Register' => 'रजिस्टर',
+    'Crops' => 'क्रॉप्स',
+    'Crops Managements' => 'पीक व्यवस्थापन',
+
 
 
 ];

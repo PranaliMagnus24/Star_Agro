@@ -15,6 +15,9 @@ use App\Models\State;
 use App\Models\Country;
 use App\Models\User;
 use App\Models\FarmerDocument;
+use Modules\Category\App\Models\Category;
+use Modules\Members\App\Models\CropImages;
+use Modules\Members\App\Models\CropManagement;
 use Str;
 use File;
 
@@ -50,7 +53,18 @@ class HomeController extends Controller
         return view('frontend.menus.contact');
     }
 
+    public function mainCrops(Request $request)
+    {
+         $subcategoryId = $request->query('subcategory_id');
 
+        if ($subcategoryId) {
+            $categories = Category::where('subcategory_id', $subcategoryId)->get();
+        } else {
+            $categories = Category::where('parent_id','>',0)->where('subcategory_id','>',0)->get();
+        }
+
+        return view('frontend.menus.crops', compact('categories'));
+    }
 
 
 

@@ -131,6 +131,21 @@
                                         @enderror
                                     </div>
                                 </div>
+                                @if(auth()->user() && auth()->user()->hasRole('company'))
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row mb-3">
+                                            <label for="company_name" class="col-md-4 col-form-label">{{ __('messages.Company Name') }}</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" name="company_name" id="company_name" value="{{ old('company_name', $user->company_name) }}">
+                                            </div>
+                                            @error('company_name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row mb-3">
@@ -216,6 +231,7 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    @if(auth()->user() && auth()->user()->hasRole('farmer'))
                                     <div class="col-md-6">
                                         <div class="row mb-3">
                                             <label for="farmer_certificate" class="col-md-4 col-form-label">{{ __('messages.Farmer Certificate') }}</label>
@@ -236,7 +252,40 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
+                                @if(auth()->user() && auth()->user()->hasRole('company'))
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row mb-3">
+                                            <label for="about" class="col-md-4 col-form-label">{{ __('messages.Company Logo') }}</label>
+                                            <div class="col-md-8">
+                                                <input type="file" name="company_logo" id="company_logo" class="form-control">
+                                            </div>
+                                            @error('company_logo')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row mb-3">
+                                            <label for="about" class="col-md-4 col-form-label">{{ __('messages.Upload Documents') }}</label>
+                                            <div class="col-md-8">
+                                              <select name="upload_documents" id="upload_documents" class="form-control">
+                                                <option value="">--Select documents options--</option>
+                                                <option value="gst-certificate">{{ __('messages.GST certificate') }}</option>
+                                                <option value="aadhar-certificate">{{ __('messages.Udyog aadhar certificate') }}</option>
+                                              </select>
+                                              <br>
+                                                <input type="file" name="documents" class="form-control">
+                                            </div>
+                                            @error('upload_documents')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
 
                                 <div class="row">
                                     <div class="col-md-9">

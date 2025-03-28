@@ -23,6 +23,8 @@ use App\Http\Controllers\Frontend\UserRegistrationController;
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+Route::get('language/{lang}', [LanguageController::class, 'switchLanguage']);
 ////Home Controller
 Route::get('/', [HomeController::class,'mainIndex'])->name('home.index');
 Route::get('about', [HomeController::class,'mainAbout'])->name('home.about');
@@ -30,6 +32,8 @@ Route::get('services', [HomeController::class,'mainServices'])->name('home.servi
 Route::get('gallery', [HomeController::class,'mainGallery'])->name('home.gallery');
 Route::get('blog', [HomeController::class,'mainBlog'])->name('home.blog');
 Route::get('contact', [HomeController::class,'mainContact'])->name('home.contact');
+Route::get('crops', [HomeController::class,'mainCrops'])->name('home.crops');
+
 Route::post('api/fetch-states', [HomeController::class, 'fetchState']);
 Route::post('api/fetch-cities', [HomeController::class, 'fetchCity']);
 
@@ -81,7 +85,7 @@ Route::group(['middleware' => ['isAdmin']], function() {
         Route::patch('/{id}', [UserRoleController::class, 'update'])->name('user.update')->middleware('permission:update user');
         Route::get('/{id}/delete', [UserRoleController::class, 'delete'])->name('user.delete')->middleware('permission:delete user');
     });
-    Route::get('language/{lang}', [LanguageController::class, 'switchLanguage']);
+
 
     /////FarmerRegistrationController
     Route::get('farmer',[FarmerRegistrationController::class,'farmerIndex'])->name('admin.farmer.index');

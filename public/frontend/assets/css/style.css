@@ -867,6 +867,22 @@ text-align: center;
 line-height: 35px;
 }
 
+/* Lang */
+.dropdown-menu li {
+    margin-bottom: 10px;
+}
+
+.dropdown-menu li:last-child {
+    margin-bottom: 0;
+}
+
+/* Optional: Style for the anchor tags */
+.dropdown-menu li a {
+    display: block;
+}
+
+
+
 .search-top2 li:last-child {
 background-image: -moz-linear-gradient( 0deg, rgb(118,188,2) 0%, rgb(244,166,1) 100%);
   background-image: -webkit-linear-gradient( 0deg, rgb(118,188,2) 0%, rgb(244,166,1) 100%);
