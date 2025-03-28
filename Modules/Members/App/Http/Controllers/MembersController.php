@@ -45,6 +45,8 @@ class MembersController extends Controller
         return view('members::update_profile', compact('user','countries','states','cities'));
     }
 
+
+    ////Update profile
     public function updateProfile(Request $request)
     {
         $request->validate([
@@ -66,6 +68,7 @@ class MembersController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 
+    ///Update more information
     public function store(Request $request): RedirectResponse
 {
     $request->validate([
@@ -153,7 +156,7 @@ class MembersController extends Controller
         //
     }
 
-
+////selected state and city
     public function fetchState(Request $request)
     {
 
@@ -177,6 +180,7 @@ class MembersController extends Controller
     }
 
 
+    /////Fetch zip code and taluka
     public function getStateCity($pincode)
     {
         $zipData = DB::table('zip_code')->where('pincode', $pincode)->first();
@@ -194,5 +198,31 @@ class MembersController extends Controller
             ]);
         }
     }
+
+////Change Password & update password
+    public function updatePassword(Request $request)
+    {
+        $user = auth()->user();
+
+
+        if (!Hash::check($request->current_password, $user->password)) {
+
+            return back()->withErrors(['current_password' => 'Current password is incorrect.']);
+        }
+
+
+        if ($request->filled('new_password')) {
+
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+
+            return redirect()->back()->with('success','Password updated successfully!');
+        }
+
+
+        return back()->with('info', 'No changes made to the password.');
+    }
+
+
 
 }

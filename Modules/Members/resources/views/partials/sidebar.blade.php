@@ -9,6 +9,13 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link " href="{{ route('crop.index')}}">
+            <i class="bi bi-cart-check-fill"></i>
+          <span>{{ __('messages.Crop Management') }}</span>
+        </a>
+      </li><!-- End Crop Management -->
+
     </ul>
 
   </aside><!-- End Sidebar-->

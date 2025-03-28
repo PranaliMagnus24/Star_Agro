@@ -372,6 +372,31 @@ document.getElementById('zip_code').addEventListener('blur', function () {
 });
 
 
+/////member active tab
+document.addEventListener('DOMContentLoaded', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get('tab') || localStorage.getItem('activeTab');
+
+    if (tab) {
+        const tabButton = document.querySelector(`button[data-bs-target="#${tab}"]`);
+        const tabContent = document.querySelector(`#${tab}`);
+
+        if (tabButton && tabContent) {
+            tabButton.classList.add('active');
+            tabContent.classList.add('show', 'active');
+        }
+    }
+
+    const tabButtons = document.querySelectorAll('.nav-link');
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const targetTab = this.getAttribute('data-bs-target').substring(1);
+            localStorage.setItem('activeTab', targetTab);
+        });
+    });
+});
+
+
 })();
 
 
