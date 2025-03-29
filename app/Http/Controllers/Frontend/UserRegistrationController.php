@@ -52,7 +52,7 @@ class UserRegistrationController extends Controller
 
         $user->syncRoles($request->roles);
 
-        return redirect()->route('member')->with('success', 'Registration created succussfully!');
+        return redirect()->route('member.profile')->with('success', 'Registration created succussfully!');
     }
 
 }

@@ -53,19 +53,6 @@ class HomeController extends Controller
         return view('frontend.menus.contact');
     }
 
-    public function mainCrops(Request $request)
-    {
-         $subcategoryId = $request->query('subcategory_id');
-
-        if ($subcategoryId) {
-            $categories = Category::where('subcategory_id', $subcategoryId)->get();
-        } else {
-            $categories = Category::where('parent_id','>',0)->where('subcategory_id','>',0)->get();
-        }
-
-        return view('frontend.menus.crops', compact('categories'));
-    }
-
 
 
     public function fetchState(Request $request)

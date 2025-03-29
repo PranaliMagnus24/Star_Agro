@@ -73,12 +73,9 @@
                                 @error('crop_id')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
+
                             </div>
 
-
-                        </div>
-
-                        <div class="row mb-3">
                             <label for="date" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Planting crops date') }} <span class="text-danger">*</span></label>
                             <div class="col-md-8 col-lg-3">
                                 <input type="date" name="planating_date" class="form-control" id="planating_date" value="{{ old('planating_date')}}">
@@ -87,10 +84,21 @@
                             @enderror
                             </div>
 
-                            <label for="expected_date" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Harvesting expected date') }} <span class="text-danger">*</span></label>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="date" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Harvesting start date') }} <span class="text-danger">*</span></label>
                             <div class="col-md-8 col-lg-3">
-                                <input type="date" name="harvesting_date" id="harvesting_date" class="form-control" value="{{ old('harvesting_date')}}">
-                                @error('harvesting_date')
+                                <input type="date" name="harvesting_start_date" class="form-control" id="harvesting_start_date" value="{{ old('harvesting_start_date')}}">
+                                @error('harvesting_start_date')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                            </div>
+
+                            <label for="expected_date" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Harvesting end date') }} <span class="text-danger">*</span></label>
+                            <div class="col-md-8 col-lg-3">
+                                <input type="date" name="harvesting_start_date" id="harvesting_start_date" class="form-control" value="{{ old('harvesting_start_date')}}">
+                                @error('harvesting_start_date')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                             </div>
@@ -129,12 +137,12 @@
                             <div class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Type') }} <span class="text-danger">*</span></div>
                             <div class="col-md-8 col-lg-3 d-flex align-items-center">
                                 <div class="form-check me-3">
-                                    <input class="form-check-input" type="checkbox" name="is_organic" id="is_organic" value="1">
-                                    <span>{{ __('messages.Organic') }}</span>
+                                    <input class="form-check-input" type="radio" name="crop_type" id="is_organic" value="organic">
+                                    <label class="form-check-label" for="is_organic">{{ __('messages.Organic') }}</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="is_inorganic" id="is_inorganic" value="1">
-                                    <span>{{ __('messages.Inorganic') }}</span>
+                                    <input class="form-check-input" type="radio" name="crop_type" id="is_inorganic" value="inorganic">
+                                    <label class="form-check-label" for="is_inorganic">{{ __('messages.Inorganic') }}</label>
                                 </div>
                             </div>
 
@@ -146,6 +154,17 @@
                                 @enderror
                             </div>
 
+
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Upload Video') }}</label>
+                            <div class="col-md-8 col-lg-3">
+                              <input type="file" class="form-control" name="crop_video" id="upload_video">
+                            </div>
+                            @error('upload_video')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
 
                         </div>
 

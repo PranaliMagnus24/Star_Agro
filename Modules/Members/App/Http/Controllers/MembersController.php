@@ -40,10 +40,11 @@ class MembersController extends Controller
     {
         $user = auth()->user();
         $countries = Country::get(["name", "id"]);
-        $states = State::get(["name", "id"]);
-        $cities = City::where('state_id',$user->state)->get(["name", "id"]);
+        $states = State::where('country_id',101)->get(["name", "id"]);
+        $cities = City::where('state_id',4008)->get(["name", "id"]);
         return view('members::update_profile', compact('user','countries','states','cities'));
     }
+
 
 
     ////Update profile

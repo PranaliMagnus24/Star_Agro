@@ -11,6 +11,7 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserRegistrationController;
+use App\Http\Controllers\Frontend\CropController;
 
 
 
@@ -32,7 +33,11 @@ Route::get('services', [HomeController::class,'mainServices'])->name('home.servi
 Route::get('gallery', [HomeController::class,'mainGallery'])->name('home.gallery');
 Route::get('blog', [HomeController::class,'mainBlog'])->name('home.blog');
 Route::get('contact', [HomeController::class,'mainContact'])->name('home.contact');
-Route::get('crops', [HomeController::class,'mainCrops'])->name('home.crops');
+
+/////Crop Controller
+Route::get('crops', [CropController::class,'mainCrops'])->name('home.crops');
+Route::get('crop-smanagement/{categoryId}', [CropController::class, 'showCropManagementList'])->name('crop.management.list');
+
 
 Route::post('api/fetch-states', [HomeController::class, 'fetchState']);
 Route::post('api/fetch-cities', [HomeController::class, 'fetchCity']);

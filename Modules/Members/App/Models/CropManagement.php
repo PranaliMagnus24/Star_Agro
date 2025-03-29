@@ -15,7 +15,7 @@ class CropManagement extends Model
      * The attributes that are mass assignable.
      */
     protected $table = 'crop_management';
-    protected $fillable = ['farmer_id','category_id','subcategory_id','crop_id','crop_name','planating_date','harvesting_date','expected_price','min_qty','max_qty','type','description','status'];
+    protected $fillable = ['farmer_id','category_id','subcategory_id','crop_id','crop_name','planating_date','expected_price','min_qty','max_qty','type','description','status','harvesting_start_date', 'harvesting_end_date'];
 
     protected static function newFactory(): CropManagementFactory
     {

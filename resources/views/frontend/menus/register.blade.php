@@ -230,8 +230,17 @@
                                             <select name="roles" id="roles" class="form-control">
                                                 <option value="" disabled selected>-- Select User Type --</option>
                                                 @foreach($roles as $role)
-                                                    <option value="{{ $role }}">{{ $role }}</option>
+                                                    <option value="{{ $role }}">{{ ucfirst($role) }}</option>
                                                 @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Language</label>
+                                            <select name="language" id="language" class="form-control" onchange="location = this.value;">
+                                                <option value="" disabled selected>-- Select language --</option>
+                                                <option value="{{ url('language/en') }}" {{ App::getLocale() === 'en' ? 'selected' : '' }}>English</option>
+                                                <option value="{{ url('language/mr') }}" {{ App::getLocale() === 'mr' ? 'selected' : '' }}>Marathi</option>
+                                                <option value="{{ url('language/hi') }}" {{ App::getLocale() === 'hi' ? 'selected' : '' }}>Hindi</option>
                                             </select>
                                         </div>
                                     </div>

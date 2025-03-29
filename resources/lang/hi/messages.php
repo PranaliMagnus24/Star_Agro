@@ -69,7 +69,8 @@ return [
     'Price' => 'कीमत',
     'Subcategory' => 'उपश्रेणी',
     'Planting crops date' => 'फसल बोने की तिथि',
-    'Harvesting expected date' => 'कटाई की अपेक्षित तिथि',
+    'Harvesting start date' => 'कटाई शुरू होने की तिथि',
+    'Harvesting end date' => 'कटाई की अंतिम तिथि',
     'Expected Price' => 'अपेक्षित मूल्य',
     'Min Quantity' => 'न्यूनतम मात्रा',
     'Max Quantity' => 'अधिकतम मात्रा',
@@ -91,6 +92,9 @@ return [
     'Register' => 'रजिस्टर',
     'Crops' => 'क्रॉप्स',
     'Crops Managements' => 'फसल प्रबंधन',
+    'Certificate' => 'प्रमाणपत्र',
+    'Upload Video' => 'वीडियो अपलोड करें',
+
 
 
 

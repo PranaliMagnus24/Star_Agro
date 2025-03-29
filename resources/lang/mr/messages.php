@@ -69,7 +69,8 @@ return [
     'Price' => 'किंमत',
     'Subcategory' => 'उपवर्ग',
     'Planting crops date' => 'लागवडीची तारीख',
-    'Harvesting expected date' => 'कापणीची अपेक्षित तारीख',
+    'Harvesting start date' => 'कापणी सुरू होण्याची तारीख',
+    'Harvesting end date' => 'कापणीची शेवटची तारीख',
     'Expected Price' => 'अपेक्षित किंमत',
     'Min Quantity' => 'किमान प्रमाण',
     'Max Quantity' => 'कमाल प्रमाण',
@@ -91,6 +92,8 @@ return [
     'Register' => 'रजिस्टर',
     'Crops' => 'क्रॉप्स',
     'Crops Managements' => 'पीक व्यवस्थापन',
+    'Certificate' => 'प्रमाणपत्र',
+    'Upload Video' => 'व्हिडिओ अपलोड करा',
 
 
 

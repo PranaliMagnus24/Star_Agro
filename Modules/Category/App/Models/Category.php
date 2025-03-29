@@ -5,6 +5,7 @@ namespace Modules\Category\App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Category\Database\factories\CategoryFactory;
+use Modules\Members\App\Models\CropManagement;
 
 class Category extends Model
 {
@@ -22,4 +23,10 @@ class Category extends Model
     {
         //return CategoryFactory::new();
     }
+
+    public function cropManagements()
+    {
+        return $this->hasMany(CropManagement::class, 'crop_id');
+    }
+
 }

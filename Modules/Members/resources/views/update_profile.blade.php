@@ -155,7 +155,7 @@
                                                 <option value="">-- Select State --</option>
                                                 @foreach ($states as $state)
 
-                                                <option value="{{ $state->id }}" {{ ($state->id == $user->state) ? 'selected' : '' }}>{{ $state->name }}</option>
+                                                <option value="{{ $state->id }}" {{ $state->id == 4008 ? 'selected' : '' }}>{{ $state->name }}</option>
                                                 @endforeach
                                                </select>
                                             </div>
@@ -171,7 +171,7 @@
                                                 <select name="district" id="city-dropdown" class="form-control">
                                                     <option value="">-- Select District --</option>
                                                     @foreach ($cities as $city)
-                                                        <option value="{{ $city->id }}" {{ ($city->id == $user->district) ? 'selected' : '' }}>{{ $city->name }}</option>
+                                                        <option value="{{ $city->id }}" {{ $city->id == 133177 ? 'selected' : '' }}>{{ $city->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -234,7 +234,7 @@
                                     @if(auth()->user() && auth()->user()->hasRole('farmer'))
                                     <div class="col-md-6">
                                         <div class="row mb-3">
-                                            <label for="farmer_certificate" class="col-md-4 col-form-label">{{ __('messages.Farmer Certificate') }}</label>
+                                            <label for="farmer_certificate" class="col-md-4 col-form-label">{{ __('messages.Farmer Certificate') }}, 7/12 {{ __('messages.Certificate') }}</label>
                                             <div class="col-md-8">
                                                 <input type="file" name="farmer_certificate" id="farmer_certificate" class="form-control">
                                                 @if($user->farmerDocument && !empty($user->farmerDocument->farmer_certificate))

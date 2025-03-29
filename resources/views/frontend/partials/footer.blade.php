@@ -1,4 +1,4 @@
-<footer class="footer-bg footer-p" style="background: url(frontend/assets/img/bg/footer-bg.png) no-repeat;background-size: cover;">
+<footer class="footer-bg footer-p" style="background: url(/frontend/assets/img/bg/footer-bg.png) no-repeat;background-size: cover;">
     <div class="footer-top pt-60 pb-40">
         <div class="container">
             <div class="row justify-content-between">
@@ -19,11 +19,11 @@
                         </div>
                         <div class="footer-link">
                             <ul>
-                                <li><a href="{{ route('home.index')}}">Home</a></li>
-                                <li><a href="{{ route('home.about')}}"> About Us</a></li>
-                                <li><a href="{{ route('home.services')}}"> Services </a></li>
-                                <li><a href="{{ route('home.contact')}}"> Contact Us</a></li>
-                                <li><a href="{{ route('home.blog')}}">Blog </a></li>
+                                <li><a href="{{ route('home.index')}}">{{ __('messages.Home') }}</a></li>
+                                <li><a href="{{ route('home.about')}}">{{ __('messages.About Us') }}</a></li>
+                                <li><a href="{{ route('home.services')}}">{{ __('messages.Services') }} </a></li>
+                                <li><a href="{{ route('home.contact')}}">{{ __('messages.Contact Us') }}</a></li>
+                                <li><a href="{{ route('home.blog')}}">{{ __('messages.Blog') }}</a></li>
                             </ul>
                         </div>
                     </div>

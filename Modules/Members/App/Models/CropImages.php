@@ -14,7 +14,7 @@ class CropImages extends Model
      * The attributes that are mass assignable.
      */
     protected $table = 'crop_images';
-    protected $fillable = ['crop_images','crop_id','farmer_id'];
+    protected $fillable = ['crop_images','crop_video','crop_id','farmer_id'];
 
     protected static function newFactory(): CropImagesFactory
     {
