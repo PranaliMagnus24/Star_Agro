@@ -36,7 +36,11 @@ Route::get('contact', [HomeController::class,'mainContact'])->name('home.contact
 
 /////Crop Controller
 Route::get('crops', [CropController::class,'mainCrops'])->name('home.crops');
-Route::get('crop-smanagement/{categoryId}', [CropController::class, 'showCropManagementList'])->name('crop.management.list');
+Route::get('crops-management/{categoryId}', [CropController::class, 'showCropManagementList'])->name('crop.management.list');
+Route::post('crops-inquiry', [CropController::class,'cropInquiry'])->name('home.cropsInquiry');
+Route::post('/favorites/add', [CropController::class, 'add'])->name('favorite.add')->middleware('auth');
+Route::post('/favorites/remove', [CropController::class, 'remove'])->name('favorite.remove')->middleware('auth');
+
 
 
 Route::post('api/fetch-states', [HomeController::class, 'fetchState']);

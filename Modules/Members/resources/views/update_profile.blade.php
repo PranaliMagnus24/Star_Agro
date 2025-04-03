@@ -291,8 +291,14 @@
                                     <div class="col-md-9">
                                         <div class="row mb-3">
                                             <label for="about" class="col-md-4 col-form-label">{{ __('messages.How do you know about us') }}</label>
-                                            <div class="col-md-8">
-                                                <input type="text" name="known_about_us" id="known_about_us" class="form-control" value="{{ old('known_about_us', $user->known_about_us)}}">
+                                            <div class="col-md-6">
+                                                <select name="known_about_us" id="known_about_us" class="form-control">
+                                                    <option value="">--Select options--</option>
+                                                    <option value="social_media">Social Media</option>
+                                                    <option value="seminar">Seminar</option>
+                                                </select>
+
+                                                {{-- <input type="text" name="known_about_us" id="known_about_us" class="form-control" value="{{ old('known_about_us', $user->known_about_us)}}"> --}}
                                             </div>
                                             @error('known_about_us')
                                             <span class="text-danger">{{$message}}</span>

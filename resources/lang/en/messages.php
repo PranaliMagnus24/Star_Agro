@@ -94,6 +94,7 @@ return [
     'Crops Managements' => 'Crops Managements',
     'Certificate' => 'Certificate',
     'Upload Video' => 'Upload Video',
+    'Logout' => 'Logout',
 
 
 

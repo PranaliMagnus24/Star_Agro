@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Members\Database\factories\CropManagementFactory;
 use App\Models\User;
+use App\Models\Favorite;
 
 class CropManagement extends Model
 {
@@ -26,4 +27,17 @@ class CropManagement extends Model
     {
         return $this->belongsTo(User::class, 'farmer_id');
     }
+
+public function images()
+{
+    return $this->hasMany(CropImages::class, 'crop_id');
+}
+
+public function isFavorited()
+{
+    return Favorite::where('user_id', auth()->id())
+        ->where('crop_management_id', $this->id)
+        ->exists();
+}
+
 }

@@ -94,6 +94,7 @@ return [
     'Crops Managements' => 'फसल प्रबंधन',
     'Certificate' => 'प्रमाणपत्र',
     'Upload Video' => 'वीडियो अपलोड करें',
+    'Logout' => 'लॉग आउट',
 
 
 

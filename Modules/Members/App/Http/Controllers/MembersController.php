@@ -276,7 +276,7 @@ private function uploadDocument($file, $userId, $documentType, $farmerDocument =
 
 
     /////Fetch zip code and taluka
-    public function getStateCity($pincode)
+    public function getTalukaTown($pincode)
     {
         $zipData = DB::table('zip_code')->where('pincode', $pincode)->first();
         if ($zipData) {

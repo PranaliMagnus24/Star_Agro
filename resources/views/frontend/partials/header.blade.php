@@ -5,25 +5,49 @@
                 <div class="col-lg-3 col-md-3 d-none d-lg-block">
                       <a href="index.html"><img src="{{ asset('frontend/assets/img/logo/logo.png') }}" alt="logo"></a>
                 </div>
-                <div class="col-lg-9 col-md-9 d-none  d-md-block text-right">
+                <div class="col-lg-9 col-md-9 d-none d-md-block text-right">
                     <div class="header-cta">
-                        <ul>
-
-
-                             <li>
-                                 <div class="text">
-                                     <i class="far fa-phone-alt"></i> <div class="box">  <span>786-098-098-09</span></div>
+                        <ul class="list-inline">
+                            <!------------profile login logout dropdown---------------->
+                            <li class="list-inline-item">
+                                <div class="text">
+                                    @if(Auth::check())
+                                    <div class="dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ Auth::user()->name }}
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                            <a class="dropdown-item" style="color:#76bc02;" href="{{ route('member.profile')}}">My Profile</a>
+                                            <a class="dropdown-item text-success" href="{{ route('logout') }}"
+                                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    </div>
+                                @else
+                                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                                @endif
                                 </div>
                             </li>
-                             <li>
-                                  <div class="text">
-                                   <i class="icon fal fa-envelope"></i>
-                                      <div class="box">
-                                          <a href="#">info@example.com</a>
-                                      </div>
+<!------------profile login logout dropdown End---------------->
+                            <li class="list-inline-item">
+                                <div class="text">
+                                    <i class="far fa-phone-alt"></i>
+                                    <div class="box">
+                                        <span>786-098-098-09</span>
+                                    </div>
                                 </div>
-
                             </li>
+                            <li class="list-inline-item">
+                                <div class="text">
+                                    <i class="icon fal fa-envelope"></i>
+                                    <div class="box">
+                                        <a href="#">info@example.com</a>
+                                    </div>
+                                </div>
+                            </li>
+
                         </ul>
                     </div>
                 </div>

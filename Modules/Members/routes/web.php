@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('api/fetch-cities', [MembersController::class, 'fetchCity']);
     Route::get('api/get-zipcodes', [MembersController::class, 'getZipCodes']);
     Route::post('api/fetch-zipcode-details', [MembersController::class, 'fetchZipCodeDetails']);
-    Route::get('/get-taluka-town/{pincode}', [MembersController::class, 'getStateCity']);
+    Route::get('/get-taluka-town/{pincode}', [MembersController::class, 'getTalukaTown']);
     Route::post('/update-password', [MembersController::class, 'updatePassword'])->name('updatePassword');
 
 
@@ -38,6 +38,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get-subcategories/{categoryId}', [CropManagementController::class, 'getSubcategories']);
     Route::get('/get-crops/{subcategoryId}', [CropManagementController::class, 'getCrops']);
     Route::post('/store-crop-management', [CropManagementController::class, 'store'])->name('crop.management.store');
+    Route::get('/crop{id}', [CropManagementController::class, 'editCrops'])->name('crop.edit');
+    Route::post('/crop{id}/update', [CropManagementController::class, 'updateCrops'])->name('crop.management.update');
+    Route::delete('/crop{id}/delete', [CropManagementController::class, 'destroyCrop'])->name('crop.delete');
+
+
+
+
 
 });
 

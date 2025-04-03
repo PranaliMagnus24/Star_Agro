@@ -1,6 +1,9 @@
 
 (function ($) {
 "use strict";
+
+
+
 // skill
 $(".skill-per").each(function() {
   var $this = $(this);
@@ -566,13 +569,13 @@ new WOW().init();
 		});
 	}
 
-    document.getElementById('registrationForm').addEventListener('submit', function(event) {
-        var termsCheckbox = document.getElementById('terms');
-        if (!termsCheckbox.checked) {
-            event.preventDefault();
-            alert('You must agree to the Terms and Conditions before submitting the form.');
-        }
-    });
+
+
+
+
+
+
+
 
 
 })(jQuery);

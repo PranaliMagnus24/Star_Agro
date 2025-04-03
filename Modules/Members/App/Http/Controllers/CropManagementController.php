@@ -32,7 +32,7 @@ class CropManagementController extends Controller
         $datas->where(function($query) use ($searchTerm) {
             $query->where('crop_name', 'like', '%' . $searchTerm . '%')
                   ->orWhere('planating_date', 'like', '%' . $searchTerm . '%')
-                  ->orWhere('harvesting_date', 'like', '%' . $searchTerm . '%');
+                  ->orWhere('harvesting_start_date', 'like', '%' . $searchTerm . '%');
         });
     }
     $datas = $datas->orderBy('created_at', 'desc')->paginate(10);
@@ -66,6 +66,7 @@ class CropManagementController extends Controller
             'description' => 'nullable|string',
             'status' => 'required|in:active,inactive',
            'crop_images.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+           'crop_video' => 'nullable|file|mimes:mp4,mov,avi,wmv|max:20480',
         ]);
 
         $category = Category::find($request->crop_id);
@@ -128,6 +129,23 @@ class CropManagementController extends Controller
             }
         }
 
+        if ($request->hasFile('crop_video')) {
+            $videoFile = $request->file('crop_video');
+            if ($videoFile->isValid()) {
+                $videoFilename = Str::random(30) . '.' . $videoFile->getClientOriginalExtension();
+                $videoFile->move(public_path('upload/crop_images/' . Auth::id()), $videoFilename);
+
+                // Store the video path in the CropImages table
+                CropImages::create([
+                    'farmer_id' => Auth::id(),
+                    'crop_id' => $cropManagement->id,
+                    'crop_images' => 'upload/crop_images/' . Auth::id() . '/' . $videoFilename, // Store video path in the same column
+                ]);
+            } else {
+                \Log::error('Invalid video file: ' . $videoFile->getClientOriginalName());
+            }
+        }
+
         return redirect()->route('crop.index')->with('success', 'Crop management data saved successfully!');
     }
 
@@ -143,25 +161,98 @@ class CropManagementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function editCrops($id)
     {
-        return view('members::edit');
+        $data = CropManagement::findOrFail($id);
+        $categories = Category::all();
+        return view('members::crop_management.edit', compact('data','categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function updateCrops(Request $request, $id): RedirectResponse
     {
-        //
-    }
+        $cropManagement = CropManagement::findOrFail($id);
 
+        $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'subcategory_id' => 'required|exists:categories,id',
+            'crop_id' => 'required|exists:categories,id',
+            'planating_date' => 'required|date',
+            'harvesting_start_date' => 'required|date',
+            'harvesting_end_date' => 'required|date',
+            'expected_price' => 'nullable|numeric',
+            'min_qty' => 'nullable|numeric',
+            'max_qty' => 'nullable|numeric',
+            'description' => 'nullable|string',
+            'status' => 'required|in:active,inactive',
+            'crop_images.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'crop_video' => 'nullable|file|mimes:mp4,mov,avi,wmv|max:20480',
+        ]);
+
+        $cropManagement->update([
+            'category_id' => $request->category_id,
+            'subcategory_id' => $request->subcategory_id,
+            'crop_id' => $request->crop_id,
+            'planating_date' => $request->planating_date,
+            'harvesting_start_date' => $request->harvesting_start_date,
+            'harvesting_end_date' => $request->harvesting_end_date,
+            'expected_price' => $request->expected_price,
+            'min_qty' => $request->min_qty,
+            'max_qty' => $request->max_qty,
+            'description' => $request->description,
+            'status' => $request->status,
+            'type' => $request->crop_type,
+        ]);
+
+        // Handle crop images
+        if ($request->hasFile('crop_images')) {
+            $userFolder = public_path('upload/crop_images/' . Auth::id());
+            if (!file_exists($userFolder)) {
+                mkdir($userFolder, 0755, true);
+            }
+
+            foreach ($request->file('crop_images') as $file) {
+                if ($file->isValid()) {
+                    $filename = Str::random(30) . '.' . $file->getClientOriginalExtension();
+                    $file->move($userFolder, $filename);
+
+                    CropImages::create([
+                        'farmer_id' => Auth::id(),
+                        'crop_id' => $cropManagement->id,
+                        'crop_images' => 'upload/crop_images/' . Auth::id() . '/' . $filename,
+                    ]);
+                } else {
+                    \Log::error('Invalid file: ' . $file->getClientOriginalName());
+                }
+            }
+        }
+
+        // Handle crop video
+        if ($request->hasFile('crop_video')) {
+            $videoFile = $request->file('crop_video');
+            if ($videoFile->isValid()) {
+                $videoFilename = Str::random(30) . '.' . $videoFile->getClientOriginalExtension();
+                $videoFile->move(public_path('upload/crop_images/' . Auth::id()), $videoFilename);
+                CropImages::where('crop_id', $cropManagement->id)->update([
+                    'crop_images' => 'upload/crop_images/' . Auth::id() . '/' . $videoFilename,
+                ]);
+            } else {
+                \Log::error('Invalid video file: ' . $videoFile->getClientOriginalName());
+            }
+        }
+
+        return redirect()->route('crop.index')->with('success', 'Crop management data updated successfully!');
+    }
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroyCrop($id)
     {
-        //
+        $data = CropManagement::findOrFail($id);
+        $data->delete();
+        return redirect()->route('crop.index')->with('success', 'Crop management data deleted successfully!');
     }
 
 

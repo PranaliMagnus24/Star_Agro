@@ -29,10 +29,11 @@
                     <thead>
                         <tr>
                             <th>{{ __('messages.ID') }}</th>
-                            <th>{{ __('messages.Farmer Name') }}</th>
+                            {{-- <th>{{ __('messages.Farmer Name') }}</th> --}}
                             <th>{{ __('messages.Crop Name') }}</th>
                             <th>{{ __('messages.Planating Date') }}</th>
-                            <th>{{ __('messages.Harvesting Date') }}</th>
+                            <th>{{ __('messages.Harvesting start date') }}</th>
+                            <th>{{ __('messages.Harvesting end date') }}</th>
                             <th>{{ __('messages.Price') }}</th>
                             <th class="no-wrap">{{ __('messages.Action') }}</th>
                         </tr>
@@ -41,20 +42,22 @@
                         @foreach($datas as $data)
                         <tr>
                             <td>{{ $datas->firstItem() + $loop->index }}</td>
-                            <td>{{ $data->user->name }}</td>
+                            {{-- <td>{{ $data->user->name }}</td> --}}
+
                             <td>{{ ucfirst($data->crop_name) }}</td>
-                            <td>{{ $data->planating_date }}</td>
-                            <td>{{ $data->harvesting_date }}</td>
+                            <td>{{ \Carbon\Carbon::parse($data->planating_date)->format('d F Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($data->harvesting_start_date)->format('d F Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($data->harvesting_end_date)->format('d F Y') }}</td>
                             <td>{{ $data->expected_price }}</td>
                             <td class="text-center text-nowrap">
-                              {{-- <a href="{{ route('data.edit', $data->id)}}" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
-                              <form action="{{ route('data.delete', $data->id) }}" method="POST" style="display:inline;">
+                              <a href="{{ route('crop.edit', $data->id)}}" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
+                              <form action="{{ route('crop.delete', $data->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this data setting?');">
                                     <i class="bi bi-trash3-fill"></i>
                                 </button>
-                            </form> --}}
+                            </form>
                             </td>
                         </tr>
 

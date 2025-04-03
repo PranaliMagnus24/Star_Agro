@@ -97,8 +97,8 @@
 
                             <label for="expected_date" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Harvesting end date') }} <span class="text-danger">*</span></label>
                             <div class="col-md-8 col-lg-3">
-                                <input type="date" name="harvesting_start_date" id="harvesting_start_date" class="form-control" value="{{ old('harvesting_start_date')}}">
-                                @error('harvesting_start_date')
+                                <input type="date" name="harvesting_end_date" id="harvesting_end_date" class="form-control" value="{{ old('harvesting_end_date')}}">
+                                @error('harvesting_end_date')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                             </div>
@@ -162,7 +162,7 @@
                             <div class="col-md-8 col-lg-3">
                               <input type="file" class="form-control" name="crop_video" id="upload_video">
                             </div>
-                            @error('upload_video')
+                            @error('crop_video')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
 

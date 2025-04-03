@@ -15,11 +15,14 @@ use App\Models\State;
 use App\Models\Country;
 use App\Models\User;
 use App\Models\FarmerDocument;
+use App\Models\CropInquiry;
+use App\Models\Favorite;
 use Modules\Category\App\Models\Category;
 use Modules\Members\App\Models\CropImages;
 use Modules\Members\App\Models\CropManagement;
 use Str;
 use File;
+use Carbon\Carbon;
 
 class CropController extends Controller
 {
@@ -40,20 +43,77 @@ class CropController extends Controller
             $query->where('category_name', 'like', '%' . $search . '%');
         }
 
-        $categories = $query->withCount('cropManagements')->paginate(12);
+        $categories = $query->withCount('cropManagements')->having('crop_managements_count', '>', 0)->paginate(12);
 
         return view('frontend.crops.crops', compact('categories'));
     }
 
 
     public function showCropManagementList($categoryId)
+    {
+        $cropManagements = CropManagement::with('images')->where('crop_id', $categoryId)->get();
+        $cities = City::where('state_id',4008)->get(["name", "id"]);
+        foreach ($cropManagements as $cropManagement) {
+            $cropManagement->formatted_planating_date = Carbon::parse($cropManagement->planating_date)->format('d F Y');
+        }
+
+        return view('frontend.crops.crops_list', compact('cropManagements','cities'));
+    }
+
+
+
+    public function cropInquiry(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'nullable|string',
+            'mobile_number' => 'required|integer|digits:10',
+            'description' => 'required|string',
+        ]);
+
+        $cropInquiry = CropInquiry::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'mobile_number' => $request->mobile_number,
+            'crop_management_id' => $request->crop_management_id,
+            'city' => $request->city,
+            'description' => $request->description,
+            'crop_name' => $request->crop_name,
+        ]);
+
+        return redirect()->back()->with('success', 'Inquiry Message Send Successfully');
+
+
+    }
+
+    public function add(Request $request)
 {
-    $cropManagements = CropManagement::where('crop_id', $categoryId)->get();
+    \Log::info($request->all());
 
+    $request->validate([
+        'crop_management_id' => 'required|exists:crop_managements,id',
+    ]);
 
-    return view('frontend.crops.crops_list', compact('cropManagements'));
+    Favorite::create([
+        'user_id' => auth()->id(),
+        'crop_management_id' => $request->crop_management_id,
+    ]);
+
+    return response()->json(['success' => true]);
 }
 
+    public function remove(Request $request)
+    {
+        $request->validate([
+            'crop_management_id' => 'required|exists:favorites,crop_management_id',
+        ]);
+
+        Favorite::where('user_id', auth()->id())
+            ->where('crop_management_id', $request->crop_management_id)
+            ->delete();
+
+        return response()->json(['success' => true]);
+    }
 
 
 }
