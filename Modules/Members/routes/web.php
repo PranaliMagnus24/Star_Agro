@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/crop{id}', [CropManagementController::class, 'editCrops'])->name('crop.edit');
     Route::post('/crop{id}/update', [CropManagementController::class, 'updateCrops'])->name('crop.management.update');
     Route::delete('/crop{id}/delete', [CropManagementController::class, 'destroyCrop'])->name('crop.delete');
+    Route::get('/crop-inquiries/{id}', [CropManagementController::class, 'showInquiries'])->name('crop.inquiries');
 
 
 

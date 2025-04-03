@@ -250,14 +250,24 @@
             <li>
               <hr class="dropdown-divider">
             </li>
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <a class="dropdown-item d-flex align-items-center" onclick="event.preventDefault(); this.closest('form').submit();" href="{{route('logout')}}">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Sign Out</span>
+                    </a>
+                </form>
+            </li>
 
-            <li class="d-flex justify-content-center mb-3 mt-3">
+
+            {{-- <li class="d-flex justify-content-center mb-3 mt-3">
                 <form method="POST" action="{{ route('logout') }}">
                         @csrf
 
                        <input type="submit" value="Logout" class="btn btn-primary">
                     </form>
-            </li>
+            </li> --}}
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->
 

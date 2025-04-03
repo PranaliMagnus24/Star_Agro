@@ -11,6 +11,9 @@ use Modules\Members\App\Models\CropImages;
 use Modules\Members\App\Models\CropManagement;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\CropInquiry;
+use App\Models\City;
+
 use Str;
 use File;
 
@@ -22,23 +25,24 @@ class CropManagementController extends Controller
      * Display a listing of the resource.
      */
     public function indexCrop(Request $request)
-{
-    $user = auth()->user();
-    $datas = CropManagement::with('user')
-                ->where('farmer_id', $user->id);
+    {
+        $user = auth()->user();
+        $datas = CropManagement::with(['user', 'inquiries'])
+                    ->where('farmer_id', $user->id);
 
-    if ($request->has('search')) {
-        $searchTerm = $request->input('search');
-        $datas->where(function($query) use ($searchTerm) {
-            $query->where('crop_name', 'like', '%' . $searchTerm . '%')
-                  ->orWhere('planating_date', 'like', '%' . $searchTerm . '%')
-                  ->orWhere('harvesting_start_date', 'like', '%' . $searchTerm . '%');
-        });
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            $datas->where(function($query) use ($searchTerm) {
+                $query->where('crop_name', 'like', '%' . $searchTerm . '%')
+                      ->orWhere('planating_date', 'like', '%' . $searchTerm . '%')
+                      ->orWhere('harvesting_start_date', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        $datas = $datas->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('members::crop_management.index', compact('datas', 'user'));
     }
-    $datas = $datas->orderBy('created_at', 'desc')->paginate(10);
-
-    return view('members::crop_management.index', compact('datas', 'user'));
-}
     /**
      * Show the form for creating a new resource.
      */
@@ -268,6 +272,15 @@ public function getCrops($subcategoryId)
 {
     $crops = Category::where('subcategory_id', $subcategoryId)->get();
     return response()->json($crops);
+}
+
+
+
+public function showInquiries($cropManagementId)
+{
+    $inquiries = CropInquiry::with('city')->where('crop_management_id', $cropManagementId)->paginate(10);
+
+    return view('members::crop_management.crop_inquiries', compact('inquiries'));
 }
 
 }

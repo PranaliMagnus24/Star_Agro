@@ -35,6 +35,7 @@
                             <th>{{ __('messages.Harvesting start date') }}</th>
                             <th>{{ __('messages.Harvesting end date') }}</th>
                             <th>{{ __('messages.Price') }}</th>
+                            <th>{{ __('messages.Inquiry') }}</th>
                             <th class="no-wrap">{{ __('messages.Action') }}</th>
                         </tr>
                     </thead>
@@ -49,6 +50,11 @@
                             <td>{{ \Carbon\Carbon::parse($data->harvesting_start_date)->format('d F Y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($data->harvesting_end_date)->format('d F Y') }}</td>
                             <td>{{ $data->expected_price }}</td>
+
+                            <td><a href="{{ route('crop.inquiries', $data->id) }}">
+                                {{ $data->inquiries->count() }}
+                            </a>
+                        </td>
                             <td class="text-center text-nowrap">
                               <a href="{{ route('crop.edit', $data->id)}}" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
                               <form action="{{ route('crop.delete', $data->id) }}" method="POST" style="display:inline;">

@@ -1,20 +1,19 @@
 @extends('frontend.layouts.layout')
 @section('title', 'Star Agro')
 @section('content')
-
 <section class="breadcrumb-area d-flex align-items-center" style="background-image:url(frontend/assets/img/testimonial/test-bg.jpg)">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-xl-12 col-lg-12">
                 <div class="breadcrumb-wrap text-left">
                     <div class="breadcrumb-title">
-                        <h2>Crops</h2>
+                        <h2>{{ __('messages.Crops') }}</h2>
                         <div class="breadcrumb-wrap">
 
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home.index')}}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Crops</li>
+                            <li class="breadcrumb-item"><a href="{{ route('home.index')}}">{{ __('Home') }}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ __('messages.Crops') }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -25,6 +24,7 @@
         </div>
     </div>
 </section>
+
 <!-- services-area -->
 <section id="services2" class="services-area2 pt-120 pb-90 fix p-relative">
     <div class="container">

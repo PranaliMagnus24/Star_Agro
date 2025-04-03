@@ -62,36 +62,106 @@ class CropController extends Controller
 
 
 
+    // public function cropInquiry(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|string',
+    //         'email' => 'nullable|string',
+    //         'mobile_number' => 'required|integer|digits:10',
+    //         'description' => 'required|string',
+    //     ]);
+
+    //     $cropInquiry = CropInquiry::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'mobile_number' => $request->mobile_number,
+    //         'crop_management_id' => $request->crop_management_id,
+    //         'city' => $request->city,
+    //         'description' => $request->description,
+    //         'crop_name' => $request->crop_name,
+    //     ]);
+
+    //     return redirect()->back()->with('success', 'Inquiry Message Send Successfully');
+
+
+    // }
+
+
     public function cropInquiry(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'nullable|string',
-            'mobile_number' => 'required|integer|digits:10',
-            'description' => 'required|string',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string',
+        'email' => 'nullable|string',
+        'mobile_number' => 'required|integer|digits:10',
+        'description' => 'required|string',
+        'city' => 'required|string',
+        'crop_management_id' => 'required',
+        'crop_name' => 'required|string',
+    ]);
 
-        $cropInquiry = CropInquiry::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'mobile_number' => $request->mobile_number,
-            'crop_management_id' => $request->crop_management_id,
-            'city' => $request->city,
-            'description' => $request->description,
-            'crop_name' => $request->crop_name,
-        ]);
+    // Create the inquiry
+    $cropInquiry = CropInquiry::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'mobile_number' => $request->mobile_number,
+        'crop_management_id' => $request->crop_management_id,
+        'city' => $request->city,
+        'description' => $request->description,
+        'crop_name' => $request->crop_name,
+    ]);
 
-        return redirect()->back()->with('success', 'Inquiry Message Send Successfully');
+    // Send WhatsApp message
+    $this->sendWhatsAppMessage($request->mobile_number, $request->crop_name, $request->city, $request->description);
 
+    return redirect()->back()->with('success', 'Inquiry Message Sent Successfully');
+}
 
+private function sendWhatsAppMessage($phoneNumber, $cropName, $city, $description)
+{
+    $apiKey = '7f18d32242b34bbdbdf904009195fa86';
+    $url = 'https://whatsappnew.bestsms.co.in/wapp/v2/api/send';
+
+    // Prepare the message data
+    $messageData = [
+        'to' => $phoneNumber,
+        'message' => [
+            'body' => "New Crop Inquiry:\n" .
+                      "Crop Name: $cropName\n" .
+                      "City: $city\n" .
+                      "Contact Number: $phoneNumber\n" .
+                       "Description: $description"
+        ]
+    ];
+
+    // Send the message using cURL
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Authorization: Bearer ' . $apiKey,
+    ]);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($messageData));
+
+    $response = curl_exec($ch);
+    if (curl_errno($ch)) {
+        \Log::error('WhatsApp message failed: ' . curl_error($ch));
+    } else {
+        $responseData = json_decode($response, true);
+        if (isset($responseData['error'])) {
+            \Log::error('WhatsApp API error: ' . $responseData['error']);
+        }
     }
+    curl_close($ch);
+}
 
+/////Wishlist
     public function add(Request $request)
 {
     \Log::info($request->all());
 
     $request->validate([
-        'crop_management_id' => 'required|exists:crop_managements,id',
+        'crop_management_id' => 'required',
     ]);
 
     Favorite::create([
@@ -102,10 +172,11 @@ class CropController extends Controller
     return response()->json(['success' => true]);
 }
 
+/////Remove wishlist
     public function remove(Request $request)
     {
         $request->validate([
-            'crop_management_id' => 'required|exists:favorites,crop_management_id',
+            'crop_management_id' => 'required',
         ]);
 
         Favorite::where('user_id', auth()->id())

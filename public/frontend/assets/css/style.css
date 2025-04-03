@@ -1067,7 +1067,7 @@ border: 2px solid #76bc02;
 	margin-bottom: 20px;
 }
 .slider-content h2 {
-	font-size: 157px;
+	font-size: 105px;
 	color: #fff;
 	letter-spacing: 1.0px;
 	line-height: 1.2;
@@ -1079,7 +1079,7 @@ border: 2px solid #76bc02;
 }
 .slider-content h5{
    color: #fff;
-    margin-bottom: -15px;
+    margin-bottom: 0px;
     font-size: 45px;
 }
 .slider-content p span {

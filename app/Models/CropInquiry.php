@@ -12,4 +12,11 @@ class CropInquiry extends Model
     protected $fillable = ['name', 'email', 'mobile_number','crop_management_id','crop_name','description','city',
 
 ];
+
+
+public function city()
+{
+    return $this->belongsTo(City::class, 'city', 'id');
+}
+
 }

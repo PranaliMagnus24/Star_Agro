@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Members\Database\factories\CropManagementFactory;
 use App\Models\User;
 use App\Models\Favorite;
+use App\Models\CropInquiry;
+use App\Models\City;
 
 class CropManagement extends Model
 {
@@ -39,5 +41,12 @@ public function isFavorited()
         ->where('crop_management_id', $this->id)
         ->exists();
 }
+
+public function inquiries()
+{
+    return $this->hasMany(CropInquiry::class, 'crop_management_id');
+}
+
+
 
 }

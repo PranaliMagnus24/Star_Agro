@@ -1,23 +1,19 @@
 @extends('frontend.layouts.layout')
 @section('title', 'Star Agro')
 @section('content')
-<style>
-
-
-</style>
 <section class="breadcrumb-area d-flex align-items-center" style="background-image:url(/frontend/assets/img/testimonial/test-bg.jpg)">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-xl-12 col-lg-12">
                 <div class="breadcrumb-wrap text-left">
                     <div class="breadcrumb-title">
-                        <h2>Crops</h2>
+                        <h2>{{ __('messages.Crops') }}</h2>
                         <div class="breadcrumb-wrap">
 
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home.index')}}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Crops</li>
+                            <li class="breadcrumb-item"><a href="{{ route('home.index')}}">{{ __('Home') }}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ __('messages.Crops') }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -28,16 +24,13 @@
         </div>
     </div>
 </section>
-
 <section id="blog" class="blog-area  p-relative pt-120 pb-70 fix">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-12">
                 <div class="section-title center-align mb-50 text-center">
-                    <h5>Crops</h5>
-                    <h2>
-                        Letest Crops
-                    </h2>
+                    <h5>{{ __('messages.Crops') }}</h5>
+                    <h2>{{ __('messages.Letest Crops') }}</h2>
 
 
                 </div>
@@ -117,7 +110,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="inquiryModalLabel">Inquiry Form</h5>
+                    <h5 class="modal-title" id="inquiryModalLabel">{{ __('messages.Inquiry Form') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -128,14 +121,14 @@
                         <input type="hidden" name="crop_management_id" id="crop_management_id" value="{{$cropManagement->id}}">
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="user_name">Name <span class="text-danger">*</span></label>
+                                <label for="user_name">{{ __('messages.Name') }}<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="name" id="user_name">
                                 @error('name')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="user_phone">Mobile Number <span class="text-danger">*</span></label>
+                                <label for="user_phone">{{ __('messages.Phone') }}<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="mobile_number" id="user_phone">
                                 @error('mobile_number')
                                 <span class="text-danger">{{$message}}</span>
@@ -144,14 +137,14 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="user_email">Email</label>
+                                <label for="user_email">{{ __('messages.Email') }}</label>
                                 <input type="text" class="form-control" name="email" id="user_email">
                                 @error('email')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="user_phone">City</label>
+                                <label for="user_phone">{{ __('messages.City') }}</label>
                                 <select name="city" id="" class="form-control">
                                     <option value="">-- Select District --</option>
                                     @foreach ($cities as $city)
@@ -164,21 +157,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="cropName">Description <span class="text-danger">*</span></label>
+                            <label for="cropName">{{ __('messages.Description') }}<span class="text-danger">*</span></label>
                            <textarea name="description" id="" cols="30" rows="5" class="form-control"></textarea>
                            @error('description')
                            <span class="text-danger">{{$message}}</span>
                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="cropName">Crop Name</label>
+                            <label for="cropName">{{ __('messages.Crop Name') }}</label>
                             <input type="text" class="form-control" name="crop_name" value="{{$cropManagement->crop_name}}" id="cropName" readonly>
                             @error('crop_name')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="submit-button text-center">
-                            <button type="submit" class="btn btn-primary" style="height: 46px;">Submit</button>
+                            <button type="submit" class="btn btn-primary" style="height: 46px;">{{ __('messages.Submit') }}</button>
                         </div>
                     </form>
                 </div>
@@ -189,10 +182,10 @@
 @endsection
 
 <script>
-    function toggleFavorite(cropId, element) {
+   function toggleFavorite(cropId, element) {
     @if(Auth::check())
         let isFavorited = element.style.color === 'red';
-        let route = isFavorited ? 'favorite.add' : 'favorite.remove';
+        let route = isFavorited ? '{{ route('favorite.remove') }}' : '{{ route('favorite.add') }}';
 
         fetch(route, {
             method: 'POST',
@@ -211,11 +204,6 @@
     @else
         window.location.href = '/login';
     @endif
-}
-
-function setCropName(cropManagementId) {
-    document.getElementById('crop_management_id').value = cropManagementId;
-
 }
 
 // document.getElementById('inquiryForm').addEventListener('submit', function(event) {

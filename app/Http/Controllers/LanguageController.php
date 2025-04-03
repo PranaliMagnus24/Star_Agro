@@ -8,7 +8,7 @@ class LanguageController extends Controller
 {
     public function switchLanguage($lang)
     {
-        $availableLocales = ['en', 'mr', 'hi'];
+        $availableLocales = ['mr', 'en', 'hi'];
         if (in_array($lang, $availableLocales)) {
             session(['app_locale' => $lang]);
             App::setLocale($lang);

@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-3 d-none d-lg-block">
-                      <a href="index.html"><img src="{{ asset('frontend/assets/img/logo/logo.png') }}" alt="logo"></a>
+                      <a href="{{ route('home.index')}}"><img src="{{ asset('frontend/assets/img/logo/logo.png') }}" alt="logo"></a>
                 </div>
                 <div class="col-lg-9 col-md-9 d-none d-md-block text-right">
                     <div class="header-cta">
@@ -17,16 +17,16 @@
                                             {{ Auth::user()->name }}
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                            <a class="dropdown-item" style="color:#76bc02;" href="{{ route('member.profile')}}">My Profile</a>
+                                            <a class="dropdown-item" style="color:#76bc02;" href="{{ route('member.profile')}}">{{ __('messages.My Profile') }}</a>
                                             <a class="dropdown-item text-success" href="{{ route('logout') }}"
-                                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('messages.Logout') }}</a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                 @csrf
                                             </form>
                                         </div>
                                     </div>
                                 @else
-                                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('messages.Login') }}</a>
                                 @endif
                                 </div>
                             </li>
