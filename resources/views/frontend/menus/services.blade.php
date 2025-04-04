@@ -7,13 +7,13 @@
             <div class="col-xl-12 col-lg-12">
                 <div class="breadcrumb-wrap text-left">
                     <div class="breadcrumb-title">
-                        <h2>Services</h2>
+                        <h2>{{ __('messages.Services') }}</h2>
                         <div class="breadcrumb-wrap">
 
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home.index')}}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Services</li>
+                            <li class="breadcrumb-item"><a href="{{ route('home.index')}}">{{ __('messages.Home') }}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ __('messages.Services') }}</li>
                         </ol>
                     </nav>
                 </div>

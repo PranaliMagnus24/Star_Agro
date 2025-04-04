@@ -1,3 +1,6 @@
+@php
+$categories = Modules\Category\App\Models\Category::where('parent_id', 0)->get();
+@endphp
 <header class="header-area header-three">
     <div class="header-top second-header d-none d-lg-block">
         <div class="container">
@@ -79,10 +82,6 @@
                                     <li class="has-sub">
                                       <a href="{{ route('home.services')}}">{{ __('messages.Services') }}</a>
                                     </li>
-
-                                    {{-- <li class="has-sub">
-                                        <a href="{{ route('home.blog')}}">Blog</a>
-                                    </li> --}}
                                     <li><a href="{{ route('home.contact')}}">{{ __('messages.Contact') }}</a></li>
                                     <li><a href="{{ route('home.register')}}">{{ __('messages.Register') }}</a></li>
                                     <li><a href="{{ route('home.crops')}}">{{ __('messages.Crops') }}</a></li>

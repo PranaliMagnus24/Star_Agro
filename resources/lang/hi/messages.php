@@ -118,6 +118,17 @@ return [
     'Login' => 'लॉगिन',
     'Logout' => 'लॉगआउट',
     'My Profile' => 'मेरी प्रोफाइल',
+    'Contact us' => 'हमसे संपर्क करें',
+    'Get A Quote' => 'एक कहावत कहना',
+    'Email Address' => 'मेल पता',
+    'Phone Number' => 'फ़ोन नंबर',
+    'Subject' => 'विषय',
+    'Write Comments' => 'टिप्पणियाँ लिखें',
+    'Office Address' => 'कार्यालय का पता',
+    'Timeing' => 'टाइमिंग',
+    'Related Categories' => 'संबंधित श्रेणियाँ',
+    'rice_chawal' => 'चावल',
+    'No data available' => 'कोई डेटा मौजूद नहीं',
 
 
 

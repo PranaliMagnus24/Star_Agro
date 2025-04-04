@@ -26,9 +26,10 @@ class CropManagement extends Model
     }
 
     public function user()
-    {
-        return $this->belongsTo(User::class, 'farmer_id');
-    }
+{
+    return $this->belongsTo(User::class, 'farmer_id', 'id');
+}
+
 
 public function images()
 {

@@ -1,6 +1,7 @@
 @extends('frontend.layouts.layout')
 @section('title', 'Star Agro')
 @section('content')
+
 <section class="breadcrumb-area d-flex align-items-center" style="background-image:url(/frontend/assets/img/testimonial/test-bg.jpg)">
     <div class="container">
         <div class="row align-items-center">
@@ -12,7 +13,7 @@
 
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home.index')}}">{{ __('Home') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('home.index')}}">{{ __('messages.Home') }}</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{ __('messages.Crops') }}</li>
                         </ol>
                     </nav>
@@ -39,70 +40,115 @@
         </div>
 
         <div class="row">
-            @foreach($cropManagements as $cropManagement)
-            <div class="col-xs-12 col-md-6 bootstrap snippets bootdeys">
-                <div class="product-content product-wrap clearfix">
-                    <div class="row">
-                        <div class="col-md-5 col-sm-12 col-xs-12">
-                            <div class="product-image">
-                                <!-- Carousel for images -->
-                                <div id="carousel-{{ $cropManagement->id }}" class="carousel slide" data-ride="carousel">
-                                    <div class="carousel-inner">
-                                        @foreach($cropManagement->images as $index => $image)
-                                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                            <img src="{{ asset($image->crop_images) }}" alt="Crop Image" class="img-responsive" style="width: 194px; height: 228px; object-fit: cover;">
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                    <a class="carousel-control-prev" href="#carousel-{{ $cropManagement->id }}" role="button" data-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#carousel-{{ $cropManagement->id }}" role="button" data-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-md-7 col-sm-12 col-xs-12">
-                            <div class="product-deatil">
-                                <h5 class="name">
-                                    <a href="#">{{ $cropManagement->crop_name }} <span>{{ $cropManagement->type }}</span>
-                                    </a>
-                                </h5>
-
-                                <p class="price-container mt-2">
-                                    <span><span>₹</span>{{ $cropManagement->expected_price }}</span>
-                                    <span class="tag2 hot">
-                                        <i class="fas fa-heart favorite-icon"
-                                           style="font-size: 19px; color: {{ $cropManagement->isFavorited() ? 'red' : 'white' }};"
-                                           onclick="toggleFavorite({{ $cropManagement->id }}, this)"></i>
-                                    </span>
-                                </p>
-                                <span class="tag1"></span>
-                            </div>
-                            <div class="description">
-                                <p>{{ $cropManagement->formatted_planating_date }}</p>
-                            </div>
-                            <div class="product-info smart-form">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6 col-xs-6">
-                                        <a href="javascript:void(0);" class="btn btn-success" data-toggle="modal" data-id="{{ $cropManagement->id }}" data-target="#inquiryModal" onclick="setCropName('{{ $cropManagement->id }}')">Inquiry</a>
-
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-6">
-                                        <!-- You can add more buttons or information here -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Left Column - Related Categories Section -->
+            <div class="col-12 col-md-3 mb-3">
+                <div class="card p-3 border-0 shadow-sm">
+                    <h6 class="mb-3 border-bottom pb-2">{{ __('messages.Related Categories') }}</h6>
+                    <ul class="list-unstyled">
+                        @foreach($relatedCategories as $category)
+                            <li class="d-flex align-items-center py-2 border-bottom">
+                                <!-- Category Image -->
+                                <img src="{{ $category->category_image ? asset($category->category_image) : asset('frontend/assets/img/dummy.jpg') }}"
+                                alt="{{ $category->category_name }}" class="rounded-circle mr-2"
+                                style="width: 40px; height: 40px; object-fit: cover;">
+                                <!-- Category Name -->
+                                <a href="{{ route('crop.management.list', $category->id) }}" class="text-dark flex-grow-1">
+                                    {{ $category->category_name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
-            @endforeach
+            <!-- Right Column - Cards Section -->
+            <div class="col-12 col-md-9">
+                <h5 class="mb-3">{{ $currentCategory->category_name }}</h5>
+
+                @if($cropManagements->isEmpty())
+                    <div class="alert alert-warning text-center">
+                        <i class="fas fa-exclamation-circle"></i> {{ __('messages.No data available') }}
+                    </div>
+                @else
+                    <div class="row">
+                        @foreach($cropManagements as $cropManagement)
+                        <div class="col-12 col-sm-6 col-md-4 mb-3">
+                            <div class="card border-0 shadow-sm" style="max-width: 250px;">
+                                <!-- Image Section -->
+                                <div class="product-image">
+                                    <div id="carousel-{{ $cropManagement->id }}" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner">
+                                            @if($cropManagement->images->isNotEmpty())
+                                                @foreach($cropManagement->images as $index => $image)
+                                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                                    <img src="{{ asset($image->crop_images) }}" alt="Crop Image" class="card-img-top img-fluid" style="height: 180px; object-fit: cover;">
+                                                </div>
+                                                @endforeach
+                                            @else
+                                                <div class="carousel-item active">
+                                                    <img src="{{ asset('frontend/assets/img/dummy.jpg') }}" alt="Dummy Image" class="card-img-top img-fluid" style="height: 180px; object-fit: cover;">
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carousel-{{ $cropManagement->id }}" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carousel-{{ $cropManagement->id }}" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- Content Section -->
+                                <div class="card-body p-2">
+                                    <h6 class="card-title text-truncate mb-1">
+                                        <a href="#" class="text-dark">{{ $cropManagement->crop_name }}</a>
+                                    </h6>
+
+                                    <!-- Type and Price in Same Row -->
+                                    <p class="d-flex align-items-center mb-1">
+                                        @if(!empty($cropManagement->type))
+                                        <i class="fas fa-seedling text-success mr-1"></i>
+                                        <small class="text-muted">{{ ucfirst($cropManagement->type) }}</small>
+                                        @endif
+
+                                        <span class="ml-auto">
+                                            <i class="fas fa-rupee-sign text-success"></i>
+                                            <strong class="text-success">{{ $cropManagement->expected_price }}</strong>
+                                        </span>
+                                    </p>
+
+                                    <!-- Planting Date -->
+                                    <p class="d-flex align-items-center small text-muted mb-2">
+                                        <i class="fas fa-calendar-alt text-success mr-1"></i>
+                                        {{ $cropManagement->formatted_planating_date }}
+                                    </p>
+
+                                    <!-- Inquiry Button and Favorite Icon in Same Row -->
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a href="javascript:void(0);"
+                                           class="btn btn-success btn-sm px-2 py-1 rounded-pill"
+                                           style="height: 25px; width: 80px; display: block; border-radius: 15px;"
+                                           data-toggle="modal" data-id="{{ $cropManagement->id }}"
+                                           data-target="#inquiryModal"
+                                           onclick="setCropName('{{ $cropManagement->id }}')">{{ __('messages.Inquiry') }}</a>
+
+                                        <i class="fas fa-heart favorite-icon"
+                                           style="font-size: 16px; cursor: pointer; color: {{ $cropManagement->isFavorited() ? 'red' : '#ccc' }};"
+                                           onclick="toggleFavorite({{ $cropManagement->id }}, this)"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
         </div>
+
+
+
+
+
     </div>
 
 
@@ -118,7 +164,7 @@
                 <div class="modal-body">
                     <form id="inquiryForm" action="{{ route('home.cropsInquiry')}}" method="POST">
                         @csrf
-                        <input type="hidden" name="crop_management_id" id="crop_management_id" value="{{$cropManagement->id}}">
+                        <input type="hidden" name="crop_management_id" id="crop_management_id" value="{{ isset($cropManagement) ? $cropManagement->id : '' }}">
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="user_name">{{ __('messages.Name') }}<span class="text-danger">*</span></label>
@@ -165,7 +211,8 @@
                         </div>
                         <div class="form-group">
                             <label for="cropName">{{ __('messages.Crop Name') }}</label>
-                            <input type="text" class="form-control" name="crop_name" value="{{$cropManagement->crop_name}}" id="cropName" readonly>
+                            <input type="text" class="form-control" name="crop_name" value="{{ isset($cropManagement) ? $cropManagement->crop_name: '' }}" id="cropName" readonly>
+
                             @error('crop_name')
                             <span class="text-danger">{{$message}}</span>
                             @enderror

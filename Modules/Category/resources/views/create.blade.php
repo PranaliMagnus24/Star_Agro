@@ -22,8 +22,9 @@
                         <div class="row mb-3">
                             <label for="" class="col-md-4 col-lg-3 col-form-label">Title</label>
                             <div class="col-md-8 col-lg-8">
-                                <input type="text" name="category_name" id="title" class="form-control">
+                                <input type="text" name="category_name" id="title" class="form-control" value="{{ old('category_name', isset($category) ? $category->category_name : '') }}">
                             </div>
+
                         </div>
                         <div class="row mb-3">
                             <label for="category_id" class="col-md-4 col-lg-3 col-form-label">Category</label>
@@ -32,8 +33,7 @@
                                     <option value="">-- Select Category --</option>
                                     @foreach($categories as $cat)
                                         @if($cat->parent_id == 0)
-                                            <option value="{{ $cat->id }}"
-                                                {{ isset($category) && $category->parent_id == $cat->id && $category->subcategory_id == 0 ? 'selected' : '' }}>
+                                            <option value="{{ $cat->id }}" {{ old('category_id', isset($category) && $category->parent_id == $cat->id && $category->subcategory_id == 0 ? 'selected' : '') }}>
                                                 {{ $cat->category_name }}
                                             </option>
                                         @endif
@@ -46,17 +46,26 @@
                                 <select name="subcategory_id" id="subcategory_id" class="form-control">
                                     <option value="">-- Select Subcategory --</option>
                                     @foreach($categories as $subcat)
-                                        @if($subcat->parent_id > 0 && $subcat->subcategory_id == 0) <!-- Only show subcategories -->
-                                            <option value="{{ $subcat->id }}"
-                                                data-parent="{{ $subcat->parent_id }}"
-                                                {{ isset($category) && $category->subcategory_id == $subcat->id ? 'selected' : '' }}>
-                                                {{ $subcat->category_name }}
-                                            </option>
-                                        @endif
-                                    @endforeach
+                @if($subcat->parent_id > 0 && $subcat->subcategory_id == 0)
+                    <option value="{{ $subcat->id }}" data-parent="{{ $subcat->parent_id }}"
+                        {{ old('subcategory_id', isset($category) && $category->subcategory_id == $subcat->id ? 'selected' : '') }}>
+                        {{ $subcat->category_name }}
+                    </option>
+                @endif
+            @endforeach
                                 </select>
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label for="" class="col-md-4 col-lg-3 col-form-label">Category Image</label>
+                            <div class="col-md-8 col-lg-3">
+                                @if(isset($category) && $category->category_image)
+                                    <img src="{{ asset($category->category_image) }}" alt="Category Image" width="100" class="mb-2">
+                                @endif
+                                <input type="file" class="form-control" name="category_image">
+                            </div>
+                        </div>
+
                         <div class="row mb-3">
                             <label for="" class="col-md-4 col-lg-3 col-form-label">Description</label>
                             <div class="col-md-8 col-lg-8">

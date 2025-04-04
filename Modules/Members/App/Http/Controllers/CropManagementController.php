@@ -279,7 +279,6 @@ public function getCrops($subcategoryId)
 public function showInquiries($cropManagementId)
 {
     $inquiries = CropInquiry::with('city')->where('crop_management_id', $cropManagementId)->paginate(10);
-
     return view('members::crop_management.crop_inquiries', compact('inquiries'));
 }
 

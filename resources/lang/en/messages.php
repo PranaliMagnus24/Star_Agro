@@ -118,6 +118,20 @@ return [
     'Login' => 'Login',
     'Logout' => 'Logout',
     'My Profile' => 'My Profile',
+    'Contact us' => 'Contact us',
+    'Get A Quote' => 'Get A Quote',
+    'Email Address' => 'Email Address',
+    'Phone Number' => 'Phone Number',
+    'Subject' => 'Subject',
+    'Write Comments' => 'Write Comments',
+    'Office Address' => 'Office Address',
+    'Timeing' => 'Timeing',
+    'Related Categories' => 'Related Categories',
+    'No data available' => 'No data available',
+
+
+
+
 
 
 

@@ -37,36 +37,50 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request): RedirectResponse
-    {
+{
+    $request->validate([
+        'category_name' => 'required|string',
+        'description' => 'nullable|string',
+        'status' => 'required',
+        'category_id' => 'nullable|exists:categories,id',
+        'subcategory_id' => 'nullable|exists:categories,id',
+        'category_image' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+    ]);
 
-        $request->validate([
-            'category_name' => 'required|string',
-            'description' => 'nullable|string',
-            'status' => 'required',
-            'category_id' => 'nullable|exists:categories,id',
-            'subcategory_id' => 'nullable|exists:categories,id',
-        ]);
+    $category = new Category();
+    $category->category_name = $request->category_name;
+    $category->description = $request->description;
+    $category->status = $request->status;
 
-        $category = new Category();
-        $category->category_name = $request->category_name;
-        $category->description = $request->description;
-        $category->status = $request->status;
-
-        if ($request->subcategory_id) {
-            $category->parent_id = $request->category_id;
-            $category->subcategory_id = $request->subcategory_id;
-        } elseif ($request->category_id) {
-            $category->parent_id = $request->category_id;
-            $category->subcategory_id = 0;
-        } else {
-            $category->parent_id = 0;
-            $category->subcategory_id = 0;
-        }
-
-        $category->save();
-
-        return redirect()->route('category.index')->with('success', 'Category created successfully!');
+    if ($request->subcategory_id) {
+        $category->parent_id = $request->category_id;
+        $category->subcategory_id = $request->subcategory_id;
+    } elseif ($request->category_id) {
+        $category->parent_id = $request->category_id;
+        $category->subcategory_id = 0;
+    } else {
+        $category->parent_id = 0;
+        $category->subcategory_id = 0;
     }
+
+    // ✅ Store Category Image if uploaded
+    if ($request->hasFile('category_image')) {
+        $image = $request->file('category_image');
+        $imageName = time() . '_' . $image->getClientOriginalName(); // Unique name
+        $imagePath = 'upload/category_img/';
+
+        // Move image to the folder
+        $image->move(public_path($imagePath), $imageName);
+
+        // Save image path in the database
+        $category->category_image = $imagePath . $imageName;
+    }
+
+    $category->save();
+
+    return redirect()->route('category.index')->with('success', 'Category created successfully!');
+}
+
 
 
 
@@ -84,8 +98,10 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        return view('category::create', compact('category'));
+        $categories = Category::all(); // Fetch all categories to populate dropdowns
+        return view('category::create', compact('category', 'categories'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -98,6 +114,7 @@ class CategoryController extends Controller
             'status' => 'required',
             'category_id' => 'nullable|exists:categories,id',
             'subcategory_id' => 'nullable|exists:categories,id',
+            'category_image' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $category = Category::findOrFail($id);
@@ -116,10 +133,24 @@ class CategoryController extends Controller
             $category->subcategory_id = 0;
         }
 
+        if ($request->hasFile('category_image')) {
+            if ($category->category_image && file_exists(public_path($category->category_image))) {
+                unlink(public_path($category->category_image));
+            }
+
+            $image = $request->file('category_image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imagePath = 'upload/category_img/';
+            $image->move(public_path($imagePath), $imageName);
+
+            $category->category_image = $imagePath . $imageName;
+        }
+
         $category->save();
 
         return redirect()->route('category.index')->with('success', 'Category updated successfully!');
     }
+
 
 
 

@@ -118,6 +118,16 @@ return [
     'Login' => 'लॉगिन',
     'Logout' => 'लॉगआउट',
     'My Profile' => 'माझे प्रोफाइल',
+    'Contact us' => 'आमच्याशी संपर्क साधा',
+    'Get A Quote' => 'एक कोट मिळवा',
+    'Email Address' => 'ईमेल पत्ता',
+    'Phone Number' => 'फोन नंबर',
+    'Subject' => 'विषय',
+    'Write Comments' => 'टिप्पण्या लिहा',
+    'Office Address' => 'कार्यालयाचा पत्ता',
+    'Timeing' => 'टाइमिंग',
+    'Related Categories' => 'संबंधित श्रेणी',
+    'No data available' => 'कोणताही डेटा उपलब्ध नाही.',
 
 
 

@@ -12,7 +12,7 @@
 
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home.index')}}">{{ __('Home') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('home.index')}}">{{ __('messages.Home') }}</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{ __('messages.Crops') }}</li>
                         </ol>
                     </nav>

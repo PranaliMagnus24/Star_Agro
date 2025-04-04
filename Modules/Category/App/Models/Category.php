@@ -16,7 +16,7 @@ class Category extends Model
      */
     protected $table = 'categories';
 
-    protected $fillable = ['category_name', 'description', 'status','parent_id','subcategory_id'];
+    protected $fillable = ['category_name','category_image', 'description', 'status','parent_id','subcategory_id'];
 
 
     protected static function newFactory(): CategoryFactory
