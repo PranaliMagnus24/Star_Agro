@@ -15,7 +15,7 @@
                              {{-- <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="team.html">Team </a></li> --}}
 
                              <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.gallery')}}">{{ __('messages.Gallery') }}</a></li>
-                             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.blog')}}">{{ __('messages.Blog') }}</a></li>
+                             {{-- <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.blog')}}">{{ __('messages.Blog') }}</a></li> --}}
                             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ route('home.contact')}}">{{ __('messages.Contact') }}</a></li>
 
                         </ul>
@@ -23,8 +23,8 @@
 
                     <div id="cssmenu2" class="menu-one-page-menu-container">
                         <ul id="menu-one-page-menu-1" class="menu">
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#home"><span>+8 12 3456897</span></a></li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#howitwork"><span>info@example.com</span></a></li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#home"><span>{{$getSetting->phone}}</span></a></li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#howitwork"><span>{{$getSetting->email}}</span></a></li>
                             <li>
                                 <a href="{{ url('language/en') }}" class="{{ App::getLocale() === 'en' ? 'active' : '' }}">English
                                 </a>

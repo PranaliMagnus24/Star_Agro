@@ -1067,7 +1067,7 @@ border: 2px solid #76bc02;
 	margin-bottom: 20px;
 }
 .slider-content h2 {
-	font-size: 105px;
+	font-size: 58px;
 	color: #fff;
 	letter-spacing: 1.0px;
 	line-height: 1.2;
@@ -1080,7 +1080,7 @@ border: 2px solid #76bc02;
 .slider-content h5{
    color: #fff;
     margin-bottom: 0px;
-    font-size: 45px;
+    font-size: 36px;
 }
 .slider-content p span {
 	display: inline-block;
@@ -1150,7 +1150,7 @@ border: 2px solid #76bc02;
 	box-shadow: 4px 2px 0 0 #76bc02;
 }
 .second-slider-content h2 {
-	font-size: 90px;
+	font-size: 58px;
 	margin-bottom: 20px;
 }
 .second-slider-bg::before{opacity: .5;}
@@ -1160,7 +1160,7 @@ border: 2px solid #76bc02;
 }
 .s-slider-content h2{margin-bottom: 25px;}
 .s-slider-content p {
-font-size: 16px;
+font-size: 32px;
 padding-right: 36%;
 color: #ffffffd9;
 line-height: 26px;
@@ -1242,6 +1242,28 @@ padding-right: 0;
 color: #fff;
 width: 50%;
 margin: auto;
+}
+
+@keyframes slideContinuous {
+    0% {
+        transform: translateX(-100%); /* Start off-screen to the left */
+        opacity: 0; /* Start invisible */
+    }
+    10% {
+        opacity: 1; /* Fade in */
+    }
+    90% {
+        opacity: 1; /* Stay visible */
+    }
+    100% {
+        transform: translateX(100%); /* Move off-screen to the right */
+        opacity: 0; /* Fade out */
+    }
+}
+
+.slider-content h2 {
+    animation: slideContinuous 10s linear infinite; /* Adjust duration for speed */
+    white-space: nowrap; /* Prevent text wrapping */
 }
 /* 4. about */
 .about-img {
@@ -9254,15 +9276,16 @@ div.single-cta:last-child {
     background-image: linear-gradient(0deg, rgb(118,188,2) 0%, rgb(245, 197, 95) 100%);
     box-shadow: 2.5px 4.33px 15px 0px rgba(118, 188, 2, 0.4);
 }
-
 .pos1 {
     height: 100%; /* Use full height of card */
     width: 100%; /* Use full width of card */
     background-size: cover; /* Cover the entire area */
     background-position: center;
     transition: .5s;
+    display: flex; /* Use flexbox for positioning */
+    flex-direction: column; /* Stack items vertically */
+    justify-content: flex-end; /* Align items to the bottom */
 }
-
 .abv {
     padding: 10px; /* Adjust padding as needed */
     font-size: 16px; /* Adjust font size as needed */
@@ -9279,13 +9302,20 @@ div.single-cta:last-child {
     width: 40px; /* Adjust size as needed */
     height: 40px; /* Adjust size as needed */
     border-radius: 50%; /* Makes it circular */
-    background-color: rgba(238, 232, 232, 0.3); /* Background color */
+    background-color: rgba(0, 0, 0, 0.7); /* Dark gray background */
     color: white; /* Text color */
     display: flex; /* Center the text */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     font-weight: bold; /* Make the text bold */
     margin: 10px auto; /* Center the badge and add some margin */
+}
+.category-name {
+    background-color: rgba(0, 0, 0, 0.7); /* Dark gray background for category name */
+    color: white; /* Text color */
+    padding: 5px; /* Add some padding */
+    font-weight: bold; /* Make the text bold */
+    text-align: center; /* Center the text */
 }
 
 @media(max-width: 1200px) {

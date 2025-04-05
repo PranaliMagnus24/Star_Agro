@@ -128,6 +128,18 @@ return [
     'Timeing' => 'Timeing',
     'Related Categories' => 'Related Categories',
     'No data available' => 'No data available',
+    'Solar Dryer' => 'Solar Dryer',
+    'Yes' => 'Yes',
+    'No' => 'No',
+    'Kilograms' => 'Kilograms',
+    'Grams' => 'Grams',
+    'Milligram' => 'Milligram',
+    'Gigatonne' => 'Gigatonne',
+    'Megatonne' => 'Megatonne',
+    'Tonne' => 'Tonne',
+
+
+
 
 
 

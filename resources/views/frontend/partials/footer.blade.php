@@ -23,7 +23,7 @@
                                 <li><a href="{{ route('home.about')}}">{{ __('messages.About Us') }}</a></li>
                                 <li><a href="{{ route('home.services')}}">{{ __('messages.Services') }} </a></li>
                                 <li><a href="{{ route('home.contact')}}">{{ __('messages.Contact us') }}</a></li>
-                                <li><a href="{{ route('home.blog')}}">{{ __('messages.Blog') }}</a></li>
+                                {{-- <li><a href="{{ route('home.blog')}}">{{ __('messages.Blog') }}</a></li> --}}
                             </ul>
                         </div>
                     </div>
@@ -37,18 +37,16 @@
                             <ul>
                             <li>
                                 <i class="icon fal fa-phone"></i>
-                                <span>1800-121-3637<br>+91-7052-101-786</span>
+                                <span>{{$getSetting->phone}}</span>
                             </li>
                            <li><i class="icon fal fa-envelope"></i>
                                 <span>
-                                    <a href="mailto:info@example.com">info@example.com</a>
-                               <br>
-                               <a href="mailto:help@example.com">help@example.com</a>
+                                    <a href="mailto:{{$getSetting->email}}">{{$getSetting->email}}</a>
                                </span>
                             </li>
                             <li>
                                 <i class="icon fal fa-map-marker-check"></i>
-                                <span>1247/Plot No. 39, 15th Phase</span>
+                                <span>{{$getSetting->address}}</span>
                             </li>
 
                         </ul>

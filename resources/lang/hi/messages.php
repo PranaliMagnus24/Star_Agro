@@ -129,6 +129,16 @@ return [
     'Related Categories' => 'संबंधित श्रेणियाँ',
     'rice_chawal' => 'चावल',
     'No data available' => 'कोई डेटा मौजूद नहीं',
+    'Solar Dryer' => 'सौर ड्रायर',
+    'Yes' => 'हाँ',
+    'No' => 'नहीं',
+    'Kilograms' => 'किलोग्राम',
+    'Grams' => 'ग्राम',
+    'Milligram' => 'मिलीग्राम',
+    'Gigatonne' => 'गीगाटन',
+    'Megatonne' => 'मेगाटन',
+    'Tonne' => 'टन',
+
 
 
 

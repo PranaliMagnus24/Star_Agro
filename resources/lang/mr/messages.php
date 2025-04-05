@@ -128,6 +128,16 @@ return [
     'Timeing' => 'टाइमिंग',
     'Related Categories' => 'संबंधित श्रेणी',
     'No data available' => 'कोणताही डेटा उपलब्ध नाही.',
+    'Solar Dryer' => 'सौर ड्रायर',
+    'Yes' => 'होय',
+    'No' => 'नाही',
+    'Kilograms' => 'किलोग्रॅम',
+    'Grams' => 'ग्रॅम',
+    'Milligram' => 'मिलीग्राम',
+    'Gigatonne' => 'गीगाटन',
+    'Megatonne' => 'मेगाटन',
+    'Tonne' => 'टन',
+
 
 
 

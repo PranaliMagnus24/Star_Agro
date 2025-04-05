@@ -57,6 +57,7 @@ class CropManagementController extends Controller
      */
  public function store(Request $request)
     {
+
         $request->validate([
             'category_id' => 'required|exists:categories,id',
             'subcategory_id' => 'required|exists:categories,id',
@@ -67,7 +68,10 @@ class CropManagementController extends Controller
             'expected_price' => 'nullable|numeric',
             'min_qty' => 'nullable|numeric',
             'max_qty' => 'nullable|numeric',
+            'min_qty_mass' => 'nullable|string',
+            'max_qty_mass' => 'nullable|string',
             'description' => 'nullable|string',
+            'solar_dryer' => 'nullable|string',
             'status' => 'required|in:active,inactive',
            'crop_images.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
            'crop_video' => 'nullable|file|mimes:mp4,mov,avi,wmv|max:20480',
@@ -97,10 +101,13 @@ class CropManagementController extends Controller
             'harvesting_end_date' => $request->harvesting_end_date,
             'expected_price' => $request->expected_price,
             'min_qty' => $request->min_qty,
+            'min_qty_mass' => $request->min_qty_mass,
             'max_qty' => $request->max_qty,
+            'max_qty_mass' => $request->max_qty_mass,
             'description' => $request->description,
             'status' => $request->status,
             'type' => $typeString,
+            'solar_dryer' => $request->solar_dryer,
         ]);
 
         if ($request->hasFile('crop_images')) {
@@ -189,7 +196,10 @@ class CropManagementController extends Controller
             'expected_price' => 'nullable|numeric',
             'min_qty' => 'nullable|numeric',
             'max_qty' => 'nullable|numeric',
+            'min_qty_mass' => 'nullable|string',
+            'max_qty_mass' => 'nullable|string',
             'description' => 'nullable|string',
+            'solar_dryer' => 'nullable|string',
             'status' => 'required|in:active,inactive',
             'crop_images.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
             'crop_video' => 'nullable|file|mimes:mp4,mov,avi,wmv|max:20480',
@@ -204,10 +214,13 @@ class CropManagementController extends Controller
             'harvesting_end_date' => $request->harvesting_end_date,
             'expected_price' => $request->expected_price,
             'min_qty' => $request->min_qty,
+            'min_qty_mass' => $request->min_qty_mass,
             'max_qty' => $request->max_qty,
+            'max_qty_mass' => $request->max_qty_mass,
             'description' => $request->description,
             'status' => $request->status,
             'type' => $request->crop_type,
+            'solar_dryer' => $request->solar_dryer,
         ]);
 
         // Handle crop images

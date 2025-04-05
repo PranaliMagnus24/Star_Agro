@@ -116,23 +116,45 @@
                         </div>
                         <div class="row mb-3">
                             <label for="" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Min Quantity') }}</label>
-                            <div class="col-md-8 col-lg-3">
+                            <div class="col-md-8 col-lg-2">
                                 <input type="text" name="min_qty" id="min_qty" class="form-control" value="{{ old('min_qty')}}">
                             </div>
+                            <div class="col-md-8 col-lg-1">
+                                <select name="min_qty_mass" id="" class="form-control">
+                                    <option value="kg">{{ __('messages.Kilograms') }}</option>
+                                    <option value="g">{{ __('messages.Grams') }}</option>
+                                    <option value="mg">{{ __('messages.Milligram') }}</option>
+                                    <option value="gt">{{ __('messages.Gigatonne') }}</option>
+                                    <option value="mt">{{ __('messages.Megatonne') }}</option>
+                                    <option value="t">{{ __('messages.Tonne') }}</option>
+                                </select>
+                            </div>
+
                             @error('min_qty')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
 
 
                             <label for="" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Max Quantity') }}</label>
-                            <div class="col-md-8 col-lg-3">
+                            <div class="col-md-8 col-lg-2">
                                 <input type="text" name="max_qty" id="max_qty" class="form-control" value="{{ old('max_qty')}}">
+                            </div>
+                            <div class="col-md-8 col-lg-1">
+                                <select name="max_qty_mass" id="" class="form-control">
+                                    <option value="kg">{{ __('messages.Kilograms') }}</option>
+                                    <option value="g">{{ __('messages.Grams') }}</option>
+                                    <option value="mg">{{ __('messages.Milligram') }}</option>
+                                    <option value="gt">{{ __('messages.Gigatonne') }}</option>
+                                    <option value="mt">{{ __('messages.Megatonne') }}</option>
+                                    <option value="t">{{ __('messages.Tonne') }}</option>
+                                </select>
                             </div>
                             @error('max_qty')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
 
                         </div>
+
                         <div class="row mb-3">
                             <div class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Type') }} <span class="text-danger">*</span></div>
                             <div class="col-md-8 col-lg-3 d-flex align-items-center">
@@ -158,6 +180,18 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Solar Dryer') }}</label>
+                            <div class="col-md-8 col-lg-3">
+                             <select name="solar_dryer" id="solar_dryer" class="form-control">
+                                <option value="">-- select option --</option>
+                                <option value="yes">{{ __('messages.Yes') }}</option>
+                                <option value="no" selected>{{ __('messages.No') }}</option>
+                             </select>
+                            </div>
+                            @error('crop_video')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+
                             <label for="" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Upload Video') }}</label>
                             <div class="col-md-8 col-lg-3">
                               <input type="file" class="form-control" name="crop_video" id="upload_video">

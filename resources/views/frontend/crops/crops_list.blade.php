@@ -130,7 +130,7 @@
                                            style="height: 25px; width: 80px; display: block; border-radius: 15px;"
                                            data-toggle="modal" data-id="{{ $cropManagement->id }}"
                                            data-target="#inquiryModal"
-                                           onclick="setCropName('{{ $cropManagement->id }}')">{{ __('messages.Inquiry') }}</a>
+                                           onclick="handleInquiryClick('{{ $cropManagement->id }}')">{{ __('messages.Inquiry') }}</a>
 
                                         <i class="fas fa-heart favorite-icon"
                                            style="font-size: 16px; cursor: pointer; color: {{ $cropManagement->isFavorited() ? 'red' : '#ccc' }};"
@@ -248,6 +248,15 @@
                 element.style.color = isFavorited ? 'black' : 'red';
             }
         });
+    @else
+        window.location.href = '/login';
+    @endif
+}
+
+function handleInquiryClick(cropId) {
+    @if(Auth::check())
+        document.getElementById('crop_management_id').value = cropId;
+        $('#inquiryModal').modal('show');
     @else
         window.location.href = '/login';
     @endif

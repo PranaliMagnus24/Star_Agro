@@ -43,7 +43,7 @@ class CropController extends Controller
             $query->where('category_name', 'like', '%' . $search . '%');
         }
 
-        $categories = $query->withCount('cropManagements')->having('crop_managements_count', '>', 0)->paginate(12);
+        $categories = $query->withCount('cropManagements')->orderBy('created_at', 'asc')->having('crop_managements_count', '>', 0)->paginate(12);
 
         return view('frontend.crops.crops', compact('categories'));
     }

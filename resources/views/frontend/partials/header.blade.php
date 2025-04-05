@@ -38,7 +38,7 @@ $categories = Modules\Category\App\Models\Category::where('parent_id', 0)->get()
                                 <div class="text">
                                     <i class="far fa-phone-alt"></i>
                                     <div class="box">
-                                        <span>786-098-098-09</span>
+                                        <span>{{$getSetting->phone}}</span>
                                     </div>
                                 </div>
                             </li>
@@ -46,7 +46,7 @@ $categories = Modules\Category\App\Models\Category::where('parent_id', 0)->get()
                                 <div class="text">
                                     <i class="icon fal fa-envelope"></i>
                                     <div class="box">
-                                        <a href="#">info@example.com</a>
+                                        <a href="#">{{$getSetting->email}}</a>
                                     </div>
                                 </div>
                             </li>

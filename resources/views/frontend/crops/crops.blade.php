@@ -60,12 +60,12 @@
                     <div class="col-6 col-md-4 col-lg-2 mb-2">
                         <div class="item">
                             <a href="{{ route('crop.management.list', $category->id) }}">
-                                <div class="category-card">
+                                <div class="category-card" style="background-image: url('{{ asset($category->category_image) }}');">
                                     <div class="pos1">
                                         <div class="circle-badge">
                                             {{ $category->crop_managements_count }}
                                         </div>
-                                        <div class="abv abv1">{{ $category->category_name }}</div>
+                                        <div class="category-name">{{ $category->category_name }}</div>
                                     </div>
                                 </div>
                             </a>
@@ -74,6 +74,7 @@
                 @endif
             @endforeach
         </div>
+
     </div>
     <div class="row">
         <div class="col-12">
