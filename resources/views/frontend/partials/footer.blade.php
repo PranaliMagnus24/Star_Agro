@@ -6,8 +6,9 @@
                   <div class="col-xl-3 col-lg-3 col-sm-6">
                     <div class="footer-widget mb-30">
                         <div class="f-widget-title mb-30">
-                           <img src="{{ asset('frontend/assets/img/logo/logo.svg') }}" alt="img">
-                           <div style="font-size: 14px; margin-top: 5px; color: #fff">शेतकऱ्याचे हक्काचे व्यासपीठ</div>
+                           <img src="{{ url('upload/general_setting/'.$getSetting->footer_logo)}}" alt="img">
+                           <div style="font-size: 14px;color: #fff; margin-top: -30px;">
+                           <strong>शेतकऱ्याचे हक्काचे व्यासपीठ</strong></div>
                         </div>
 
                         {{-- <p>Donec luctus est turpis, viverra vestibulum augue volutpat in. Duis euismod eu justo sit amet tincidunt. Suspendisse euismod ex iaculis, sodales nulla congue.</p> --}}

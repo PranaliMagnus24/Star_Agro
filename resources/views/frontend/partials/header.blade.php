@@ -10,7 +10,7 @@ $categories = Modules\Category\App\Models\Category::where('parent_id', 0)->get()
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-3 d-none d-lg-block text-center">
                     <a href="{{ route('home.index') }}">
-                        <img src="{{ asset('frontend/assets/img/logo/logo.svg') }}" alt="logo" style="height: 172px; width: 128px; margin-bottom: -27px;">
+                        <img src="{{ url('upload/general_setting/'.$getSetting->header_logo) }}" alt="logo" style="height: 172px; width: 128px; margin-bottom: -27px;">
                         <div style="font-size: 20px;"><strong>शेतकऱ्याचे हक्काचे व्यासपीठ</strong></div>
                     </a>
 
@@ -83,7 +83,7 @@ $categories = Modules\Category\App\Models\Category::where('parent_id', 0)->get()
             <div class="second-menu">
                 <div class="row align-items-center">
                       <div class="col-lg-6 col-sm-4 d-block d-lg-none">
-                      <a href="index.html" class="logo"><img src="{{ asset('frontend/assets/img/logo/logo.svg') }}" alt="logo" style="height: 67px; width: 128px; margin-bottom: -27px;">
+                      <a href="index.html" class="logo"><img src="{{ url('upload/general_setting/'.$getSetting->header_logo) }}" alt="logo" style="height: 67px; width: 128px; margin-bottom: -27px;">
                     </a>
                     <div style="font-size: 14px; margin-top: 5px; color: #fff"><strong>शेतकऱ्याचे हक्काचे व्यासपीठ</strong></div>
                     </div>

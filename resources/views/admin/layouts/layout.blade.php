@@ -5,16 +5,17 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   @php
-    $getSetting = Modules\GeneralSetting\App\Models\GeneralSetting::first();
-@endphp
+  $getSetting = Modules\GeneralSetting\App\Models\GeneralSetting::first();
+    @endphp
   <title>@yield('title', 'Dashboard')</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{ $getSetting->fevicon_logo ? url('upload/general_setting/' . $getSetting->fevicon_logo) : asset('admin/assets/images/logo/logo.jpg') }}" rel="icon">
-  <link href="{{ $getSetting->fevicon_logo ? url('upload/general_setting/' . $getSetting->fevicon_logo) : asset('admin/assets/images/logo/logo.jpg') }}" rel="apple-touch-icon">
+  <link href="{{ $getSetting->favicon_logo ? url('upload/general_setting/' . $getSetting->favicon_logo) : asset('admin/assets/images/logo/logo.jpg') }}" rel="icon">
+  <link href="{{ $getSetting->favicon_logo ? url('upload/general_setting/' . $getSetting->favicon_logo) : asset('admin/assets/images/logo/logo.jpg') }}" rel="apple-touch-icon">
+
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
