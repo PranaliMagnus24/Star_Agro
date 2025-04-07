@@ -102,7 +102,7 @@ return [
     'Inquiry Form' => 'Inquiry Form',
     'Letest Crops' => 'Letest Crops',
     'Submit' => 'Submit',
-    'Farmer Registration Form' => 'Farmer Registration Form',
+    'Registration Form' => 'Registration Form',
     'User Type' => 'User Type',
     'Language' => 'Language',
     'Select Language' => 'Select Language',
@@ -137,6 +137,11 @@ return [
     'Gigatonne' => 'Gigatonne',
     'Megatonne' => 'Megatonne',
     'Tonne' => 'Tonne',
+    'Remember me' => 'Remember me',
+    'Forgot your password?' => 'Forgot your password?',
+    'Search crops' => 'Search crops',
+    'Entrepreneur' => 'Entrepreneur',
+    'All' => 'All',
 
 
 

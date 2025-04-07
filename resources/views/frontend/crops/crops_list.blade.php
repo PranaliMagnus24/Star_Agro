@@ -2,7 +2,7 @@
 @section('title', 'Star Agro')
 @section('content')
 
-<section class="breadcrumb-area d-flex align-items-center" style="background-image:url(/frontend/assets/img/testimonial/test-bg.jpg)">
+{{-- <section class="breadcrumb-area d-flex align-items-center" style="background-image:url(/frontend/assets/img/testimonial/test-bg.jpg)">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-xl-12 col-lg-12">
@@ -24,16 +24,14 @@
 
         </div>
     </div>
-</section>
-<section id="blog" class="blog-area  p-relative pt-120 pb-70 fix">
+</section> --}}
+<section id="blog" class="blog-area  p-relative pt-120 pb-70 fix crops">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-12">
                 <div class="section-title center-align mb-50 text-center">
                     <h5>{{ __('messages.Crops') }}</h5>
                     <h2>{{ __('messages.Letest Crops') }}</h2>
-
-
                 </div>
 
             </div>
@@ -43,6 +41,7 @@
             <!-- Left Column - Related Categories Section -->
             <div class="col-12 col-md-3 mb-3">
                 <div class="card p-3 border-0 shadow-sm">
+
                     <h6 class="mb-3 border-bottom pb-2">{{ __('messages.Related Categories') }}</h6>
                     <ul class="list-unstyled">
                         @foreach($relatedCategories as $category)

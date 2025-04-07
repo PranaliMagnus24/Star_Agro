@@ -6,7 +6,7 @@
                <div class="row justify-content-center pt-50">
                     <div class="col-lg-10 col-md-10">
                         <div class="slider-content s-slider-content">
-                            <h5 data-animation="fadeInDown" data-delay=".4s">शेतकऱ्याचे हक्काचे व्यासपीठ</h5>
+                            {{-- <h5 data-animation="fadeInDown" data-delay=".4s">शेतकऱ्याचे हक्काचे व्यासपीठ</h5> --}}
                              <h2 data-animation="fadeInUp" data-delay=".4s">शेतकरी हिताय । शेतकरी सुखाय ॥ </h2>
                             <p data-animation="fadeInUp" data-delay=".6s">वाळवा, टिकवा, मुल्यवर्धन करा</p>
 

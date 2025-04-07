@@ -1,3 +1,6 @@
+<style>
+
+</style>
 @php
 $categories = Modules\Category\App\Models\Category::where('parent_id', 0)->get();
 @endphp
@@ -5,10 +8,26 @@ $categories = Modules\Category\App\Models\Category::where('parent_id', 0)->get()
     <div class="header-top second-header d-none d-lg-block">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-3 col-md-3 d-none d-lg-block">
-                      <a href="{{ route('home.index')}}"><img src="{{ asset('frontend/assets/img/logo/logo.png') }}" alt="logo"></a>
+                <div class="col-lg-3 col-md-3 d-none d-lg-block text-center">
+                    <a href="{{ route('home.index') }}">
+                        <img src="{{ asset('frontend/assets/img/logo/logo.svg') }}" alt="logo" style="height: 172px; width: 128px; margin-bottom: -27px;">
+                        <div style="font-size: 20px;"><strong>शेतकऱ्याचे हक्काचे व्यासपीठ</strong></div>
+                    </a>
+
                 </div>
-                <div class="col-lg-9 col-md-9 d-none d-md-block text-right">
+
+
+ <!-- 🔍 Global Search Bar -->
+ <div class="col-lg-3 col-md-3 d-none d-md-block">
+    <div class="search-bar">
+        <form class="search-form d-flex align-items-center" method="GET" action="{{ route('search') }}">
+          <input type="text" name="query" placeholder="{{ __('messages.Search crops') }}.." title="Enter search keyword">
+          <button type="submit" title="Search"><i class="fa fa-search"></i></button>
+        </form>
+      </div>
+</div>
+
+                <div class="col-lg-6 col-md-6 d-none d-md-block text-right">
                     <div class="header-cta">
                         <ul class="list-inline">
                             <!------------profile login logout dropdown---------------->
@@ -64,8 +83,9 @@ $categories = Modules\Category\App\Models\Category::where('parent_id', 0)->get()
             <div class="second-menu">
                 <div class="row align-items-center">
                       <div class="col-lg-6 col-sm-4 d-block d-lg-none">
-                      <a href="index.html" class="logo"><img src="{{ asset('frontend/assets/img/logo/logo.png') }}" alt="logo">
+                      <a href="index.html" class="logo"><img src="{{ asset('frontend/assets/img/logo/logo.svg') }}" alt="logo" style="height: 67px; width: 128px; margin-bottom: -27px;">
                     </a>
+                    <div style="font-size: 14px; margin-top: 5px; color: #fff"><strong>शेतकऱ्याचे हक्काचे व्यासपीठ</strong></div>
                     </div>
 
                     <div class="col-xl-8 col-lg-8">

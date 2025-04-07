@@ -254,13 +254,26 @@
                                     </div>
                                     @endif
                                 </div>
-                                @if(auth()->user() && auth()->user()->hasRole('company'))
+                                @if(auth()->user() && auth()->user()->hasRole('entrepreneur'))
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row mb-3">
                                             <label for="about" class="col-md-4 col-form-label">{{ __('messages.Company Logo') }}</label>
                                             <div class="col-md-8">
                                                 <input type="file" name="company_logo" id="company_logo" class="form-control">
+                                                @php
+                                                $companyLogo = \App\Models\FarmerDocuments::where('user_id', $user->id)
+                                                                ->where('document_type', 'company_logo')
+                                                                ->first();
+                                            @endphp
+
+                                            @if($companyLogo && $companyLogo->file_path)
+                                                <div class="mt-2">
+                                                    <strong>Uploaded Logo:</strong><br>
+                                                    <img src="{{ asset('upload/farmer_documents/' . $user->id . '/' . $companyLogo->file_path) }}"
+                                                         alt="Company Logo" style="max-width: 150px; border: 1px solid #ddd; padding: 4px;">
+                                                </div>
+                                            @endif
                                             </div>
                                             @error('company_logo')
                                             <span class="text-danger">{{$message}}</span>
@@ -271,15 +284,54 @@
                                         <div class="row mb-3">
                                             <label for="about" class="col-md-4 col-form-label">{{ __('messages.Upload Documents') }}</label>
                                             <div class="col-md-8">
-                                              <select name="upload_documents" id="upload_documents" class="form-control">
-                                                <option value="">--Select documents options--</option>
-                                                <option value="gst-certificate">{{ __('messages.GST certificate') }}</option>
-                                                <option value="aadhar-certificate">{{ __('messages.Udyog aadhar certificate') }}</option>
-                                              </select>
+                                                <select name="upload_documents" id="upload_documents" class="form-control">
+                                                    <option value="">--Select documents options--</option>
+                                                    <option value="gst-certificate" {{ old('upload_documents', $user->upload_documents ?? '') == 'gst-certificate' ? 'selected' : '' }}>
+                                                        {{ __('messages.GST certificate') }}
+                                                    </option>
+                                                    <option value="aadhar-certificate" {{ old('upload_documents', $user->upload_documents ?? '') == 'aadhar-certificate' ? 'selected' : '' }}>
+                                                        {{ __('messages.Udyog aadhar certificate') }}
+                                                    </option>
+                                                </select>
+
                                               <br>
                                                 <input type="file" name="documents" class="form-control">
+                                                @if($user)
+    @php
+        $farmerDocument = \App\Models\FarmerDocuments::where('user_id', $user->id)
+                            ->where('document_type', $user->upload_documents)
+                            ->first();
+    @endphp
+
+    @if($farmerDocument && $farmerDocument->file_path)
+        <div class="mt-2">
+            <strong>Uploaded Document:</strong>
+            <a href="{{ asset('upload/farmer_documents/' . $user->id . '/' . $farmerDocument->file_path) }}" target="_blank">View File</a>
+        </div>
+    @endif
+@endif
                                             </div>
                                             @error('upload_documents')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+
+                                @if(auth()->user() && auth()->user()->hasRole('farmer'))
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row mb-3">
+                                            <label for="about" class="col-md-4 col-form-label">{{ __('messages.Solar Dryer') }}</label>
+                                            <div class="col-md-8">
+                                                <select name="solar_dryer" class="form-control">
+                                                    <option value="yes" {{ old('solar_dryer', $user->solar_dryer) == 'yes' ? 'selected' : '' }}>{{ __('messages.Yes') }}</option>
+                                                    <option value="no" {{ old('solar_dryer', $user->solar_dryer) == 'no' ? 'selected' : '' }}>{{ __('messages.No') }}</option>
+                                                </select>
+
+                                            </div>
+                                            @error('solar_dryer')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -294,9 +346,10 @@
                                             <div class="col-md-6">
                                                 <select name="known_about_us" id="known_about_us" class="form-control">
                                                     <option value="">--Select options--</option>
-                                                    <option value="social_media">Social Media</option>
-                                                    <option value="seminar">Seminar</option>
+                                                    <option value="social_media" {{ old('known_about_us', $user->known_about_us ?? '') == 'social_media' ? 'selected' : '' }}>Social Media</option>
+                                                    <option value="seminar" {{ old('known_about_us', $user->known_about_us ?? '') == 'seminar' ? 'selected' : '' }}>Seminar</option>
                                                 </select>
+
 
                                                 {{-- <input type="text" name="known_about_us" id="known_about_us" class="form-control" value="{{ old('known_about_us', $user->known_about_us)}}"> --}}
                                             </div>

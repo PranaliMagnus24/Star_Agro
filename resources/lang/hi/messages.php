@@ -85,7 +85,7 @@ return [
     'Upload Documents' => 'दस्तावेज़ अपलोड करें',
     'GST certificate' => 'जीएसटी प्रमाणपत्र',
     'Udyog aadhar certificate' => 'उद्योग आधार प्रमाणपत्र',
-   'About Us' => 'अबाउट उस',
+   'About Us' => 'अबाउट अस',
     'Gallery' => 'गैलरी',
     'Services' => 'सर्विसेस',
     'Contact' => 'कॉन्टैक्ट',
@@ -102,7 +102,7 @@ return [
     'Inquiry Form' => 'पूछताछ प्रपत्र',
     'Letest Crops' => 'नवीनतम फसलें',
     'Submit' => 'सबमिट',
-    'Farmer Registration Form' => 'किसान पंजीकरण फॉर्म',
+    'Registration Form' => 'पंजीकरण फॉर्म',
     'User Type' => 'उपयोगकर्ता का प्रकार',
     'Language' => 'भाषा',
     'Select Language' => 'भाषा चुने',
@@ -138,6 +138,12 @@ return [
     'Gigatonne' => 'गीगाटन',
     'Megatonne' => 'मेगाटन',
     'Tonne' => 'टन',
+    'Remember me' => 'मुझे याद करो',
+    'Forgot your password?' => 'अपना पासवर्ड भूल गए?',
+    'Search' => 'फसल खोजें',
+    'Entrepreneur' => 'उद्योजक',
+    'All' => 'सभी',
+
 
 
 

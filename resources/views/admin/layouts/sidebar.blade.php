@@ -84,7 +84,20 @@
                 </a>
               </li>
         </ul>
-      </li><!-- End Master Setting -->
+      </li><!-- End Farmer Setting -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#entrepreneur-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-person"></i><span>{{ __('messages.Entrepreneur') }}</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="entrepreneur-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li>
+                <a href="{{ route('admin.entrepreneur.index')}}">
+                  <i class="bi bi-circle"></i><span>{{ __('messages.Entrepreneur') }}</span>
+                </a>
+              </li>
+        </ul>
+      </li><!-- End Entrepreneur Setting -->
     </ul>
 
   </aside><!-- End Sidebar-->

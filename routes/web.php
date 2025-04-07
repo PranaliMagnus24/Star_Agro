@@ -33,6 +33,7 @@ Route::get('services', [HomeController::class,'mainServices'])->name('home.servi
 Route::get('gallery', [HomeController::class,'mainGallery'])->name('home.gallery');
 Route::get('blog', [HomeController::class,'mainBlog'])->name('home.blog');
 Route::get('contact', [HomeController::class,'mainContact'])->name('home.contact');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
 
 /////Crop Controller
 Route::get('crops', [CropController::class,'mainCrops'])->name('home.crops');
@@ -99,6 +100,8 @@ Route::group(['middleware' => ['isAdmin']], function() {
     /////FarmerRegistrationController
     Route::get('farmer',[FarmerRegistrationController::class,'farmerIndex'])->name('admin.farmer.index');
     Route::get('farmer/create',[FarmerRegistrationController::class,'farmerCreate'])->name('admin.farmer.create');
+    Route::get('entrepreneur',[FarmerRegistrationController::class,'entrepreneurIndex'])->name('admin.entrepreneur.index');
+
 });
 
 /////Location Controller

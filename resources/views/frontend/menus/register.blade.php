@@ -2,13 +2,13 @@
 @section('title', 'Star Agro')
 @section('content')
 
-<section class="breadcrumb-area d-flex align-items-center" style="background-image:url(frontend/assets/img/testimonial/test-bg.jpg)">
+<section class="breadcrumb-area d-flex align-items-center" style="background-image:url(frontend/assets/img/bg/bg-banner.webp)">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-xl-12 col-lg-12">
                 <div class="breadcrumb-wrap text-left">
                     <div class="breadcrumb-title">
-                        <h2>{{ __('messages.Farmer Registration Form') }}</h2>
+                        <h2>{{ __('messages.Registration Form') }}</h2>
                         <div class="breadcrumb-wrap">
 
                     <nav aria-label="breadcrumb">
@@ -28,12 +28,12 @@
 
 
 
-<section id="faq" class="faq-area pt-120 pb-100" style="background: url(frontend/assets/img/bg/faq-bg.png);background-size: cover; background-position: center center;">
+<section id="faq" class="faq-area pb-100 register" style="background: url(frontend/assets/img/bg/faq-bg.png);background-size: cover; background-position: center center;">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-8">
                 <div class="about-title second-atitle mb-30">
-                    <h5>{{ __('messages.Farmer Registration Form') }}</h5>
+                    <h5>{{ __('messages.Registration Form') }}</h5>
                 </div>
                 <div class="faq-wrap">
                     <div class="accordion" id="accordionExample">

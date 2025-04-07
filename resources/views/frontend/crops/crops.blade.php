@@ -1,7 +1,7 @@
 @extends('frontend.layouts.layout')
 @section('title', 'Star Agro')
 @section('content')
-<section class="breadcrumb-area d-flex align-items-center" style="background-image:url(frontend/assets/img/testimonial/test-bg.jpg)">
+{{-- <section class="breadcrumb-area d-flex align-items-center" style="background-image:url(frontend/assets/img/testimonial/test-bg.jpg)">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-xl-12 col-lg-12">
@@ -23,10 +23,10 @@
 
         </div>
     </div>
-</section>
+</section> --}}
 
 <!-- services-area -->
-<section id="services2" class="services-area2 pt-120 pb-90 fix p-relative">
+<section id="services2" class="services-area2 pb-90 fix p-relative crops">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 p-relative">
@@ -55,6 +55,35 @@
             </div>
         </div>
         <div class="row">
+            @foreach($categories as $category)
+                @if ($category->crop_managements_count > 0)
+                    <div class="col-6 col-sm-4 col-md-2 mb-4">
+                        <div class="card h-100 text-center">
+                            <a href="{{ route('crop.management.list', $category->id) }}" style="text-decoration: none; color: inherit;">
+                                @php
+                                    $imagePath = $category->category_image && file_exists(public_path($category->category_image))
+                                        ? asset($category->category_image)
+                                        : asset('upload/dummy.jpg');
+                                @endphp
+                                <img src="{{ $imagePath }}" class="card-img-top" alt="{{ $category->category_name }}" style="height: 150px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h6 class="card-title text-truncate">
+                                        {{ $category->category_name }}
+                                    </h6>
+                                    <p class="badge rounded-pill ms-1 text-white" style="background-color: #76bc02; font-size: 80%">
+                                        {{ $category->crop_managements_count }}
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+
+
+
+        {{-- <div class="row">
             @foreach ($categories as $category)
                 @if ($category->crop_managements_count > 0)
                     <div class="col-6 col-md-4 col-lg-2 mb-2">
@@ -73,7 +102,7 @@
                     </div>
                 @endif
             @endforeach
-        </div>
+        </div> --}}
 
     </div>
     <div class="row">

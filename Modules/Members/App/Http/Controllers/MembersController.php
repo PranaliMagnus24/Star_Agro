@@ -143,6 +143,7 @@ public function store(Request $request): RedirectResponse
         'upload_documents' => 'nullable|string',
         'documents' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         'company_name' => 'nullable|string|max:255',
+        'solar_dryer' => 'nullable|string|max:255',
     ]);
 
     $user = auth()->user();
@@ -155,8 +156,10 @@ public function store(Request $request): RedirectResponse
     $user->town = $request->town;
     $user->referral_code = $request->referral_code;
     $user->known_about_us = $request->known_about_us;
+    $user->solar_dryer = $request->solar_dryer;
 
-    if ($user->hasRole('company')) {
+
+    if ($user->hasRole('entrepreneur')) {
         $user->company_name = $request->company_name;
     }
 
@@ -174,7 +177,7 @@ public function store(Request $request): RedirectResponse
     }
 
     // Handle company logo upload only if user has role 'company'
-    if ($user->hasRole('company') && $request->hasFile('company_logo')) {
+    if ($user->hasRole('entrepreneur') && $request->hasFile('company_logo')) {
         if ($farmerDocument) {
             $this->uploadDocument($request->file('company_logo'), $user->id, 'company_logo', $farmerDocument);
         } else {

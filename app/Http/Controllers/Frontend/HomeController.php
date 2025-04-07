@@ -28,6 +28,25 @@ class HomeController extends Controller
         return view('frontend.menus.home');
     }
 
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $crop = CropManagement::where('crop_name', 'like', "%{$query}%")->first();
+        if ($crop) {
+            return redirect()->route('crop.management.list', $crop->id);
+        }
+
+        $category = Category::where('category_name', 'like', "%{$query}%")->first();
+        if($category){
+            return redirect()->route('home.crops', $category->id);
+        }
+
+        return back()->with('error', 'No results found.');
+    }
+
+
     public function mainAbout()
     {
         return view('frontend.menus.about');

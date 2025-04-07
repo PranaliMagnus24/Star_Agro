@@ -32,7 +32,7 @@ $getSetting = Modules\GeneralSetting\App\Models\GeneralSetting::first();
     <body>
 
         <!-------Falsh success message--------->
-<div class="container my-3">
+<div class="">
     @if(session('success'))
     <script>
       const Toast = Swal.mixin({
