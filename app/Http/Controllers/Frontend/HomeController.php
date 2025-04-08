@@ -29,21 +29,46 @@ class HomeController extends Controller
     }
 
 
-    public function search(Request $request)
+    public function liveSearch(Request $request)
     {
         $query = $request->input('query');
 
-        $crop = CropManagement::where('crop_name', 'like', "%{$query}%")->first();
-        if ($crop) {
-            return redirect()->route('crop.management.list', $crop->id);
+        // Initialize a collection to hold the results
+        $results = collect();
+
+        if ($query) {
+            // Search in categories
+            $categories = Category::search($query)->take(5)->get();
+            $results = $results->merge($categories->map(function($item) {
+                return [
+                    'id' => $item->id,
+                    'name' => $item->category_name,
+                    'description' => $item->description,
+                    'url' => route('crop.management.list', ['categoryId' => $item->id]), // URL for category
+                ];
+            }));
+
+            // Search in crop management
+            $crops = CropManagement::search($query)->take(5)->get();
+            $results = $results->merge($crops->map(function($item) {
+                return [
+                    'id' => $item->id,
+                    'name' => $item->crop_name,
+                    'planating_date' => $item->planating_date,
+                    'expected_price' => $item->expected_price,
+                    'min_qty' => $item->min_qty,
+                    'max_qty' => $item->max_qty,
+                    'type' => $item->type,
+                    'description' => $item->description,
+                    'harvesting_start_date' => $item->harvesting_start_date,
+                    'harvesting_end_date' => $item->harvesting_end_date,
+                    'url' => route('crop.management.list', ['categoryId' => $item->crop_id]), // URL for crop management
+                ];
+            }));
         }
 
-        $category = Category::where('category_name', 'like', "%{$query}%")->first();
-        if($category){
-            return redirect()->route('home.crops', $category->id);
-        }
-
-        return back()->with('error', 'No results found.');
+        // Return the results as a JSON response
+        return response()->json($results);
     }
 
 

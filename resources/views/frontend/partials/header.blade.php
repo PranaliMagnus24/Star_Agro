@@ -1,9 +1,4 @@
-<style>
 
-</style>
-@php
-$categories = Modules\Category\App\Models\Category::where('parent_id', 0)->get();
-@endphp
 <header class="header-area header-three">
     <div class="header-top second-header d-none d-lg-block">
         <div class="container">
@@ -11,7 +6,7 @@ $categories = Modules\Category\App\Models\Category::where('parent_id', 0)->get()
                 <div class="col-lg-3 col-md-3 d-none d-lg-block text-center">
                     <a href="{{ route('home.index') }}">
                         <img src="{{ url('upload/general_setting/'.$getSetting->header_logo) }}" alt="logo" style="height: 172px; width: 128px; margin-bottom: -27px;">
-                        <div style="font-size: 20px;"><strong>शेतकऱ्याचे हक्काचे व्यासपीठ</strong></div>
+                        <div style="font-size: 20px;"><strong>शेतकऱ्यांचे हक्काचे व्यासपीठ</strong></div>
                     </a>
 
                 </div>
@@ -19,13 +14,16 @@ $categories = Modules\Category\App\Models\Category::where('parent_id', 0)->get()
 
  <!-- 🔍 Global Search Bar -->
  <div class="col-lg-3 col-md-3 d-none d-md-block">
-    <div class="search-bar">
-        <form class="search-form d-flex align-items-center" method="GET" action="{{ route('search') }}">
-          <input type="text" name="query" placeholder="{{ __('messages.Search crops') }}.." title="Enter search keyword">
-          <button type="submit" title="Search"><i class="fa fa-search"></i></button>
+    <div class="search-bar position-relative">
+        <form class="search-form d-flex align-items-center" method="GET" action="{{ route('home.index') }}">
+            <input id="liveSearchInput" type="text" name="query" placeholder="{{ __('messages.Search crops') }}.." title="Enter search keyword" autocomplete="off">
+            <button type="submit" title="Search"><i class="fa fa-search"></i></button>
         </form>
-      </div>
+        <ul id="liveSearchResults" class="list-group position-absolute w-100" style="z-index: 1000;"></ul>
+    </div>
 </div>
+
+
 
                 <div class="col-lg-6 col-md-6 d-none d-md-block text-right">
                     <div class="header-cta">
@@ -85,7 +83,7 @@ $categories = Modules\Category\App\Models\Category::where('parent_id', 0)->get()
                       <div class="col-lg-6 col-sm-4 d-block d-lg-none">
                       <a href="index.html" class="logo"><img src="{{ url('upload/general_setting/'.$getSetting->header_logo) }}" alt="logo" style="height: 67px; width: 128px; margin-bottom: -27px;">
                     </a>
-                    <div style="font-size: 14px; margin-top: 5px; color: #fff"><strong>शेतकऱ्याचे हक्काचे व्यासपीठ</strong></div>
+                    <div style="font-size: 14px; margin-top: 5px; color: #fff"><strong>शेतकऱ्यांचे हक्काचे व्यासपीठ</strong></div>
                     </div>
 
                     <div class="col-xl-8 col-lg-8">
@@ -150,3 +148,46 @@ $categories = Modules\Category\App\Models\Category::where('parent_id', 0)->get()
     </div>
 </header>
 
+<script>
+ $(document).ready(function () {
+    $('#liveSearchInput').on('keyup', function () {
+        let query = $(this).val();
+
+        if (query.length > 1) {
+            $.ajax({
+                url: '{{ route("live.search") }}',
+                type: 'GET',
+                data: { query: query },
+                success: function (data) {
+                    let resultsList = $('#liveSearchResults');
+                    resultsList.empty();
+
+                    if (data.length > 0) {
+                        $.each(data, function (index, item) {
+                            resultsList.append(`
+                                <li class="list-group-item">
+                                    <a href="${item.url}" class="text-dark text-decoration-none">${item.name}</a>
+                                    <a href="${item.url}" class="text-dark text-decoration-none">${item.description}</a>
+                                </li>
+                            `);
+                        });
+                    } else {
+                        resultsList.append('<li class="list-group-item text-muted">No results found</li>');
+                    }
+                },
+                error: function (xhr) {
+                    console.error("Search error:", xhr.responseText);
+                }
+            });
+        } else {
+            $('#liveSearchResults').empty();
+        }
+    });
+
+    $(document).click(function (e) {
+        if (!$(e.target).closest('.search-bar').length) {
+            $('#liveSearchResults').empty();
+        }
+    });
+});
+</script>

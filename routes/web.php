@@ -33,7 +33,9 @@ Route::get('services', [HomeController::class,'mainServices'])->name('home.servi
 Route::get('gallery', [HomeController::class,'mainGallery'])->name('home.gallery');
 Route::get('blog', [HomeController::class,'mainBlog'])->name('home.blog');
 Route::get('contact', [HomeController::class,'mainContact'])->name('home.contact');
-Route::get('/search', [HomeController::class, 'search'])->name('search');
+Route::get('/live-search', [HomeController::class, 'liveSearch'])->name('live.search');
+
+
 
 /////Crop Controller
 Route::get('crops', [CropController::class,'mainCrops'])->name('home.crops');

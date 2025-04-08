@@ -70,7 +70,7 @@
                                     <h6 class="card-title text-truncate">
                                         {{ $category->category_name }}
                                     </h6>
-                                    <p class="badge rounded-pill ms-1 text-white" style="background-color: #76bc02; font-size: 80%">
+                                    <p class="text-white" style="background-color: #76bc02; font-size: 21px">
                                         {{ $category->crop_managements_count }}
                                     </p>
                                 </div>

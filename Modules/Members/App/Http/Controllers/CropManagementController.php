@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\CropInquiry;
 use App\Models\City;
-
 use Str;
 use File;
 

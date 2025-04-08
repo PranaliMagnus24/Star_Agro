@@ -12,12 +12,12 @@
                 <div class="about-content s-about-content  wow fadeInRight  animated" data-animation="fadeInRight" data-delay=".4s">
                     <div class="about-title second-title pb-25">
                         <h5>{{ __('messages.About Us') }}</h5>
-                        <h2>{{ __('messages.Welcome To Organic & Agriculture Company') }}</h2>
+                        <h2>{{ __('messages.Welcome To Star Agro') }}</h2>
 
                     </div>
 
-                    <p>{{ __('messages.Nulla tristique aliquet tortor non imperdiet. Praesent eu metus mollis nibh hendrerit auctor. Mauris efficitur nisi eget turpis porttitor efficitur. Sed sit amet ante et dolor dictum fringilla et vitae purus') }}.</p>
-                     <div class="about-content3 mt-30">
+                    <p>{{ __('messages.At Star Agro Fruits and vegetables processing, we believe in minimizing waste and maximizing value for our farmers. When market rates are low, and farmers are forced to discard or ruin their produce, we step in to offer a solution. Our dehydrated products line utilizes cutting-edge technology to preserve the nutritional value and flavor of fruits and vegetables, providing a viable alternative for farmers to sell their produce and earn a fair income. By partnering with local farmers and promoting sustainable practices, we aim to reduce food waste, support rural livelihoods, and bring healthy, affordable products to consumers worldwide') }}.</p>
+                     {{-- <div class="about-content3 mt-30">
                         <div class="row">
                         <div class="col-md-6">
                          <div class="box">
@@ -38,14 +38,14 @@
                         </div>
 
 
-                    </div>
+                    </div> --}}
 
 
                 </div>
             </div>
 
         </div>
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-lg-3 col-sm-6">
                 <div class="single-counter mt-40 mb-30 wow fadeInUp  animated" >
                     <div class="counter p-relative">
@@ -94,6 +94,6 @@
 
                 </div>
             </div>
-        <div></div></div>
+        <div></div></div> --}}
     </div>
 </section>
