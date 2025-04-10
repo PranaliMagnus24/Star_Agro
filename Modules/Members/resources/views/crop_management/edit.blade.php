@@ -157,7 +157,7 @@
                                 @enderror
                             </div>
                         </div>
-
+                            <!-- video -->
                         <div class="row mb-3">
                             <label for="upload_video" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Upload Video') }}</label>
                             <div class="col-md-8 col-lg-3">
@@ -166,6 +166,7 @@
                                     <video width="200" controls class="mt-2">
                                         <source src="{{ asset($data->crop_video) }}" type="video/mp4">
                                         Your browser does not support the video tag.
+                
                                     </video>
                                 @endif
                             </div>

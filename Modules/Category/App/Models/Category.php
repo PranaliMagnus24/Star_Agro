@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Category\Database\factories\CategoryFactory;
 use Modules\Members\App\Models\CropManagement;
-use Laravel\Scout\Searchable;
+// use Laravel\Scout\Searchable;
 
 class Category extends Model
 {
-    use HasFactory,Searchable;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -31,14 +31,14 @@ class Category extends Model
     }
 
 
-    public function toSearchableArray()
-    {
-        return [
-            'category_name' => $this->category_name,
-            'description' => $this->description,
-            'status' => $this->status,
-        ];
-    }
+    // public function toSearchableArray()
+    // {
+    //     return [
+    //         'category_name' => $this->category_name,
+    //         'description' => $this->description,
+    //         'status' => $this->status,
+    //     ];
+    // }
 
 
 }

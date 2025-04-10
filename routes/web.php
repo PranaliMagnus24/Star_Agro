@@ -7,6 +7,9 @@ use App\Http\Controllers\Admin\RoleManagement\RoleController;
 use App\Http\Controllers\Admin\RoleManagement\PermissionController;
 use App\Http\Controllers\Admin\RoleManagement\UserRoleController;
 use App\Http\Controllers\Admin\FarmerRegistration\FarmerRegistrationController;
+use App\Http\Controllers\Admin\QuantityMass\QuantityMassController;
+use App\Http\Controllers\Admin\FAQ\FAQController;
+
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -33,7 +36,8 @@ Route::get('services', [HomeController::class,'mainServices'])->name('home.servi
 Route::get('gallery', [HomeController::class,'mainGallery'])->name('home.gallery');
 Route::get('blog', [HomeController::class,'mainBlog'])->name('home.blog');
 Route::get('contact', [HomeController::class,'mainContact'])->name('home.contact');
-Route::get('/live-search', [HomeController::class, 'liveSearch'])->name('live.search');
+Route::get('/live-search', [HomeController::class, 'liveSearch'])->name('live.search'); 
+Route::get('/faqs', [HomeController::class, 'mainFaq'])->name('home.faq');
 
 
 
@@ -116,5 +120,25 @@ Route::get('location',[LocationController::class,'create'])->name('create.locati
 ////FarmerRegistrationController
 
 
+//  QunantityMass
+// Admin route group
 
+    Route::get('/unitmass', [QuantityMassController::class, 'index'])->name('admin.quantityMass.index');
+    Route::get('/unitmass/create', [QuantityMassController::class, 'create'])->name('admin.quantityMass.create');
+    Route::post('/unitmass/store', [QuantityMassController::class, 'store'])->name('admin.quantityMass.store');
+    Route::get('/unitmass/edit/{id}', [QuantityMassController::class, 'edit'])->name('admin.quantityMass.edit');
+    Route::put('/unitmass/update/{id}', [QuantityMassController::class, 'update'])->name('admin.quantityMass.update');
+    Route::delete('/quantityMass/{id}', [QuantityMassController::class, 'destroy'])->name('admin.quantityMass.delete');
+
+//FAQ 
+//admin route group
+    Route::get('faq', [FAQController::class, 'index'])->name('admin.faq.index');
+    Route::get('faq/create', [FAQController::class, 'create'])->name('admin.faq.create');
+    Route::post('faq/store', [FAQController::class, 'store'])->name('admin.faq.store');
+    Route::get('faq/{id}/edit', [FAQController::class, 'edit'])->name('admin.faq.edit');
+    Route::put('faq/{id}', [FAQController::class, 'update'])->name('admin.faq.update');
+    Route::delete('faq/{id}', [FAQController::class, 'destroy'])->name('admin.faq.delete');
+
+    //FAQCategory 
+    
 require __DIR__.'/auth.php';

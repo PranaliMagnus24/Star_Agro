@@ -251,8 +251,14 @@ return [
     'How To Use Underlined Text To Improve User Experience' => 'How To Use Underlined Text To Improve User Experience',
     'Understanding CSS Layout And The Block Formatting' => 'Understanding CSS Layout And The Block Formatting',
     'Blog' => 'Blog',
-
-
+    'UnitMass'=>'UnitMass',
+    'Create'=>'Create',
+    'FAQ'=>'FAQ',
+    'Question'=>'Question',
+    'Answer'=>'Answer',
+    'ID'=>'ID',
+    'Read More'=>'Read More',
+    'FAQCategory'=>'FAQCategory',
 
 
 

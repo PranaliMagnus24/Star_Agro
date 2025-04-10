@@ -9,11 +9,11 @@ use App\Models\User;
 use App\Models\Favorite;
 use App\Models\CropInquiry;
 use App\Models\City;
-use Laravel\Scout\Searchable;
+// use Laravel\Scout\Searchable;
 
 class CropManagement extends Model
 {
-    use HasFactory, Searchable;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -50,20 +50,20 @@ public function inquiries()
 }
 
 
-public function toSearchableArray()
-{
-    return [
-        'crop_name' => $this->crop_name,
-        'planating_date' => $this->planating_date,
-        'expected_price' => $this->expected_price,
-        'min_qty' => $this->min_qty,
-        'max_qty' => $this->max_qty,
-        'type' => $this->type,
-        'description' => $this->description,
-        'harvesting_start_date' => $this->harvesting_start_date,
-        'harvesting_end_date' => $this->harvesting_end_date,
-    ];
-}
+// public function toSearchableArray()
+// {
+//     return [
+//         'crop_name' => $this->crop_name,
+//         'planating_date' => $this->planating_date,
+//         'expected_price' => $this->expected_price,
+//         'min_qty' => $this->min_qty,
+//         'max_qty' => $this->max_qty,
+//         'type' => $this->type,
+//         'description' => $this->description,
+//         'harvesting_start_date' => $this->harvesting_start_date,
+//         'harvesting_end_date' => $this->harvesting_end_date,
+//     ];
+// }
 
 
 }

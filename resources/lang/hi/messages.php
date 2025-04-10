@@ -187,12 +187,16 @@ return [
     'Changes will be effective immediately upon posting' => 'परिवर्तन पोस्ट करने के तुरंत बाद प्रभावी होंगे',
     'Contact Us' => 'हमसे संपर्क करें',
     'If you have any questions or concerns about these Terms, please contact us at [contact email or phone number' => 'यदि आपके पास इन शर्तों के बारे में कोई प्रश्न या चिंता है, तो कृपया हमसे [संपर्क ईमेल या फ़ोन नंबर] पर संपर्क करें',
-
-
-
-
-
-
+    'UnitMass'=>'यूनिटमास',
+    'Create'=>'बनाएं',
+    'FAQ'=>'अक्सर पूछे जाने वाले प्रश्नों',
+    'Question'=>'सवाल',
+    'Answer'=>'उत्तर',
+    'ID'=>'आयडी',
+    'Edit FAQ'=>'FAQ  संपादित करें',
+    'Frequently Asked Quesions'=>'अक्सर पूछे जाने वाले प्रश्नों',
+    'Read More'=>'और पढ़ें',
+    'FAQCategory'=>'FAQश्रेणी',
 
 
 

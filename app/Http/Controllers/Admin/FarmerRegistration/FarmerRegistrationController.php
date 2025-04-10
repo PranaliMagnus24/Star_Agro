@@ -34,7 +34,7 @@ class FarmerRegistrationController extends Controller
 
     return view('admin.farmer_registration.farmer_index', compact('users'));
 }
-
+// D:\laragon\www\Star_Agro\app\Http\Controllers\Admin\QuantityMass
 
 
 public function entrepreneurIndex(Request $request)

@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\CropInquiry;
 use App\Models\City;
+use App\Models\QuantityMass;
+
 use Str;
 use File;
 
@@ -48,14 +50,17 @@ class CropManagementController extends Controller
     public function createCrop()
     {
         $categories = Category::all();
-        return view('members::crop_management.create', compact('categories'));
+        $datas = QuantityMass::all();
+        return view('members::crop_management.create', compact('categories','datas'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
  public function store(Request $request)
+
     {
+       // dd($request->all());
 
         $request->validate([
             'category_id' => 'required|exists:categories,id',
@@ -70,10 +75,9 @@ class CropManagementController extends Controller
             'min_qty_mass' => 'nullable|string',
             'max_qty_mass' => 'nullable|string',
             'description' => 'nullable|string',
-            'solar_dryer' => 'nullable|string',
             'status' => 'required|in:active,inactive',
            'crop_images.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
-           'crop_video' => 'nullable|file|mimes:mp4,mov,avi,wmv|max:20480',
+            'crop_video' => 'nullable|file|mimes:mp4,mov,avi,wmv|max:2048',
         ]);
 
         $category = Category::find($request->crop_id);
@@ -106,7 +110,7 @@ class CropManagementController extends Controller
             'description' => $request->description,
             'status' => $request->status,
             'type' => $typeString,
-            'solar_dryer' => $request->solar_dryer,
+            
         ]);
 
         if ($request->hasFile('crop_images')) {
@@ -145,11 +149,11 @@ class CropManagementController extends Controller
                 $videoFilename = Str::random(30) . '.' . $videoFile->getClientOriginalExtension();
                 $videoFile->move(public_path('upload/crop_images/' . Auth::id()), $videoFilename);
 
-                // Store the video path in the CropImages table
+                // Store the video path in the Crop_video table
                 CropImages::create([
                     'farmer_id' => Auth::id(),
                     'crop_id' => $cropManagement->id,
-                    'crop_images' => 'upload/crop_images/' . Auth::id() . '/' . $videoFilename, // Store video path in the same column
+                    'crop_video' => 'upload/crop_images/' . Auth::id() . '/' . $videoFilename,
                 ]);
             } else {
                 \Log::error('Invalid video file: ' . $videoFile->getClientOriginalName());
@@ -198,10 +202,9 @@ class CropManagementController extends Controller
             'min_qty_mass' => 'nullable|string',
             'max_qty_mass' => 'nullable|string',
             'description' => 'nullable|string',
-            'solar_dryer' => 'nullable|string',
             'status' => 'required|in:active,inactive',
             'crop_images.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
-            'crop_video' => 'nullable|file|mimes:mp4,mov,avi,wmv|max:20480',
+            'crop_video' => 'nullable|file|mimes:mp4,mov,avi,wmv|max:2048',
         ]);
 
         $cropManagement->update([
@@ -219,7 +222,9 @@ class CropManagementController extends Controller
             'description' => $request->description,
             'status' => $request->status,
             'type' => $request->crop_type,
-            'solar_dryer' => $request->solar_dryer,
+            
+            
+            
         ]);
 
         // Handle crop images
@@ -252,7 +257,7 @@ class CropManagementController extends Controller
                 $videoFilename = Str::random(30) . '.' . $videoFile->getClientOriginalExtension();
                 $videoFile->move(public_path('upload/crop_images/' . Auth::id()), $videoFilename);
                 CropImages::where('crop_id', $cropManagement->id)->update([
-                    'crop_images' => 'upload/crop_images/' . Auth::id() . '/' . $videoFilename,
+                    'crop_video' => 'upload/crop_images/' . Auth::id() . '/' . $videoFilename,
                 ]);
             } else {
                 \Log::error('Invalid video file: ' . $videoFile->getClientOriginalName());
@@ -261,6 +266,8 @@ class CropManagementController extends Controller
 
         return redirect()->route('crop.index')->with('success', 'Crop management data updated successfully!');
     }
+
+    
     /**
      * Remove the specified resource from storage.
      */

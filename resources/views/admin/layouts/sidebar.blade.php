@@ -70,6 +70,17 @@
                 </a>
               </li>
 
+             <li>
+                <a href="{{ route('admin.quantityMass.index')}}">
+                  <i class="bi bi-circle"></i><span>{{ __('messages.UnitMass') }}</span>
+                </a>
+              </li> 
+              <!-- <li>
+                <a href="{{ route('admin.faq.index')}}">
+                  <i class="bi bi-circle"></i><span>{{ __('messages.FAQ') }}</span>
+                </a>
+              </li>  -->
+
         </ul>
       </li><!-- End Master Setting -->
 
@@ -98,6 +109,24 @@
               </li>
         </ul>
       </li><!-- End Entrepreneur Setting -->
-    </ul>
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#faq-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-question-circle"></i><span>{{ __('messages.FAQ') }}</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="faq-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+                <a href="{{ route('admin.faq.index') }}">
+                  <i class="bi bi-circle"></i><span>{{ __('messages.FAQ') }}</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                  <i class="bi bi-circle"></i><span>{{ __('messages.FAQCategory') }}</span>
+                </a>
+            </li>
+        </ul>
+      </li><!-- End FAQ Section -->
+
+    </ul>
   </aside><!-- End Sidebar-->

@@ -119,7 +119,7 @@ return [
     'Logout' => 'लॉगआउट',
     'My Profile' => 'माझे प्रोफाइल',
     'Contact us' => 'आमच्याशी संपर्क साधा',
-    'Get A Quote' => 'एक कोट मिळवा',
+    'Get A Quote' => 'एक उद्धरण मिळवा',
     'Email Address' => 'ईमेल पत्ता',
     'Phone Number' => 'फोन नंबर',
     'Subject' => 'विषय',
@@ -186,9 +186,14 @@ return [
     'Changes will be effective immediately upon posting' => 'पोस्ट केल्यावर बदल लगेच प्रभावी होतील',
     'Contact Us' => 'आमच्याशी संपर्क साधा',
     'If you have any questions or concerns about these Terms, please contact us at [contact email or phone number' => 'या अटींबद्दल तुमचे काही प्रश्न किंवा चिंता असल्यास, कृपया आमच्याशी [संपर्क ईमेल किंवा फोन नंबर] वर संपर्क साधा',
-
-
-
-
-
+    'UnitMass'=>'युनिटमास',
+    'Create'=>'तयार करा',
+    'FAQ'=>'FAQ',
+    'Question'=>'प्रश्न',
+    'Answer'=>'उत्तर',
+    'ID'=>'आयडी',
+    'Edit FAQ'=>'FAQ संपादित करा',
+    'Frequently Asked Quesions'=>'वारंवार विचारले गेलेले प्रश्न',
+    'Read More'=>'अधिक वाचा',
+    'FAQCategory'=>'FAQ श्रेणी',
 ];

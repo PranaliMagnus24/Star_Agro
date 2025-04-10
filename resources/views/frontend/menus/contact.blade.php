@@ -133,6 +133,7 @@ $getSetting = Modules\GeneralSetting\App\Models\GeneralSetting::first();
                 <div class="col-lg-12">
                     <div class="contact-field p-relative c-message mb-30">
                         <textarea name="message" id="message" cols="30" rows="10" placeholder="{{ __('messages.Write comments') }}"></textarea>
+                        <!-- <textarea name="message" id="message" cols="30" rows="10" placeholder="{{ __('messages.Write comments') }}"></textarea> -->
                     </div>
                     <div class="slider-btn">
                                 <button class="btn ss-btn active" data-animation="fadeInRight" data-delay=".8s">{{ __('messages.Submit') }}</button>
