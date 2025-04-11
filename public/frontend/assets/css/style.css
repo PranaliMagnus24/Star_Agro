@@ -1265,9 +1265,9 @@ width: 50%;
 margin: auto;
 }
 
-@keyframes slideContinuous {
+@keyframes slideRightToLeft {
     0% {
-        transform: translateX(-100%); /* Start off-screen to the left */
+        transform: translateX(100%); /* Start off-screen to the right */
         opacity: 0; /* Start invisible */
     }
     10% {
@@ -1277,13 +1277,13 @@ margin: auto;
         opacity: 1; /* Stay visible */
     }
     100% {
-        transform: translateX(100%); /* Move off-screen to the right */
+        transform: translateX(-100%); /* Move off-screen to the left */
         opacity: 0; /* Fade out */
     }
 }
 
 .slider-content h2 {
-    animation: slideContinuous 10s linear infinite; /* Adjust duration for speed */
+    animation: slideRightToLeft 10s linear infinite; /* Adjust duration for speed */
     white-space: nowrap; /* Prevent text wrapping */
 }
 /* 4. about */
