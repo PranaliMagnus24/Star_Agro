@@ -9,16 +9,20 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
+
 use Spatie\Permission\Models\Role;
 use App\Models\City;
 use App\Models\State;
 use App\Models\Country;
 use App\Models\User;
 use App\Models\Faq;
+use App\Models\FaqCategory;
 use App\Models\FarmerDocument;
 use Modules\Category\App\Models\Category;
 use Modules\Members\App\Models\CropImages;
 use Modules\Members\App\Models\CropManagement;
+
 use Str;
 use File;
 
@@ -76,7 +80,8 @@ class HomeController extends Controller
 
     public function mainAbout()
     {
-        return view('frontend.menus.about');
+        $datas = Faq::take(3)->get(); 
+        return view('frontend.menus.about',compact('datas'));
     }
 
     public function mainServices()
@@ -99,12 +104,25 @@ class HomeController extends Controller
         return view('frontend.menus.contact');
     }
 
-    public function mainFaq()
-{
-    $faqs = Faq::all(); 
-    return view('frontend.menus.faq', compact('faqs')); 
-}
+//     public function mainFaq()
+// {
+//     $faqs = Faq::all(); 
+//     return view('frontend.menus.faq', compact('faqs')); 
+// }
 
+// Example: HomeController.php
+public function mainFaq(Request $request)
+{
+    $categories = DB::table('faq_category')->get();
+
+    $faqs = DB::table('faqs1')
+        ->when($request->has('faq_category_id'), function ($query) use ($request) {
+            return $query->where('faq_category_id', $request->faq_category_id);
+        })
+        ->get();
+
+    return view('frontend.menus.faq', compact('faqs', 'categories'));
+}
 
 
     public function fetchState(Request $request)

@@ -128,6 +128,7 @@ class MembersController extends Controller
 
 public function store(Request $request): RedirectResponse
 {
+    // dd(request()->all());
     $request->validate([
         'gender' => 'required|string',
         'state' => 'required|string',
@@ -137,8 +138,10 @@ public function store(Request $request): RedirectResponse
         'dob' => 'nullable|date',
         'pincode' => 'nullable|string|max:10',
         'referral_code' => 'nullable|string|max:255',
+        'gst_no' =>'required|string',
         'known_about_us' => 'nullable|string|max:255',
         'farmer_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        'aadhar_pancard' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         'company_logo' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
         'upload_documents' => 'nullable|string',
         'documents' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
@@ -155,6 +158,7 @@ public function store(Request $request): RedirectResponse
     $user->taluka = $request->taluka;
     $user->town = $request->town;
     $user->referral_code = $request->referral_code;
+    $user->gst_no =$request->gst_no;
     $user->known_about_us = $request->known_about_us;
     $user->solar_dryer = $request->solar_dryer;
 
@@ -182,6 +186,14 @@ public function store(Request $request): RedirectResponse
             $this->uploadDocument($request->file('company_logo'), $user->id, 'company_logo', $farmerDocument);
         } else {
             $this->uploadDocument($request->file('company_logo'), $user->id, 'company_logo');
+        }
+    }
+
+    if ($user->hasRole('trader') && $request->hasFile('aadhar_pancard')) {
+        if ($farmerDocument) {
+            $this->uploadDocument($request->file('aadhar_pancard'), $user->id, 'aadhar_pancard', $farmerDocument);
+        } else {
+            $this->uploadDocument($request->file('aadhar_pancard'), $user->id, 'aadhar_pancard');
         }
     }
 
@@ -219,6 +231,7 @@ private function uploadDocument($file, $userId, $documentType, $farmerDocument =
             'document_type' => $documentType,
             'company_logo' => $documentType === 'company_logo' ? $filename : null,
             'farmer_certificate' => $documentType === 'farmer_certificate' ? $filename : null,
+            'aadhar_pancard'=>$documentType ===  'aadhar_pancard'? $filename : null,
         ]);
     }
 }

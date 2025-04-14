@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\RoleManagement\UserRoleController;
 use App\Http\Controllers\Admin\FarmerRegistration\FarmerRegistrationController;
 use App\Http\Controllers\Admin\QuantityMass\QuantityMassController;
 use App\Http\Controllers\Admin\FAQ\FAQController;
+use App\Http\Controllers\Admin\FAQ\FaqCategoryController;
 
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LocationController;
@@ -38,6 +39,7 @@ Route::get('blog', [HomeController::class,'mainBlog'])->name('home.blog');
 Route::get('contact', [HomeController::class,'mainContact'])->name('home.contact');
 Route::get('/live-search', [HomeController::class, 'liveSearch'])->name('live.search'); 
 Route::get('/faqs', [HomeController::class, 'mainFaq'])->name('home.faq');
+
 
 
 
@@ -140,5 +142,16 @@ Route::get('location',[LocationController::class,'create'])->name('create.locati
     Route::delete('faq/{id}', [FAQController::class, 'destroy'])->name('admin.faq.delete');
 
     //FAQCategory 
-    
+    // Route::get('faqcat', [FAQController::class, 'index'])->name('admin.faq.faq_cat.index');
+// FAQ Category Routes
+
+    Route::get('/faqCategory', [FaqCategoryController::class, 'index'])->name('admin.faqCategory'); 
+     Route::get('faqCategory/create', [FaqCategoryController::class, 'create'])->name('admin.faqCategory.create'); 
+   Route::post('faqCategory/store', [FaqCategoryController::class, 'store'])->name('admin.faq.faqCategory.store'); 
+    Route::get('faqCategory/{id}/edit', [FaqCategoryController::class, 'edit'])->name('admin.faq.faqCategory.edit'); 
+    Route::put('faqCategory/{id}', [FaqCategoryController::class, 'update'])->name('admin.faq.faqCategory.update');
+    Route::delete('faqCategory/{id}', [FaqCategoryController::class, 'destroy'])->name('admin.faq.faqCategory.delete'); 
+
+
+
 require __DIR__.'/auth.php';

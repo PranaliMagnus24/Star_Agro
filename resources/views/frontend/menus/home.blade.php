@@ -14,22 +14,25 @@
             <!-- services-area-end -->
 
               <!-- about-area -->
-              @include('frontend.partials.watch_us')
+              <!-- @include('frontend.partials.watch_us') -->
             <!-- about-area-end -->
 
               <!-- editor-choice -->
-              @include('frontend.partials.case_study')
+              <!-- @include('frontend.partials.case_study') -->
             <!-- case-study-end -->
 
              <!-- testimonial-area -->
-             @include('frontend.partials.testimonial')
+             <!-- @include('frontend.partials.testimonial') -->
             <!-- testimonial-area-end -->
 
 
              <!-- team-area -->
-             @include('frontend.partials.team_area')
+             @include('frontend.partials.team_area') 
+
+             <!-- featured_area -->
+              
             <!-- team-area-end -->
               <!-- blog-area -->
-              @include('frontend.partials.blog')
+              <!-- @include('frontend.partials.blog') -->
             <!-- blog-area-end -->
 @endsection

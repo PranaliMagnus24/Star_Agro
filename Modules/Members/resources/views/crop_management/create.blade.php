@@ -201,7 +201,7 @@
                             </div>
 
 
-                        </div>
+                        
 
                         <div class="row mb-3">
                             <label for="" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Description') }}</label>

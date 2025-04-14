@@ -26,7 +26,7 @@
                         @foreach($permissions as $permission)
                         <tr>
                             <td>{{ $permissions->firstItem() + $loop->index }}</td>
-                            <td>{{ $permission->name}}</td>
+                            <td>{{ ucfirst($permission->name) }}</td>
                             <td>
                                 @can('update permission')
                               <a href="{{ route('permission.edit', $permission->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>

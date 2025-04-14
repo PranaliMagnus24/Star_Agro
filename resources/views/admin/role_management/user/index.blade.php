@@ -27,7 +27,7 @@
                         @foreach($users as $user)
                         <tr>
                             <td>{{ $users->firstItem() + $loop->index }}</td>
-                            <td>{{ $user->name}}</td>
+                            <td>{{ ucfirst($user->name) }}</td>
                             <td>{{ $user->email}}</td>
                             <td>
                                 @if($user->getRoleNames()->isNotEmpty())

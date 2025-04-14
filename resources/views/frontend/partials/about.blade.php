@@ -12,7 +12,7 @@
                 <div class="about-content s-about-content  wow fadeInRight  animated" data-animation="fadeInRight" data-delay=".4s">
                     <div class="about-title second-title pb-25">
                         <h5>{{ __('messages.About Us') }}</h5>
-                        <h2>{{ __('messages.Welcome To Star Agro') }}</h2>
+                        <h2>{{ __('messages.Welcome To Star Agro Fruits and vegetables processing') }}.</h2>
 
                     </div>
 

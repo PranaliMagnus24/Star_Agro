@@ -51,7 +51,20 @@
                                             @enderror
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
+
+                                <!-- <div class="mb-3">
+                                     <div class="row">
+                                          <div class="col-md">
+                                             <label class="form-label">{{ __('messages.Phone Number') }} <span class="text-danger">*</span></label>
+                                                  <input type="text" name="phone" class="form-control" placeholder="{{ __('messages.Enter your phone number') }}" value="{{ old('phone') }}">
+                                                         @error('phone')
+                                                 <span class="text-danger">{{$message}}</span>
+                                                          @enderror
+                                            </div>
+                                     </div>
+                                </div> -->
+
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="col">
@@ -83,8 +96,8 @@
 
                                 <!-- Terms and Conditions Modal -->
 
-                                <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-success w-30 py-2">{{ __('messages.Submit') }}</button>
+                                <div class="d-flex justify-content-center slider-btn">
+                                    <button type="submit" class="btn ss-btn w-30 py-2">{{ __('messages.Submit') }}</button>
                                 </div>
                             </form>
                         </div>

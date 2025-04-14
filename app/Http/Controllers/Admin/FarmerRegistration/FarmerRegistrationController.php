@@ -32,9 +32,13 @@ class FarmerRegistrationController extends Controller
         ->orderBy('created_at','asc')
         ->paginate(10);
 
-    return view('admin.farmer_registration.farmer_index', compact('users'));
+        // Count farmers with solar dryer set to 'yes'
+        $yesCount = User::role('farmer')->where('solar_dryer', 'yes')->count();
+
+        return view('admin.farmer_registration.farmer_index', compact('users', 'yesCount'));
+    
 }
-// D:\laragon\www\Star_Agro\app\Http\Controllers\Admin\QuantityMass
+
 
 
 public function entrepreneurIndex(Request $request)

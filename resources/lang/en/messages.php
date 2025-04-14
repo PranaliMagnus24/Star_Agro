@@ -143,7 +143,7 @@ return [
     'Entrepreneur' => 'Entrepreneur',
     'All' => 'All',
     'Email Password Reset Link' => 'Email Password Reset Link',
-    'Welcome To Star Agro' => 'Welcome To Star Agro',
+    'Welcome To Star Agro Fruits and vegetables processing' => 'Welcome To Star Agro Fruits and vegetables processing',
     'At Star Agro Fruits and vegetables processing, we believe in minimizing waste and maximizing value for our farmers. When market rates are low, and farmers are forced to discard or ruin their produce, we step in to offer a solution. Our dehydrated products line utilizes cutting-edge technology to preserve the nutritional value and flavor of fruits and vegetables, providing a viable alternative for farmers to sell their produce and earn a fair income. By partnering with local farmers and promoting sustainable practices, we aim to reduce food waste, support rural livelihoods, and bring healthy, affordable products to consumers worldwide' => 'At Star Agro Fruits and vegetables processing, we believe in minimizing waste and maximizing value for our farmers. When market rates are low, and farmers are forced to discard or ruin their produce, we step in to offer a solution. Our dehydrated products line utilizes cutting-edge technology to preserve the nutritional value and flavor of fruits and vegetables, providing a viable alternative for farmers to sell their produce and earn a fair income. By partnering with local farmers and promoting sustainable practices, we aim to reduce food waste, support rural livelihoods, and bring healthy, affordable products to consumers worldwide',
 
     'Introduction' => 'Introduction',
@@ -244,7 +244,7 @@ return [
     'Web Developer' => 'Web Developer',
     'Roboto Dos' => 'Roboto Dos',
     'FAQ' => 'FAQ',
-    'Frequently Asked Quesions' => 'Frequently Asked Quesions',
+    'Frequently Asked Question' => 'Frequently Asked Question',
     'Breaking The Rules Using SQLite To Demo Web' => 'Breaking The Rules Using SQLite To Demo Web',
     'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip',
     'Monthly Web Development Update Pragmatic Releasing' => 'Monthly Web Development Update Pragmatic Releasing',
@@ -259,8 +259,13 @@ return [
     'ID'=>'ID',
     'Read More'=>'Read More',
     'FAQCategory'=>'FAQCategory',
-
-
+    'Do you have solar dryer'=>' Do you have solar dryer',
+    'GST No'=>'GST No',
+    'PAN card'=>'PAN card',
+    'Aadhar card'=>'Aadhar card',
+    'upload aadhar or PAN card'=>'upload aadhar or PAN card',
+    'Interested in installing a solar dryer?'=>'Interested in installing a solar dryer?',
+    'Enter your phone number'=>'Enter your phone number',
 
 
 

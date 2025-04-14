@@ -120,8 +120,9 @@
                   <i class="bi bi-circle"></i><span>{{ __('messages.FAQ') }}</span>
                 </a>
             </li>
+
             <li>
-                <a href="#">
+                <a href="{{route('admin.faqCategory')}}">
                   <i class="bi bi-circle"></i><span>{{ __('messages.FAQCategory') }}</span>
                 </a>
             </li>

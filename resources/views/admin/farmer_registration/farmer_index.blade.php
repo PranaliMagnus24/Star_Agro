@@ -9,15 +9,22 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">{{ __('messages.Farmers') }}</h4>
+                    <!-- <h4 class="mb-0">{{ __('messages.Farmers') }}</h4>  -->
+                    <h4 class="mb-0">
+    {{ __('messages.Farmers') }} 
+    <span class="badge bg-success ms-2">{{ $yesCount }}</span>
+</h4>
+
                     <div class="d-flex align-items-center">
+                    
                         <form class="d-flex me-2" method="GET" action="{{ route('admin.farmer.index') }}">
                             <div class="input-group">
                                 <select name="solar_dryer" class="form-select me-2">
                                     <option value="">{{ __('messages.All') }}</option>
                                     <option value="yes" {{ request('solar_dryer') == 'yes' ? 'selected' : '' }}>{{ __('messages.Yes') }}</option>
                                     <option value="no" {{ request('solar_dryer') == 'no' ? 'selected' : '' }}>{{ __('messages.No') }}</option>
-                                </select>
+                                </select> 
+
 
                                 <input type="text" name="search" class="form-control" placeholder="Search" value="{{ request('search') }}">
                                 <button type="submit" class="btn btn-primary" title="Search">
@@ -25,7 +32,7 @@
                                 </button>
                             </div>
                         </form>
-                        <a href="{{ route('admin.farmer.create') }}" class="btn btn-primary mb-3">+</a>
+                        
                     </div>
                 </div>
                 <div class="card-body mt-3">

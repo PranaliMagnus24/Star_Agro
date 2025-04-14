@@ -26,7 +26,7 @@
                         @foreach($roles as $role)
                         <tr>
                             <td>{{ $roles->firstItem() + $loop->index }}</td>
-                            <td>{{ $role->name}}</td>
+                            <td>{{ ucfirst($role->name) }}</td>
                             <td>
                                 @can('view permission button')
                                 <a href="{{ route('role.permissions', $role->id) }}" class="btn btn-primary btn-sm">Add / Edit role permission</a>
