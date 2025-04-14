@@ -5,6 +5,7 @@
 @section('member')
 
 
+
 <section class="section profile">
     <div class="row">
         <div class="col-xl-12">
@@ -81,6 +82,7 @@
                                 </div>
                             </form><!-- End Profile Edit Form -->
                         </div>
+
 
                         <div class="tab-pane fade {{ request('tab') == 'profile-change-password' ? 'show active' : '' }} pt-3" id="profile-change-password">
                             <!-- More information Form -->
@@ -220,7 +222,7 @@
                                       @if(auth()->user() && auth()->user()->hasRole('trader'))
                                       <div class="col-md-6">
                                         <div class="row mb-3">
-                                            <label for="about" class="col-md-4 col-form-label">{{ __('messages.upload aadhar or PAN card') }}</label>
+                                            <label for="aadhar_pancard" class="col-md-4 col-form-label">{{ __('messages.upload aadhar or PAN card') }}</label>
                                             <div class="col-md-8">
                                                 <input type="file" name="aadhar_pancard" class="form-control">
                                             </div>
@@ -229,6 +231,7 @@
                                             @enderror
                                         </div>
                                     </div>
+                                  
                                     @endif
                                     </div>
 
@@ -242,7 +245,7 @@
                                                 <div class="col-md-8">
                                                 <input type="text" class="form-control" name="company_name" id="company_name" value="{{ old('company_name', $user->company_name) }}">
                                                 @error('company_name')
-                                                <span class="text-danger">{{ $message }}</span>
+                                                <span class="text-danger">{{$message}}</span>
                                                 @enderror
                                             </div>
                                      </div>
@@ -250,44 +253,114 @@
 
                              
 
-    <!-- GST No -->
-    <div class="col-md-6">
-        <div class="row mb-3">
-            <label for="gst_no" class="col-md-4 col-form-label">{{ __('messages.GST No') }}</label>
-            <div class="col-md-8">
-                <input type="text" name="gst_no" id="gst_no" class="form-control" value="{{ old('gst_no', $user->gst_no) }}">
-                @error('gst_no')
-                <span class="text-danger">{{ $message }}</span>
-                @enderror
+                          <!-- GST No -->
+                         <div class="col-md-6">
+                              <div class="row mb-3">
+                                 <label for="gst_no" class="col-md-4 col-form-label">{{ __('messages.GST No') }}</label>
+                                    <div class="col-md-8">
+                                         <input type="text" name="gst_no" id="gst_no" class="form-control" value="{{ old('gst_no', $user->gst_no) }}">
+                                              @error('gst_no')
+                                                 <span class="text-danger">{{$message}}</span>
+                                                     @enderror
+                                     </div>
+                                 </div>
+                            </div>
+                        </div>
+                @endif
+
+                                    
+                                @if(auth()->user() && auth()->user()->hasRole('farmer'))
+                                <div class="row mb-3">
+                                         <!-- Farmer Certificate -->
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                           <label for="farmer_certificate" class="col-md-4 col-form-label">
+                                                {{ __('messages.Farmer Certificate') }}, 7/12 {{ __('messages.Certificate') }}
+                                            </label>
+                                            <div class="col-md-8">
+                                                     <input type="file" name="farmer_certificate" id="farmer_certificate" class="form-control">
+                                                         @if($user->farmerDocument && !empty($user->farmerDocument->farmer_certificate))
+                                                            <div class="mt-2">
+                                                                <a href="{{ asset('upload/farmer_documents/' . $user->id . '/' . $user->farmerDocument->farmer_certificate) }}" target="_blank">
+                                                                     View Uploaded Certificate
+                                                                </a>
+                                                            </div>
+                                                         @else
+                                                            <p>No certificate uploaded yet.</p>
+                                                         @endif
+                                            </div>
+                                                        @error('farmer_certificate')
+                                                            <span class="text-danger">{{$message}}</span>
+                                                      @enderror
+                                        </div>
+                                    </div>
+
+        <!-- Solar Dryer Dropdown -->
+        <div class="col-md-6">
+            <div class="row">
+                <label for="solar_dryer" class="col-md-4 col-form-label">
+                    {{ __('messages.Do you have solar dryer?') }}
+                </label>
+                <div class="col-md-8">
+                    <select name="solar_dryer" class="form-control" id="solar_dryer_select">
+                        <option value="yes" {{ old('solar_dryer', $user->solar_dryer) == 'yes' ? 'selected' : '' }}>{{ __('messages.Yes') }}</option>
+                        <option value="no" {{ old('solar_dryer', $user->solar_dryer) == 'no' ? 'selected' : '' }}>{{ __('messages.No') }}</option>
+                    </select>
+                    @error('solar_dryer')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conditional Checkbox -->
+    
+<div class="row mb-3" id="interested_solar_dryer" style="display: none;">
+    <div class="col-md-6 offset-md-6">
+        <label class="form-label d-block">{{ __('messages.Interested in installing a solar dryer?') }}</label>
+        <div class="d-flex gap-4 mt-2">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="interested_solar_dryer_yes" id="interested_checkbox_yes" value="1"
+                    {{ old('interested_solar_dryer_yes') ? 'checked' : '' }}>
+                <label class="form-check-label" for="interested_checkbox_yes">
+                    {{ __('messages.Yes') }}
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="interested_solar_dryer_no" id="interested_checkbox_no" value="1"
+                    {{ old('interested_solar_dryer_no') ? 'checked' : '' }}>
+                <label class="form-check-label" for="interested_checkbox_no">
+                    {{ __('messages.No') }}
+                </label>
             </div>
         </div>
     </div>
 </div>
+
+
+     <!-- How do you know about us -->
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row mb-3">
+                <label for="about" class="col-md-4 col-form-label">{{ __('messages.How do you know about us') }}</label>
+                <div class="col-md-6">
+                    <select name="known_about_us" id="known_about_us" class="form-control">
+                        <option value="">--Select options--</option>
+                        <option value="social_media" {{ old('known_about_us', $user->known_about_us ?? '') == 'social_media' ? 'selected' : '' }}>Social Media</option>
+                        <option value="seminar" {{ old('known_about_us', $user->known_about_us ?? '') == 'seminar' ? 'selected' : '' }}>Seminar</option>
+                    </select>
+                </div>
+                @error('known_about_us')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+        </div>
+    </div>
 @endif
 
-                                    @if(auth()->user() && auth()->user()->hasRole('farmer'))
-                                    <div class="col-md-6">
-                                        <div class="row mb-3">
-                                            <label for="farmer_certificate" class="col-md-4 col-form-label">{{ __('messages.Farmer Certificate') }}, 7/12 {{ __('messages.Certificate') }}</label>
-                                            <div class="col-md-8">
-                                                <input type="file" name="farmer_certificate" id="farmer_certificate" class="form-control">
-                                                @if($user->farmerDocument && !empty($user->farmerDocument->farmer_certificate))
-                                                    <div class="mt-2">
-                                                        <a href="{{ asset('upload/farmer_documents/' . $user->id . '/' . $user->farmerDocument->farmer_certificate) }}" target="_blank">
-                                                            View Uploaded Certificate
-                                                        </a>
-                                                    </div>
-                                                @else
-                                                    <p>No certificate uploaded yet.</p>
-                                                @endif
-                                            </div>
-                                            @error('farmer_certificate')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    @endif
-                                </div> 
+
+                                
 
                                 <!--  company logo-->
                                 @if(auth()->user() && auth()->user()->hasRole('entrepreneur'))
@@ -345,7 +418,7 @@
                                                 <a href="{{ asset('upload/farmer_documents/' . $user->id . '/' . $farmerDocument->file_path) }}" target="_blank">View File</a>
                                                 </div>
                                                 @endif
-                                @endif
+                                               @endif
                                             </div>
                                             @error('upload_documents')
                                             <span class="text-danger">{{$message}}</span>
@@ -355,60 +428,9 @@
                                 </div>
                                 @endif
 
-                               
-                                <!-- solar_farmer -->
-@if(auth()->user() && auth()->user()->hasRole('farmer'))
-<div class="row mb-3">
-    <!-- Solar Dryer Dropdown -->
-    <div class="col-md-4">
-        <label for="solar_dryer" class="form-label">{{ __('messages.Do you have solar dryer?') }}</label>
-        <select name="solar_dryer" class="form-control" id="solar_dryer_select">
-            <option value="yes" {{ old('solar_dryer', $user->solar_dryer) == 'yes' ? 'selected' : '' }}>{{ __('messages.Yes') }}</option>
-            <option value="no" {{ old('solar_dryer', $user->solar_dryer) == 'no' ? 'selected' : '' }}>{{ __('messages.No') }}</option>
-        </select>
-        @error('solar_dryer')
-        <span class="text-danger">{{$message}}</span>
-        @enderror
-    </div>
-
-    <!-- Conditional Checkbox -->
-    <div class="col-md-6" id="interested_solar_dryer" style="display: none;">
-        <label class="form-label">{{ __('messages.Interested in installing a solar dryer?') }}</label>
-        <div class="form-check mt-2">
-            <input class="form-check-input" type="checkbox" name="interested_solar_dryer" id="interested_checkbox" value="1"
-                {{ old('interested_solar_dryer') ? 'checked' : '' }}>
-            <label class="form-check-label" for="interested_checkbox">
-                {{ __('messages.Yes') }}
-            </label>
-        </div>
-    </div>
-</div>
-@endif
-
-
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <div class="row mb-3">
-                                            <label for="about" class="col-md-4 col-form-label">{{ __('messages.How do you know about us') }}</label>
-                                            <div class="col-md-6">
-                                                <select name="known_about_us" id="known_about_us" class="form-control">
-                                                    <option value="">--Select options--</option>
-                                                    <option value="social_media" {{ old('known_about_us', $user->known_about_us ?? '') == 'social_media' ? 'selected' : '' }}>Social Media</option>
-                                                    <option value="seminar" {{ old('known_about_us', $user->known_about_us ?? '') == 'seminar' ? 'selected' : '' }}>Seminar</option>
-                                                </select>
-
-
-                                                {{-- <input type="text" name="known_about_us" id="known_about_us" class="form-control" value="{{ old('known_about_us', $user->known_about_us)}}"> --}}
-                                            </div>
-                                            @error('known_about_us')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="text-center">
+                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary">{{ __('messages.Save') }}</button>
-                                </div>
+                                </div> 
                             </form><!-- End More information form -->
                         </div>
                         <div class="tab-pane fade {{ request('tab') == 'change-password' ? 'show active' : '' }} pt-3" id="change-password">
@@ -446,7 +468,7 @@
                                 </div>
 
 
-                            </form>
+                            </form> <!--END More information Form -->
 
                         </div>
 

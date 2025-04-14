@@ -111,19 +111,33 @@ class HomeController extends Controller
 // }
 
 // Example: HomeController.php
+// public function mainFaq(Request $request)
+// {
+//     $categories = DB::table('faq_category')->get();
+
+//     $faqs = DB::table('faqs1')
+//         ->when($request->has('faq_category_id'), function ($query) use ($request) {
+//             return $query->where('faq_category_id', $request->faq_category_id);
+//         })
+//         ->get();
+
+//     return view('frontend.menus.faq', compact('faqs', 'categories'));
+// }
+
 public function mainFaq(Request $request)
 {
-    $categories = DB::table('faq_category')->get();
+    $categories = FaqCategory::where('status', 'active')->get();
 
-    $faqs = DB::table('faqs1')
-        ->when($request->has('faq_category_id'), function ($query) use ($request) {
+    $faqs = Faq::when($request->faq_category_id, function ($query) use ($request) {
             return $query->where('faq_category_id', $request->faq_category_id);
         })
+        ->where('status', 'active')
         ->get();
 
     return view('frontend.menus.faq', compact('faqs', 'categories'));
 }
 
+//-------------------------------------------------------
 
     public function fetchState(Request $request)
     {

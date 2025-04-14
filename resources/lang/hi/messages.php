@@ -189,7 +189,7 @@ return [
     'If you have any questions or concerns about these Terms, please contact us at [contact email or phone number' => 'यदि आपके पास इन शर्तों के बारे में कोई प्रश्न या चिंता है, तो कृपया हमसे [संपर्क ईमेल या फ़ोन नंबर] पर संपर्क करें',
     'UnitMass'=>'यूनिटमास',
     'Create'=>'बनाएं',
-    'FAQ'=>'अक्सर पूछे जाने वाले प्रश्नों',
+    'FAQ'=>'एफएक्यू',
     'Question'=>'सवाल',
     'Answer'=>'उत्तर',
     'ID'=>'आयडी',
@@ -204,6 +204,8 @@ return [
     'upload aadhar or PAN card'=>'आधार या पैन कार्ड अपलोड करें',
     'Interested in installing a solar dryer?'=>'क्या आप सौर ड्रायर स्थापित करने में रुचि रखते हैं?',
     'Enter your phone number'=>'अपना फोन नंबर डालें',
+    'Documents'=>'दस्तावेज़',
+    'trader'=>'व्यापारी',
 
 
 ];

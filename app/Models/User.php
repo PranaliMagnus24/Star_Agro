@@ -21,7 +21,8 @@ class User extends Authenticatable
 
     protected $table = 'users';
     protected $fillable = [
-        'name','email','password','phone','first_name','last_name','terms','gender','dob','state','district','pincode','taluka','town','referral_code','known_about_us','company_name','country','solar_dryer','gst_no','aadhar/pancard',
+        'name','email','password','phone','first_name','last_name','terms','gender','dob','state','district','pincode','taluka','town','referral_code',
+        'known_about_us','company_name','country','solar_dryer','gst_no','aadhar_pancard',
     ];
 
     /**
@@ -63,9 +64,15 @@ class User extends Authenticatable
         return $this->belongsTo(Zipcode::class, 'zip_id', 'id');
     }
 
-    public function farmerDocument()
+    // public function farmerDocument()
+    // {
+    //     return $this->hasOne(FarmerDocuments::class, 'user_id', 'id');
+    // }
+    public function farmerDocuments()
     {
-        return $this->hasOne(FarmerDocuments::class, 'user_id', 'id');
+        return $this->hasMany(FarmerDocuments::class, 'user_id', 'id');
     }
+    
+
 
 }

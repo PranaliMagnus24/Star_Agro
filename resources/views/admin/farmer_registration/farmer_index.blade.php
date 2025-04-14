@@ -44,6 +44,7 @@
                             <th>{{ __('messages.Email') }}</th>
                             <th>{{ __('messages.Phone') }}</th>
                             <th>{{ __('messages.Solar Dryer') }}</th>
+                            <th>{{ __('messages.Documents') }}</th>
                             <th class="no-wrap">{{ __('messages.Action') }}</th>
                         </tr>
                     </thead>
@@ -56,7 +57,36 @@
                             <td>{{$user->phone}}</td>
                             <td>{{ ucfirst($user->solar_dryer)}}</td>
                             <td>
-
+                                @if (!empty($user->farmerDocuments) && $user->farmerDocuments->count())
+                                    @foreach ($user->farmerDocuments as $document)
+                                @if ($document->file_path)
+                                <a href="{{ asset('upload/farmer_documents/' . $user->id . '/' . $document->file_path) }}" target="_blank">
+                                    <img src="{{ asset('upload/farmer_documents/' . $user->id . '/' . $document->file_path) }}" alt="Document" style="max-width: 50px; max-height: 50px; border: 1px solid #ddd; padding: 2px;">
+                                </a>
+                                 @else
+                                     <span>No Document</span>
+                                 @endif
+                                    @endforeach
+                                @else
+                                  <span>No Document</span>
+                                @endif
+                            </td>
+                        
+                            
+                            <td class="text-center text-nowrap">
+                            <form action="{{ route('admin.verify.document', $user->id) }}" method="POST" style="display:inline-block;">
+                                    @csrf
+                                     @method('PATCH')
+                                   <button type="submit" class="btn btn-info btn-sm" title="Verify Document">
+                                   <i class="bi bi-check2-circle"></i>
+                                    </button>
+                            </form>
+                                 <a href="{{ route('admin.farmer.edit', $user->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                    <form action="{{ route('admin.farmer.delete', $user->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                         @csrf
+                                         @method('DELETE')
+                                         <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></button>
+                                    </form>
                             </td>
                         </tr>
 

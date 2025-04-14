@@ -32,23 +32,14 @@
                 <div class="col-lg-12">
                     <div class="my-masonry">
                         <div class="button-group filter-button-group">
-                            <!-- <button class="active" data-filter="*">All FAQ</button>
-                            <button data-filter=".general">General FAQs</button>
-                            <button data-filter=".farmer">Farmer FAQs</button>
-                            <button data-filter=".product">Product FAQs</button>
-                            <button data-filter=".ordering">Ordering and Payment FAQs</button>
-                            <button data-filter=".shipping">Shipping and Delivery FAQs</button> -->
-                            
-                           <button class="active" data-filter="*">All FAQ</button>
-
-                          @foreach ($categories as $category)
-                         @php
-                         $catClass = strtolower(str_replace(' ', '', $category->name));
-                         @endphp
-                        <button data-filter=".{{ $catClass }}">{{ $category->name }}</button>
-                       @endforeach
-                       </div>
-
+                            <button class="active" data-filter="*">All FAQ</button>
+                            @foreach ($categories as $category)
+                                @php
+                                    $catClass = strtolower(str_replace(' ', '', $category->name));
+                                @endphp
+                                <button data-filter=".{{ $catClass }}">{{ $category->name }}</button>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
@@ -67,11 +58,6 @@
                     </div>
                 @endforeach
             </div> 
-            
-
-
-            
-
         </div>
     </div>
 </section>

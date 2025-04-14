@@ -108,7 +108,16 @@ Route::group(['middleware' => ['isAdmin']], function() {
     /////FarmerRegistrationController
     Route::get('farmer',[FarmerRegistrationController::class,'farmerIndex'])->name('admin.farmer.index');
     Route::get('farmer/create',[FarmerRegistrationController::class,'farmerCreate'])->name('admin.farmer.create');
+    Route::get('farmer/{id}/edit', [FarmerRegistrationController::class, 'farmerEdit'])->name('admin.farmer.edit');
+    Route::put('admin/farmer/{id}', [FarmerRegistrationController::class, 'update'])->name('admin.farmer.update');
+    Route::patch('/admin/farmer/verify/{id}', [FarmerController::class, 'verifyDocument'])->name('admin.verify.document');
+    Route::delete('farmer/{id}', [FarmerRegistrationController::class, 'farmerDelete'])->name('admin.farmer.delete');
+
+//entrepreneur
     Route::get('entrepreneur',[FarmerRegistrationController::class,'entrepreneurIndex'])->name('admin.entrepreneur.index');
+//trader
+    Route::get('trader',[FarmerRegistrationController::class,'traderIndex'])->name('admin.trader.index');
+
 
 });
 

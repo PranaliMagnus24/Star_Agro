@@ -128,7 +128,7 @@ class MembersController extends Controller
 
 public function store(Request $request): RedirectResponse
 {
-    // dd(request()->all());
+    // dd($request->all());
     $request->validate([
         'gender' => 'required|string',
         'state' => 'required|string',
@@ -138,12 +138,12 @@ public function store(Request $request): RedirectResponse
         'dob' => 'nullable|date',
         'pincode' => 'nullable|string|max:10',
         'referral_code' => 'nullable|string|max:255',
-        'gst_no' =>'required|string',
+        'gst_no' =>'nullable|string',
         'known_about_us' => 'nullable|string|max:255',
         'farmer_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         'aadhar_pancard' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         'company_logo' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-        'upload_documents' => 'nullable|string',
+        'upload_documents' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
         'documents' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         'company_name' => 'nullable|string|max:255',
         'solar_dryer' => 'nullable|string|max:255',
@@ -170,7 +170,6 @@ public function store(Request $request): RedirectResponse
     $user->save();
 
     $farmerDocument = FarmerDocuments::where('user_id', $user->id)->first();
-
     // Handle farmer certificate upload
     if ($request->hasFile('farmer_certificate')) {
         if ($farmerDocument) {
@@ -190,6 +189,7 @@ public function store(Request $request): RedirectResponse
     }
 
     if ($user->hasRole('trader') && $request->hasFile('aadhar_pancard')) {
+        $farmerDocument = FarmerDocuments::where('user_id', $user->id)->first();
         if ($farmerDocument) {
             $this->uploadDocument($request->file('aadhar_pancard'), $user->id, 'aadhar_pancard', $farmerDocument);
         } else {
@@ -223,6 +223,7 @@ private function uploadDocument($file, $userId, $documentType, $farmerDocument =
     if ($farmerDocument) {
         $farmerDocument->file_path = $filename;
         $farmerDocument->document_type = $documentType;
+        $farmerDocument->aadhar_pancard = $documentType === 'aadhar_pancard' ? $filename : null;
         $farmerDocument->save();
     } else {
         FarmerDocuments::create([

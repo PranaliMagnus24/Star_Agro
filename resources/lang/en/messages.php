@@ -259,13 +259,15 @@ return [
     'ID'=>'ID',
     'Read More'=>'Read More',
     'FAQCategory'=>'FAQCategory',
-    'Do you have solar dryer'=>' Do you have solar dryer',
+    'Do you have solar dryer?'=>' Do you have solar dryer?',
     'GST No'=>'GST No',
     'PAN card'=>'PAN card',
     'Aadhar card'=>'Aadhar card',
     'upload aadhar or PAN card'=>'upload aadhar or PAN card',
     'Interested in installing a solar dryer?'=>'Interested in installing a solar dryer?',
     'Enter your phone number'=>'Enter your phone number',
+    'Documents'=>'Documents',
+    'trader'=>'trader',
 
 
 
