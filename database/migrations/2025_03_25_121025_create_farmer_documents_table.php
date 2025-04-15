@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('farmer_documents', function (Blueprint $table) {
             $table->id();
             $table->string('farmer_certificate')->nullable();
+            
             $table->timestamps();
         });
     }

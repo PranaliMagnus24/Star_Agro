@@ -14,17 +14,17 @@ $getSetting = Modules\GeneralSetting\App\Models\GeneralSetting::first();
         <!-- Place favicon.ico in the root directory -->
 
 		<!-- CSS here -->
-        <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('frontend/assets/css/magnific-popup.css') }}">
-        <link rel="stylesheet" href="{{ asset('frontend/assets/fontawesome/css/all.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('frontend/assets/font-flaticon/flaticon.css') }}">
-        <link rel="stylesheet" href="{{ asset('frontend/assets/css/dripicons.css') }}">
-        <link rel="stylesheet" href="{{ asset('frontend/assets/css/slick.css') }}">
-        <link rel="stylesheet" href="{{ asset('frontend/assets/css/meanmenu.css') }}">
-        <link rel="stylesheet" href="{{ asset('frontend/assets/css/default.css') }}">
-        <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
-        <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css')}}?{{ time() }}">
+        <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.min.css') }}?{{ time() }}">
+        <link rel="stylesheet" href="{{ asset('frontend/assets/css/magnific-popup.css') }}?{{ time() }}">
+        <link rel="stylesheet" href="{{ asset('frontend/assets/fontawesome/css/all.min.css') }}?{{ time() }}">
+        <link rel="stylesheet" href="{{ asset('frontend/assets/font-flaticon/flaticon.css') }}?{{ time() }}">
+        <link rel="stylesheet" href="{{ asset('frontend/assets/css/dripicons.css') }}?{{ time() }}">
+        <link rel="stylesheet" href="{{ asset('frontend/assets/css/slick.css') }}?{{ time() }}">
+        <link rel="stylesheet" href="{{ asset('frontend/assets/css/meanmenu.css') }}?{{ time() }}">
+        <link rel="stylesheet" href="{{ asset('frontend/assets/css/default.css') }}?{{ time() }}">
+        <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}?{{ time() }}">
+        <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}?{{ time() }}">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

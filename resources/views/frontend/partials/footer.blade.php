@@ -8,7 +8,7 @@
                         <div class="f-widget-title mb-30">
                            <img src="{{ url('upload/general_setting/'.$getSetting->footer_logo)}}" alt="img">
                            <div style="font-size: 14px;color: #fff; margin-top: -30px;">
-                           <strong>शेतकऱ्याचे हक्काचे व्यासपीठ</strong></div>
+                           <strong>शेतकऱ्यांचे हक्काचे व्यासपीठ</strong></div>
                         </div>
 
                         {{-- <p>Donec luctus est turpis, viverra vestibulum augue volutpat in. Duis euismod eu justo sit amet tincidunt. Suspendisse euismod ex iaculis, sodales nulla congue.</p> --}}

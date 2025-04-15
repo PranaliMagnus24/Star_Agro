@@ -40,11 +40,42 @@
                         </div>
 
                         <div class="mb-3">
+                            <!-- <label for="documents" class="form-label">{{ __('messages.Documents') }}</label>
+                            <input type="file" class="form-control" name="documents" id="documents"> -->
                             <label for="documents" class="form-label">{{ __('messages.Documents') }}</label>
-                            <input type="file" class="form-control" name="documents" id="documents">
-                            @if ($user->documents)
+                            <input type="file" class="form-control" name="documents[]" id="documents" multiple>
+                            <!-- @if ($user->documents)
                                 <p class="mt-2"><a href="{{ asset('uploads/farmers/' . $user->documents) }}" target="_blank">{{ __('messages.View Document') }}</a></p>
-                            @endif
+                            @endif -->
+                            @if ($user->farmerDocuments && $user->farmerDocuments->count())
+    <div class="mt-3 d-flex flex-wrap gap-3">
+        @foreach ($user->farmerDocuments as $index => $document)
+            @if ($document->file_path)
+                <!-- Trigger Button -->
+                <button type="button" class="btn p-0 border-0" data-bs-toggle="modal" data-bs-target="#docModal{{ $user->id }}{{ $index }}">
+                    <img src="{{ asset('upload/farmer_documents/' . $user->id . '/' . $document->file_path) }}" alt="Document" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="docModal{{ $user->id }}{{ $index }}" tabindex="-1" aria-labelledby="docModalLabel{{ $user->id }}{{ $index }}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="docModalLabel{{ $user->id }}{{ $index }}">{{ __('messages.Document') }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <img src="{{ asset('upload/farmer_documents/' . $user->id . '/' . $document->file_path) }}" alt="Full Document" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endforeach
+    </div>
+@endif
+
+
                         </div>
 
                         <button type="submit" class="btn btn-primary">{{ __('messages.Update') }}</button>

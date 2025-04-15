@@ -197,6 +197,7 @@ return [
     'Frequently Asked Question'=>'अक्सर पूछे जाने वाले प्रश्नों',
     'Read More'=>'और पढ़ें',
     'FAQCategory'=>'FAQश्रेणी',
+    'FaqCategory'=>'FAQश्रेणी',
     'Do you have solar dryer?'=>'क्या आपके पास सौर ड्रायर है?',
     'GST No'=>'जीएसटी नंबर',
     'PAN card'=>'पैन कार्ड',
@@ -206,6 +207,15 @@ return [
     'Enter your phone number'=>'अपना फोन नंबर डालें',
     'Documents'=>'दस्तावेज़',
     'trader'=>'व्यापारी',
-
+    'View Document'=>'दस्तावेज़ देखें',
+    'Document'=>'दस्तावेज़',
+    'Verify Document'=>'दस्तावेज़ वेरिफाइड करें',
+    'Verified'=>'वेरिफाइड',
+    'Close'=>'क्लोज',
+    'Cancel'=>'रद्द करें',
+    'Edit Farmer'=>'किसान संपादित करें',
+    'All Documents'=>'सभी दस्तावेज़',
+    'No Document available'=>'कोई दस्तावेज़ उपलब्ध नहीं है',
+    'FAQCategoryName'=>'FAQश्रेणीनाम',
 
 ];

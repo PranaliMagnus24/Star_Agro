@@ -268,6 +268,17 @@ return [
     'Enter your phone number'=>'Enter your phone number',
     'Documents'=>'Documents',
     'trader'=>'trader',
+    'View Document'=>'View Document',
+    'Document'=>'Document',
+    'Verify Document'=>'Verify Document',
+    'Verified'=>'Verified',
+    'Close'=>'Close',
+    'Cancel'=>'Cancel',
+    'Edit Farmer'=>'Edit Farmer',
+    'All Documents'=>'All Documents',
+    'No Document available'=>'No Document available ',
+    'FAQCategoryName'=>'FAQCategoryName',
+    'FaqCategory'=>'FaqCategory',
 
 
 

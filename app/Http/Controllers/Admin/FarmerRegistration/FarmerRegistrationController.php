@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Category\App\Models\Category;
 use App\Models\User;
+use App\Models\FarmerDocuments;
 use Spatie\Permission\Models\Role;
 use Modules\Members\App\Models\CropImages;
 use Modules\Members\App\Models\CropManagement;
@@ -45,6 +46,44 @@ class FarmerRegistrationController extends Controller
 
     }
 
+    // upadate
+    public function update(Request $request, $id)
+{
+    // Validate the incoming request data
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255|unique:users,email,' . $id,
+        'phone' => 'required|string|max:15',
+        'solar_dryer' => 'required|string',
+        'documents.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+    ]);
+
+
+    $user = User::findOrFail($id);
+
+    
+    $user->update($validatedData);
+
+    
+    $filePaths = []; 
+
+    if ($request->hasFile('documents')) {
+        foreach ($request->file('documents') as $file) {
+            // Store each file
+            $path = $file->store('farmer_documents/' . $user->id, 'public');
+            $filePaths[] = $path; 
+        }
+    }
+
+    
+    $user->farmerDocuments()->updateOrCreate(
+        ['user_id' => $user->id],
+        ['file_paths' => implode(',', $filePaths), 'is_verified' => false] // Store as comma-separated
+    );
+
+    
+    return redirect()->route('admin.farmer.index')->with('success', 'Farmer updated successfully.');
+}
     public function farmerDelete($id)
     {
         $user = User::findOrFail($id);

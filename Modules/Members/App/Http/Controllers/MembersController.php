@@ -42,6 +42,7 @@ class MembersController extends Controller
         $countries = Country::get(["name", "id"]);
         $states = State::where('country_id',101)->get(["name", "id"]);
         $cities = City::where('state_id',4008)->get(["name", "id"]);
+        $farmerDocument = FarmerDocuments::where('user_id', $user->id)->first(); // Retrieve the farmer document
         return view('members::update_profile', compact('user','countries','states','cities'));
     }
 
@@ -128,7 +129,7 @@ class MembersController extends Controller
 
 public function store(Request $request): RedirectResponse
 {
-    // dd($request->all());
+        // dd($request->all());
     $request->validate([
         'gender' => 'required|string',
         'state' => 'required|string',
@@ -138,17 +139,22 @@ public function store(Request $request): RedirectResponse
         'dob' => 'nullable|date',
         'pincode' => 'nullable|string|max:10',
         'referral_code' => 'nullable|string|max:255',
-        'gst_no' =>'nullable|string',
+        // 'gst_no' =>'nullable|string',
         'known_about_us' => 'nullable|string|max:255',
         'farmer_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         'aadhar_pancard' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         'company_logo' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-        'upload_documents' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+        'upload_documents' => 'nullable|string',
         'documents' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         'company_name' => 'nullable|string|max:255',
         'solar_dryer' => 'nullable|string|max:255',
     ]);
+  
+    if (auth()->user()->hasRole('entrepreneur')) {
+        $rules['gst_no'] = 'required|string'; 
+    }
 
+    // $request->validate($rules);
     $user = auth()->user();
     $user->gender = $request->gender;
     $user->state = $request->state;
@@ -179,7 +185,7 @@ public function store(Request $request): RedirectResponse
         }
     }
 
-    // Handle company logo upload only if user has role 'company'
+    // Handle company logo upload only if user has role 'entrepreneur''
     if ($user->hasRole('entrepreneur') && $request->hasFile('company_logo')) {
         if ($farmerDocument) {
             $this->uploadDocument($request->file('company_logo'), $user->id, 'company_logo', $farmerDocument);

@@ -37,7 +37,7 @@
 
     <!-- Read More Button -->
     <div class="slider-btn mt-30">
-        <a href="#" class="btn ss-btn mr-15" data-animation="fadeInRight" data-delay=".8s">
+        <a href="{{ route('home.faq') }}" class="btn ss-btn mr-15" data-animation="fadeInRight" data-delay=".8s">
             {{ __('messages.Read More') }}
         </a>
     </div>
