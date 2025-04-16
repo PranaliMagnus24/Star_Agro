@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <div class="card mt-3">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">{{ isset($faq) ? 'Edit FAQ' : 'Create FAQ' }}</h4>
+                    <h4 class="mb-0">{{ isset($faq) ? 'Edit' : 'Create' }}</h4>
                     <a href="{{ route('admin.faq.index') }}" class="btn btn-primary btn-sm">
                         <i class="bi bi-skip-backward-fill"></i>
                     </a>
