@@ -124,6 +124,16 @@
       </li>   <!-- end trader setting  -->
 
       <li class="nav-item">
+    <a class="nav-link" href="{{ route('pages.index') }}">
+        <i class="bi-journal-text"></i>
+        <span>{{ __('messages.CMS Pages') }}</span>
+    </a>
+</li>
+
+
+      <!-- end CMS page -->
+
+      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#faq-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-question-circle"></i><span>{{ __('messages.FAQ') }}</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>

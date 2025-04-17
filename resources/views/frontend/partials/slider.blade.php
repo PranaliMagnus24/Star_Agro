@@ -18,11 +18,17 @@
 
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-2">
+                    <!-- <div class="col-lg-2 col-md-2">
                         <div class="slider-img" data-animation="fadeInUp" data-delay=".4s">
                        <img src="{{asset('frontend/assets/img/slider/slider_img05.png') }}" alt="slider_img05">
                         </div>
-                    </div>
+                    </div> -->
+                    <div class="col-lg-2 col-md-2 d-none d-md-block">
+    <div class="slider-img" data-animation="fadeInUp" data-delay=".4s">
+        <img src="{{ asset('frontend/assets/img/slider/slider_img05.png') }}" alt="slider_img05">
+    </div>
+</div>
+
                 </div>
             </div>
         </div>

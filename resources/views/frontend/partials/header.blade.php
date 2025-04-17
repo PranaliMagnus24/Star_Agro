@@ -40,7 +40,7 @@
     <div class="header-top second-header d-none d-lg-block">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-3 col-md-3 text-center">
+                <div class="col-lg-6 col-md-6 text-center">
                     <a href="{{ route('home.index') }}">
                         <img src="{{ url('upload/general_setting/'.$getSetting->header_logo) }}" alt="logo" style="height: 172px; width: 128px; margin-bottom: -27px;">
                         <div style="font-size: 20px;"><strong>शेतकऱ्यांचे हक्काचे व्यासपीठ</strong></div>
@@ -57,7 +57,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 text-right">
+                <!-- <div class="col-lg-6 col-md-6 text-right">
                     <div class="header-cta">
                         <ul class="list-inline">
                             <li class="list-inline-item">
@@ -77,7 +77,7 @@
                                 </div>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -151,20 +151,22 @@
                                 </a>
                                 <ul class="dropdown-menu mt-3" style="min-width: 5rem;">
                                     <li>
-                                        <a href="{{ url('language/en') }}" class="{{ App::getLocale() === 'en' ? 'active' : '' }}">Eng
+                                        <a href="{{ url('language/en') }}" class="{{ App::getLocale() === 'en' ? 'active' : '' }}">{{ __('messages.English') }}
+                                        </a>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('language/mr') }}" class="{{ App::getLocale() === 'mr' ? 'active' : '' }}">Mar
+                                        <a href="{{ url('language/mr') }}" class="{{ App::getLocale() === 'mr' ? 'active' : '' }}">{{ __('messages.Marathi') }}
+                                        </a>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('language/hi') }}" class="{{ App::getLocale() === 'hi' ? 'active' : '' }}">Hin
+                                        <a href="{{ url('language/hi') }}" class="{{ App::getLocale() === 'hi' ? 'active' : '' }}">{{ __('messages.Hindi') }}
                                         </a>
                                     </li>
                                 </ul>
                             </li>
-                                <li><a href="#" class="menu-tigger"><i class="fal fa-bars"></i></a></li>
+                                <!-- <li><a href="#" class="menu-tigger"><i class="fal fa-bars"></i></a></li> -->
                             </ul>
                         </div>
                     </div>

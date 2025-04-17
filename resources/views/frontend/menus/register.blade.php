@@ -124,6 +124,10 @@
                                         <label class="form-check-label" for="terms">
                                             {{ __('messages.I agree to the') }} <a href="#" data-toggle="modal" data-target="#termsModal">{{ __('messages.Terms and Conditions') }}</a>
                                         </label>
+                                        <br>
+                                        @error('terms')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                     </div>
                                 </div>
 
@@ -289,7 +293,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-success w-30 py-2">{{ __('messages.Submit') }}</button>
+                                    <button type="submit" class="btn ss-btn w-30 py-2">{{ __('messages.Submit') }}</button>
                                 </div>
                             </form>
                         </div>

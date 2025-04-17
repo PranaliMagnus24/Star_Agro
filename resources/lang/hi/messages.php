@@ -20,7 +20,7 @@ return [
     'ID' => 'आयडी',
     'Master Settings' =>'मास्टर सेटिंग्स',
     'Category' => 'कॅटेगरी',
-    'Description' => 'विवरण',
+    'Description' => 'डिस्क्रिप्शन',
     'Status' => 'स्थिति',
     'Location' => 'पता',
     'Farmer' => 'किसान',
@@ -100,7 +100,7 @@ return [
     'Country' => 'देश',
     'Inquiry' => 'जाँच करना',
     'Inquiry Form' => 'पूछताछ प्रपत्र',
-    'Letest Crops' => 'नवीनतम फसलें',
+    'Latest Crops' => 'नवीनतम फसलें',
     'Submit' => 'सबमिट',
     'Registration Form' => 'पंजीकरण फॉर्म',
     'User Type' => 'उपयोगकर्ता का प्रकार',
@@ -123,7 +123,7 @@ return [
     'Email Address' => 'मेल पता',
     'Phone Number' => 'फ़ोन नंबर',
     'Subject' => 'विषय',
-    'Write Comments' => 'टिप्पणियाँ लिखें',
+    'Write comments' => 'टिप्पणियाँ लिखें',
     'Office Address' => 'कार्यालय का पता',
     'Timeing' => 'टाइमिंग',
     'Related Categories' => 'संबंधित श्रेणियाँ',
@@ -207,6 +207,7 @@ return [
     'Enter your phone number'=>'अपना फोन नंबर डालें',
     'Documents'=>'दस्तावेज़',
     'trader'=>'व्यापारी',
+    'Trader'=>'व्यापारी',
     'View Document'=>'दस्तावेज़ देखें',
     'Document'=>'दस्तावेज़',
     'Verify Document'=>'दस्तावेज़ वेरिफाइड करें',
@@ -217,5 +218,16 @@ return [
     'All Documents'=>'सभी दस्तावेज़',
     'No Document available'=>'कोई दस्तावेज़ उपलब्ध नहीं है',
     'FAQCategoryName'=>'FAQश्रेणीनाम',
+    'Not Verified'=>'वेरिफाइड नहीं है',
+    'CMS Pages'=>'CMS पेजेस',
+    'Title'=>'शीर्षक',
+    'Summary'=>'सारांश',
+    'CMS Page'=>'CMS पेज',
+    'Marathi'=>'मराठी',
+    'English'=> 'अंग्रेज़ी',
+    'Hindi'=>'हिन्दी',
 
 ];
+    
+
+

@@ -18,7 +18,7 @@ class Faq extends Model
     ];
 
     // Define the relationship with FaqCategory
-    public function category()
+    public function faqcategory()
     {
         return $this->belongsTo(FaqCategory::class, 'faq_category_id');
     }

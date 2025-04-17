@@ -100,7 +100,7 @@ return [
     'Country' => 'Country',
     'Inquiry' => 'Inquiry',
     'Inquiry Form' => 'Inquiry Form',
-    'Letest Crops' => 'Letest Crops',
+    'Latest Crops' => 'Latest Crops',
     'Submit' => 'Submit',
     'Registration Form' => 'Registration Form',
     'User Type' => 'User Type',
@@ -123,7 +123,7 @@ return [
     'Email Address' => 'Email Address',
     'Phone Number' => 'Phone Number',
     'Subject' => 'Subject',
-    'Write Comments' => 'Write Comments',
+    'Write comments' => 'Write comments',
     'Office Address' => 'Office Address',
     'Timeing' => 'Timeing',
     'Related Categories' => 'Related Categories',
@@ -268,6 +268,7 @@ return [
     'Enter your phone number'=>'Enter your phone number',
     'Documents'=>'Documents',
     'trader'=>'trader',
+    'Trader'=>'Trader',
     'View Document'=>'View Document',
     'Document'=>'Document',
     'Verify Document'=>'Verify Document',
@@ -279,6 +280,14 @@ return [
     'No Document available'=>'No Document available ',
     'FAQCategoryName'=>'FAQCategoryName',
     'FaqCategory'=>'FaqCategory',
+    'Not Verified'=>'Not Verified',
+    'CMS Pages'=>'CMS Pages',
+    'Title'=>'Title',
+    'Summary'=>'Summary',
+    'CMS Page'=>'CMS Page',
+    'Marathi'=>'Marathi',
+    'English'=>'English',
+
 
 
 

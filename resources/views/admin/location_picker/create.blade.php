@@ -1,4 +1,4 @@
-@extends('admin.layouts.layout')
+ @extends('admin.layouts.layout')
 
 @section('title', 'Location')
 @section('admin')
@@ -7,4 +7,6 @@
     longitude="{{ old('longitude', $location->longitude ?? '') }}"
     address="{{ old('address', $location->address ?? '') }}"
     fieldName="location" />
-    @endsection
+    @endsection 
+
+    

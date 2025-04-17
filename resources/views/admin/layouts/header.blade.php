@@ -1,7 +1,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
 <div class="d-flex align-items-center justify-content-between">
-    <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
+    <a href="{{ route('home.index') }}" class="logo d-flex align-items-center">
         @if($getSetting && $getSetting->header_logo)
             <img src="{{ url('upload/general_setting/' . $getSetting->header_logo) }}" alt="{{ $getSetting->website_name }} Logo" style="max-height: 128px;">
         @endif

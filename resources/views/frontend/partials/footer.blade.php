@@ -22,11 +22,13 @@
                         </div>
                         <div class="footer-link">
                             <ul>
-                                <li><a href="{{ route('home.index')}}">{{ __('messages.Home') }}</a></li>
-                                <li><a href="{{ route('home.about')}}">{{ __('messages.About Us') }}</a></li>
+                                <!-- <li><a href="{{ route('home.index')}}">{{ __('messages.Home') }}</a></li> -->
+                                <!-- <li><a href="{{ route('home.about')}}">{{ __('messages.About Us') }}</a></li> -->
                                 <li><a href="{{ route('home.faq') }}">{{ __('messages.FAQ') }}</a></li>
+                               
                                 <li><a href="{{ route('home.services')}}">{{ __('messages.Services') }} </a></li>
                                 <li><a href="{{ route('home.contact')}}">{{ __('messages.Contact us') }}</a></li>
+                                <li><a href="{{ route('home.terms')}}">{{ __('messages.Terms and Conditions') }}</a></li>
                                 {{-- <li><a href="{{ route('home.blog')}}">{{ __('messages.Blog') }}</a></li> --}}
                             </ul>
                         </div>

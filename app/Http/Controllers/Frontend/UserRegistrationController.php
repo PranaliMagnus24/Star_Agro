@@ -30,6 +30,7 @@ class UserRegistrationController extends Controller
 
     public function mainStore(Request $request): RedirectResponse
     {
+        // dd($request->all());
 
         $request->validate([
             'first_name' => ['required','string'],
@@ -37,6 +38,8 @@ class UserRegistrationController extends Controller
             'phone' => ['required','integer','digits:10'],
             'email' => ['nullable', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'terms' => 'accepted', 
+
         ]);
 
         $user = User::create([

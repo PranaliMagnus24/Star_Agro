@@ -31,36 +31,15 @@
             <div class="col-lg-12">
                 <div class="section-title center-align mb-50 text-center">
                     <h5>{{ __('messages.Crops') }}</h5>
-                    <h2>{{ __('messages.Letest Crops') }}</h2>
+                    <h2>{{ __('messages.Latest Crops') }}</h2>
                 </div>
 
             </div>
         </div>
 
         <div class="row">
-            <!-- Left Column - Related Categories Section -->
-            <div class="col-12 col-md-3 mb-3">
-                <div class="card p-3 border-0 shadow-sm">
-
-                    <h6 class="mb-3 border-bottom pb-2">{{ __('messages.Related Categories') }}</h6>
-                    <ul class="list-unstyled">
-                        @foreach($relatedCategories as $category)
-                            <li class="d-flex align-items-center py-2 border-bottom">
-                                <!-- Category Image -->
-                                <img src="{{ $category->category_image ? asset($category->category_image) : asset('frontend/assets/img/dummy.jpg') }}"
-                                alt="{{ $category->category_name }}" class="rounded-circle mr-2"
-                                style="width: 40px; height: 40px; object-fit: cover;">
-                                <!-- Category Name -->
-                                <a href="{{ route('crop.management.list', $category->id) }}" class="text-dark flex-grow-1">
-                                    {{ $category->category_name }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-            <!-- Right Column - Cards Section -->
-            <div class="col-12 col-md-9">
+             <!-- Right Column - Cards Section -->
+             <div class="col-12 col-md-9">
                 <h5 class="mb-3">{{ $currentCategory->category_name }}</h5>
 
                 @if($cropManagements->isEmpty())
@@ -125,8 +104,8 @@
                                     <!-- Inquiry Button and Favorite Icon in Same Row -->
                                     <div class="d-flex justify-content-between align-items-center">
                                         <a href="javascript:void(0);"
-                                           class="btn btn-success btn-sm px-2 py-1 rounded-pill"
-                                           style="height: 25px; width: 80px; display: block; border-radius: 15px;"
+                                           class="btn ss-btn w-30 py-1 mt-3"
+                                           style=""
                                            data-toggle="modal" data-id="{{ $cropManagement->id }}"
                                            data-target="#inquiryModal"
                                            onclick="handleInquiryClick('{{ $cropManagement->id }}')">{{ __('messages.Inquiry') }}</a>
@@ -142,6 +121,28 @@
                     </div>
                 @endif
             </div>
+            <!-- Left Column - Related Categories Section -->
+            <div class="col-12 col-md-3 mb-3">
+                <div class="card p-3 border-0 shadow-sm">
+
+                    <h6 class="mb-3 border-bottom pb-2">{{ __('messages.Related Categories') }}</h6>
+                    <ul class="list-unstyled">
+                        @foreach($relatedCategories as $category)
+                            <li class="d-flex align-items-center py-2 border-bottom">
+                                <!-- Category Image -->
+                                <img src="{{ $category->category_image ? asset($category->category_image) : asset('frontend/assets/img/dummy.jpg') }}"
+                                alt="{{ $category->category_name }}" class="rounded-circle mr-2"
+                                style="width: 40px; height: 40px; object-fit: cover;">
+                                <!-- Category Name -->
+                                <a href="{{ route('crop.management.list', $category->id) }}" class="text-dark flex-grow-1">
+                                    {{ $category->category_name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+           
         </div>
 
 
@@ -165,29 +166,56 @@
                         @csrf
                         <input type="hidden" name="crop_management_id" id="crop_management_id" value="{{ isset($cropManagement) ? $cropManagement->id : '' }}">
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                                 <label for="user_name">{{ __('messages.Name') }}<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="name" id="user_name">
                                 @error('name')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
-                            </div>
+                            </div> -->
                             <div class="col-md-6">
+                                <label for="user_name">{{ __('messages.Name') }}<span class="text-danger">*</span></label>
+                                 <input type="text" class="form-control" name="name" id="user_name"
+                                    value="{{ old('name', auth()->user()->name ?? '') }}">
+                                    @error('name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                     @enderror
+                            </div>
+                            <!-- <div class="col-md-6">
                                 <label for="user_phone">{{ __('messages.Phone') }}<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="mobile_number" id="user_phone">
                                 @error('mobile_number')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
+                            </div> -->
+                            <div class="col-md-6">
+                                <label for="user_phone">{{ __('messages.Phone') }}<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="phone" id="user_phone"
+                                    value="{{ old('phone', auth()->user()->phone ?? '') }}">
+                                @error('mobile_number')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <!-- <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="user_email">{{ __('messages.Email') }}</label>
                                 <input type="text" class="form-control" name="email" id="user_email">
                                 @error('email')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
+                            </div> -->
+                            <div class="row mb-3">
+                            <div class="col-md-6">
+                                 <label for="user_email">{{ __('messages.Email') }}</label>
+                                    <input type="text" class="form-control" name="email" id="user_email"
+                                    value="{{ old('email', auth()->user()->email ?? '') }}">
+                                    @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                             </div>
+                            <!-- </div> -->
+
                             <div class="col-md-6">
                                 <label for="user_phone">{{ __('messages.City') }}</label>
                                 <select name="city" id="" class="form-control">
@@ -216,8 +244,8 @@
                             <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-                        <div class="submit-button text-center">
-                            <button type="submit" class="btn btn-primary" style="height: 46px;">{{ __('messages.Submit') }}</button>
+                        <div class="d-flex justify-content-center slider-btn">
+                            <button type="submit" class="btn ss-btn w-30 py-2" style="height: 46px;">{{ __('messages.Submit') }}</button>
                         </div>
                     </form>
                 </div>

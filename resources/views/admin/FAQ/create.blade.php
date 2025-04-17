@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <div class="card mt-3">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">{{ isset($faq) ? 'Edit' : 'Create' }}</h4>
+                    <h4 class="mb-0">{{ isset($faq) ? 'Edit FAQ' : 'Create FAQ' }}</h4>
                     <a href="{{ route('admin.faq.index') }}" class="btn btn-primary btn-sm">
                         <i class="bi bi-skip-backward-fill"></i>
                     </a>
@@ -20,6 +20,23 @@
                         @if(isset($faq))
                             @method('PUT')
                         @endif
+
+                        <div class="row mb-3">
+                            <label for="faq_category_id" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.FAQCategoryName') }}</label>
+                            <div class="col-md-8 col-lg-8">
+                                <select name="faq_category_id" id="faq_category_id" class="form-control">
+                                    <option value="">--Select Category--</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ ucfirst($category->name) }}</option>
+                                    @endforeach
+                                </select>
+                                @error('faq_category_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+
 
                         <div class="row mb-3">
                             <label for="question" class="col-md-4 col-lg-3 col-form-label">{{__('messages.Question')}}</label>

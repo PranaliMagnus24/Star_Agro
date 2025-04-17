@@ -88,7 +88,7 @@
                                                     <input name="phone" type="text" class="form-control" id="phone"
                                                         value="{{ $user->phone }}">
                                                     @error('phone')
-                                                        <span class="text-danger">{{$message}}</span>
+                                                        <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -319,10 +319,10 @@
                                         </div>
                                     @endif
 
-
+                                    <!-- Farmer Certificate -->
                                     @if (auth()->user() && auth()->user()->hasRole('farmer'))
                                         <div class="row mb-3">
-                                            <!-- Farmer Certificate -->
+
                                             <div class="col-md-6">
                                                 <div class="row">
                                                     <label for="farmer_certificate" class="col-md-4 col-form-label">
@@ -344,7 +344,6 @@
                                                                     style="max-width: 150px; border: 1px solid #ddd; padding: 4px; margin-top: 5px;">
                                                             </div>
                                                         @else
-                                                            <!-- <p>No certificate uploaded yet.</p> -->
                                                         @endif
                                                     </div>
                                                     @error('farmer_certificate')
@@ -434,7 +433,7 @@
 
 
 
-
+                                        <!-- role=entrepreneur -->
                                     <!--  company logo-->
                                     @if (auth()->user() && auth()->user()->hasRole('entrepreneur'))
                                         <div class="row">
@@ -451,32 +450,44 @@
                                                                 ->first();
                                                         @endphp
 
-@if ($companyLogo && $companyLogo->file_path)
-    <div class="mt-2">
-        <strong>Uploaded Logo:</strong><br>
-        <img src="{{ asset('upload/farmer_documents/' . $user->id . '/' . $companyLogo->file_path) }}"
-            alt="Company Logo"
-            style="max-width: 150px; border: 1px solid #ddd; padding: 4px;">
-        <br>
-        @if ($companyLogo->is_verified)
-            <span class="text-success" style="font-weight: bold;">{{ __('messages.Verified') }}</span>
-        @else
-            <span class="text-danger" style="font-weight: bold;">{{ __('messages.Not Verified') }}</span>
-        @endif
-    </div>
-@endif
+                                                        @if ($companyLogo && $companyLogo->file_path)
+                                                            <div class="mt-2">
+                                                                <strong>Uploaded Logo:</strong><br>
+                                                                <img src="{{ asset('upload/company_documents/'. $user->id . '/' .$companyLogo->file_path) }}"
+                                                                    alt="Company Logo"
+                                                                    style="max-width: 150px; border: 1px solid #ddd; padding: 4px;">
+                                                                <br>
+                                                                <!-- @if ($companyLogo->is_verified)
+                                                                    <span class="text-success"
+                                                                        style="font-weight: bold;">{{ __('messages.Verified') }}</span>
+                                                                @else
+                                                                    <span class="text-danger"
+                                                                        style="font-weight: bold;">{{ __('messages.Not Verified') }}</span>
+                                                                @endif -->
+                                                                @if ($companyLogo->is_verified)
+                                                                    <span class="text-success" style="font-weight: bold;">
+                                                                        <i class="bi bi-file-earmark-check text-success fs-4"></i> <!-- Check icon for verified -->
+                                                                    </span>
+                                                                     @else
+                                                                            <span class="text-danger" style="font-weight: bold;">
+                                                                                <i class="bi bi-file-earmark-x fs-4"></i> <!-- X icon for not verified -->
+                                                                            </span>
+                                                                @endif
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                     @error('company_logo')
                                                         <span class="text-danger">{{$message}}</span>
                                                     @enderror
                                                 </div>
                                             </div>
+                                            
                                             <div class="col-md-6">
                                                 <div class="row mb-3">
                                                     <label for="about"
                                                         class="col-md-4 col-form-label">{{ __('messages.Upload Documents') }}</label>
                                                     <div class="col-md-8">
-                                                        <select name="upload_documents" id="upload_documents"
+                                                        <select name="document_type" id="upload_documents"
                                                             class="form-control">
                                                             <option value="">--Select documents options--</option>
                                                             <option value="gst-certificate"
@@ -489,7 +500,7 @@
                                                             </option>
                                                         </select>
 
-                                                        
+
                                                         <input type="file" name="documents" class="form-control">
                                                         @if ($user)
                                                             @php
@@ -501,7 +512,7 @@
                                                             @if ($farmerDocument && $farmerDocument->file_path)
                                                                 <div class="mt-2">
                                                                     <strong>Uploaded Document:</strong>
-                                                                    <a href="{{ asset('upload/farmer_documents/' . $user->id . '/' . $farmerDocument->file_path) }}"
+                                                                    <a href="{{ asset('upload/company_documents/' . $user->id . '/' . $farmerDocument->file_path) }}"
                                                                         target="_blank">View File</a>
                                                                 </div>
                                                             @endif

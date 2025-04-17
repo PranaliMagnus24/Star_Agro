@@ -104,6 +104,10 @@ class HomeController extends Controller
         return view('frontend.menus.contact');
     }
 
+    public function mainTerms(){
+        return view('frontend.menus.terms');
+    }
+
 //     public function mainFaq()
 // {
 //     $faqs = Faq::all(); 

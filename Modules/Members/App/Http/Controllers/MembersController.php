@@ -169,13 +169,23 @@ public function store(Request $request): RedirectResponse
     $user->solar_dryer = $request->solar_dryer;
 
 
+
     if ($user->hasRole('entrepreneur')) {
         $user->company_name = $request->company_name;
+        
     }
 
     $user->save();
 
-    $farmerDocument = FarmerDocuments::where('user_id', $user->id)->first();
+       $farmerDocument = FarmerDocuments::firstOrNew(['user_id' => $user->id]);
+
+    // Save upload_documents value (just the type string)
+    if ($request->filled('upload_documents')) {
+        $farmerDocument->upload_documents = $request->upload_documents;
+    }
+
+    $farmerDocument->user_id = $user->id;
+    $farmerDocument->save();
     // Handle farmer certificate upload
     if ($request->hasFile('farmer_certificate')) {
         if ($farmerDocument) {
@@ -192,6 +202,7 @@ public function store(Request $request): RedirectResponse
         } else {
             $this->uploadDocument($request->file('company_logo'), $user->id, 'company_logo');
         }
+        // $user->upload_documents = $request->upload_documents;
     }
 
     if ($user->hasRole('trader') && $request->hasFile('aadhar_pancard')) {
@@ -217,8 +228,45 @@ public function store(Request $request): RedirectResponse
 }
 
 private function uploadDocument($file, $userId, $documentType, $farmerDocument = null)
+// {
+//     $userFolder = public_path('upload/farmer_documents/' . $userId);
+//     if (!file_exists($userFolder)) {
+//         mkdir($userFolder, 0755, true);
+//     }
+
+//     $filename = $documentType . '_' . Str::random(30) . '.' . $file->getClientOriginalExtension();
+//     $file->move($userFolder, $filename);
+
+//     if ($farmerDocument) {
+//         $farmerDocument->file_path = $filename;
+//         $farmerDocument->document_type = $documentType;
+//         $farmerDocument->aadhar_pancard = $documentType === 'aadhar_pancard' ? $filename : null;
+//         $farmerDocument->save();
+//     } else {
+//         FarmerDocuments::create([
+//             'user_id' => $userId,
+//             'file_path' => $filename,
+//             'document_type' => $documentType,
+//             'company_logo' => $documentType === 'company_logo' ? $filename : null,
+//             'farmer_certificate' => $documentType === 'farmer_certificate' ? $filename : null,
+//             'aadhar_pancard'=>$documentType ===  'aadhar_pancard'? $filename : null,
+//         ]);
+//     }
+// }
+
 {
-    $userFolder = public_path('upload/farmer_documents/' . $userId);
+    $user = auth()->user();
+
+    // Determine the folder name based on role
+    if ($user->hasRole('entrepreneur')) {
+        $baseFolder = 'upload/company_documents/';
+    } elseif ($user->hasRole('trader')) {
+        $baseFolder = 'upload/trader_documents/';
+    } else {
+        $baseFolder = 'upload/farmer_documents/';
+    }
+
+    $userFolder = public_path($baseFolder . $userId);
     if (!file_exists($userFolder)) {
         mkdir($userFolder, 0755, true);
     }
@@ -227,18 +275,20 @@ private function uploadDocument($file, $userId, $documentType, $farmerDocument =
     $file->move($userFolder, $filename);
 
     if ($farmerDocument) {
-        $farmerDocument->file_path = $filename;
+        $farmerDocument->file_path = $baseFolder . $userId . '/' . $filename;
         $farmerDocument->document_type = $documentType;
-        $farmerDocument->aadhar_pancard = $documentType === 'aadhar_pancard' ? $filename : null;
+        $farmerDocument->aadhar_pancard = $documentType === 'aadhar_pancard' ? $filename : $farmerDocument->aadhar_pancard;
+        $farmerDocument->company_logo = $documentType === 'company_logo' ? $filename : $farmerDocument->company_logo;
+        $farmerDocument->farmer_certificate = $documentType === 'farmer_certificate' ? $filename : $farmerDocument->farmer_certificate;
         $farmerDocument->save();
     } else {
         FarmerDocuments::create([
             'user_id' => $userId,
-            'file_path' => $filename,
+            'file_path' => $baseFolder . $userId . '/' . $filename,
             'document_type' => $documentType,
+            'aadhar_pancard' => $documentType === 'aadhar_pancard' ? $filename : null,
             'company_logo' => $documentType === 'company_logo' ? $filename : null,
             'farmer_certificate' => $documentType === 'farmer_certificate' ? $filename : null,
-            'aadhar_pancard'=>$documentType ===  'aadhar_pancard'? $filename : null,
         ]);
     }
 }

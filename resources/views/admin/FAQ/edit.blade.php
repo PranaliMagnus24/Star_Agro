@@ -20,6 +20,21 @@
                         @method('PUT')
 
                         <div class="row mb-3">
+                            <label for="faq_category_id" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.FAQCategoryName') }}</label>
+                            <div class="col-md-8 col-lg-8">
+                                <select name="faq_category_id" id="faq_category_id" class="form-control">
+                                    <option value="">--Select Category--</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ ucfirst($category->name) }}</option>
+                                    @endforeach
+                                </select>
+                                @error('faq_category_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="question" class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Question') }}</label>
                             <div class="col-md-8 col-lg-8">
                                 <input type="text" name="question" id="question" class="form-control" value="{{ old('question', $faq->question) }}">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\FAQ;
 
 use App\Http\Controllers\Controller;
 use App\Models\Faq;
+use App\Models\FaqCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,8 +26,8 @@ class FAQController extends Controller
 
         }
 
-        $faqs1 = $query->paginate(10); 
-
+        $faqs1 = $query->with('faqcategory')->paginate(10); 
+        // dd($faqs1);
         return view('admin.faq.index', compact('faqs1'));
     }
 
@@ -35,7 +36,8 @@ class FAQController extends Controller
      */
     public function create()
     {
-        return view('admin.faq.create');
+        $categories = FaqCategory::all(); // Fetch all FAQ categories
+        return view('admin.faq.create', compact('categories'));
     }
 
     /**
@@ -66,7 +68,8 @@ class FAQController extends Controller
     public function edit($id)
     {
         $faq = FAQ::findOrFail($id);
-        return view('admin.faq.edit', compact('faq'));
+        $categories = FaqCategory::all(); // Fetch all FAQ categories
+        return view('admin.faq.edit', compact('faq','categories'));
     }
 
     /**
