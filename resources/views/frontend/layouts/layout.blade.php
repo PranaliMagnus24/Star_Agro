@@ -25,6 +25,9 @@ $getSetting = Modules\GeneralSetting\App\Models\GeneralSetting::first();
         <link rel="stylesheet" href="{{ asset('frontend/assets/css/default.css') }}?{{ time() }}">
         <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}?{{ time() }}">
         <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}?{{ time() }}">
+        <!-- Quill styling for proper frontend rendering -->
+        <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -114,6 +117,7 @@ $getSetting = Modules\GeneralSetting\App\Models\GeneralSetting::first();
         <script src="{{ asset('frontend/assets/js/jquery.magnific-popup.min.js') }}"></script>
         <script src="{{ asset('frontend/assets/js/element-in-view.js') }}"></script>
         <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+        <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 
     </body>
 </html>

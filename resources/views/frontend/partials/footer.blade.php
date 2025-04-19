@@ -28,7 +28,11 @@
                                
                                 <li><a href="{{ route('home.services')}}">{{ __('messages.Services') }} </a></li>
                                 <li><a href="{{ route('home.contact')}}">{{ __('messages.Contact us') }}</a></li>
-                                <li><a href="{{ route('home.terms')}}">{{ __('messages.Terms and Conditions') }}</a></li>
+                                
+                                @foreach ($pages as $p)
+                                <li><a href="{{ route('home.terms', ['slug' => $p->slug]) }}">{{ $p->title }}</a></li>
+                                @endforeach
+                                
                                 {{-- <li><a href="{{ route('home.blog')}}">{{ __('messages.Blog') }}</a></li> --}}
                             </ul>
                         </div>

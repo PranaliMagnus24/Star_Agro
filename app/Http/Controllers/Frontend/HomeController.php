@@ -18,6 +18,7 @@ use App\Models\Country;
 use App\Models\User;
 use App\Models\Faq;
 use App\Models\FaqCategory;
+use App\Models\Pages;
 use App\Models\FarmerDocument;
 use Modules\Category\App\Models\Category;
 use Modules\Members\App\Models\CropImages;
@@ -76,6 +77,30 @@ class HomeController extends Controller
     //     // Return the results as a JSON response
     //     return response()->json($results);
     // }
+    public function liveSearch(Request $request)
+{
+    $query = $request->input('query');
+
+    $results = collect();
+
+    if ($query) {
+        $crops = CropManagement::where('crop_name', 'like', "%{$query}%")
+                                ->orWhere('type', 'like', "%{$query}%")
+                                ->take(5)
+                                ->get();
+
+        $results = $crops->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'name' => $item->crop_name,
+                'url' => route('crop.management.list', ['search' => $item->crop_name])
+            ];
+        });
+    }
+
+    return response()->json($results);
+}
+
 
 
     public function mainAbout()
@@ -104,9 +129,24 @@ class HomeController extends Controller
         return view('frontend.menus.contact');
     }
 
-    public function mainTerms(){
-        return view('frontend.menus.terms');
-    }
+    // public function mainTerms(){
+    //     return view('frontend.menus.terms');
+    // }
+//     public function mainTerms()
+// {
+//     $page = Pages::where('slug', 'terms')->where('status', 'active')->firstOrFail();
+//     return view('frontend.menus.terms', compact('page'));
+// }
+
+public function mainTerms($slug)
+{  $pages=Pages::all();
+    $page = Pages::where('slug', $slug)->firstOrFail(); 
+    //$page = Page::whereSlug($slug)->first();
+    return view('frontend.menus.terms', compact('pages','page'));
+    
+}
+
+
 
 //     public function mainFaq()
 // {

@@ -24,6 +24,15 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="slug" class="form-label">URL</label>
+                            <input type="text" class="form-control" id="slug" name="slug" value="{{ old('slug', $page->slug) }}" required>
+                            @error('slug')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+
+                        <div class="mb-3">
                             <label for="summary" class="form-label">Summary</label>
                             <textarea class="form-control" id="summary" name="summary" rows="3" required>{{ old('summary', $page->summary) }}</textarea>
                             @error('summary')
@@ -33,7 +42,8 @@
 
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3" required>{{ old('description', $page->description) }}</textarea>
+                            <div id="quill-editor" class="mb-3" style="height: 300px;"></div>
+                            <textarea rows="3" class="mb-3 d-none" name="description" id="quill-editor-area" placeholder="Write here">{{ isset($page) ? $page->description: old('description') }}</textarea>
                             @error('description')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -64,7 +74,9 @@
 
                         <div class="mb-3">
                             <label for="metaDescription" class="form-label">Meta Description</label>
-                            <textarea class="form-control" id="metaDescription" name="meta_description" rows="3">{{ old('meta_description', $page->meta_description) }}</textarea>
+                            <!-- <textarea class="form-control" id="metaDescription" name="meta_description" rows="3">{{ old('meta_description', $page->meta_description) }}</textarea> -->
+                            <div id="quill-meta-description" class="quill-editor" style="height: 100px;"></div>
+                            <textarea rows="3" class="mb-3 d-none" name="meta_description" id="quill-editor-area" placeholder="Write here">{{ isset($page) ? $page->meta_description: old('meta_description') }}</textarea>
                         </div>
 
                         <div class="mb-3">
@@ -74,7 +86,9 @@
 
                         <div class="mb-3">
                             <label for="ogDescription" class="form-label">OG Description</label>
-                            <textarea class="form-control" id="ogDescription" name="og_description" rows="3">{{ old('og_description', $page->og_description) }}</textarea>
+                            <!-- <textarea class="form-control" id="ogDescription" name="og_description" rows="3">{{ old('og_description', $page->og_description) }}</textarea> -->
+                            <div id="quill-meta-description" class="quill-editor" style="height: 100px;"></div>
+                            <textarea rows="3" class="mb-3 d-none" name="og_description" id="quill-editor-area" placeholder="Write here">{{ isset($page) ? $page->og_description: old('og_description') }}</textarea>
                         </div>
 
                         <div class="mb-3">
@@ -112,3 +126,26 @@
 </div>
 
 @endsection
+<script>
+   
+
+    //text editor script
+    document.addEventListener('DOMContentLoaded', function () {
+    const editors = document.querySelectorAll('[id^="quill-editor-area"]');
+    editors.forEach((textarea, index) => {
+        const quillEditorId = `quill-editor-${index}`;
+        const quillContainer = textarea.previousElementSibling;
+        quillContainer.id = quillEditorId;
+        const editor = new Quill(`#${quillEditorId}`, {
+            theme: 'snow',
+        });
+        editor.root.innerHTML = textarea.value;
+        editor.on('text-change', function () {
+            textarea.value = editor.root.innerHTML;
+        });
+        textarea.addEventListener('input', function () {
+            editor.root.innerHTML = textarea.value;
+        });
+    });
+});
+</script>

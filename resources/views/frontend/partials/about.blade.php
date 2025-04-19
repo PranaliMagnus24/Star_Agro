@@ -1,4 +1,4 @@
-<section id="about2" class="about-area about-p pt-120 pb-90 p-relative">
+<section id="about2" class="about-area about-p pt-100 pb-70 p-relative">
     <div class="container">
         <div class="row align-items-center">
              <div class="col-lg-6 col-md-12 col-sm-12 pr-30">

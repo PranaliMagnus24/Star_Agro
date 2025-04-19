@@ -40,8 +40,15 @@ Route::get('gallery', [HomeController::class,'mainGallery'])->name('home.gallery
 Route::get('blog', [HomeController::class,'mainBlog'])->name('home.blog');
 Route::get('contact', [HomeController::class,'mainContact'])->name('home.contact');
 Route::get('/live-search', [HomeController::class, 'liveSearch'])->name('live.search'); 
+
 Route::get('/faqs', [HomeController::class, 'mainFaq'])->name('home.faq');
-Route::get('/terms', [HomeController::class, 'mainTerms'])->name('home.terms');
+
+//slug pages
+Route::get('/home/{slug}', [HomeController::class, 'mainTerms'])->name('home.terms');
+
+Route::get('/pages/{slug}', [CMSPagesController::class, 'show'])->name('cms.page');
+
+
 
 
 
@@ -165,10 +172,16 @@ Route::get('location',[LocationController::class,'create'])->name('create.locati
 
 //CMS Page Routes
     Route::get('pages', [CMSPagesController::class, 'index'])->name('pages.index'); 
-    Route::get('/pages/create', [CMSPagesController::class, 'create'])->name('pages.create'); // Show create page form
-    Route::post('/pages', [CMSPagesController::class, 'store'])->name('pages.store'); // Store new page
-    Route::get('/pages/{id}/edit', [CMSPagesController::class, 'edit'])->name('pages.edit'); // Show edit page form
-    Route::put('/pages/{id}', [CMSPagesController::class, 'update'])->name('pages.update'); // Update page
-    Route::delete('/pages/{id}', [CMSPagesController::class, 'destroy'])->name('pages.destroy'); // Delete page
+    Route::get('/pages/create', [CMSPagesController::class, 'create'])->name('pages.create'); 
+    Route::post('/pages', [CMSPagesController::class, 'store'])->name('pages.store'); 
+    Route::get('/pages/{id}', [CMSPagesController::class,'show'])->name('pages.show');
+    Route::get('/pages/{id}/edit', [CMSPagesController::class, 'edit'])->name('pages.edit');
+    Route::put('/pages/{id}', [CMSPagesController::class, 'update'])->name('pages.update');
+    Route::delete('/pages/{id}', [CMSPagesController::class, 'destroy'])->name('pages.destroy');
+
+    //slug
+ 
+     //Route::get('/terms', [CMSPagesController::class, 'showTerms'])->name('terms.show');
+    
 
 require __DIR__.'/auth.php';

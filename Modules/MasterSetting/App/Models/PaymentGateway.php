@@ -4,11 +4,12 @@ namespace Modules\MasterSetting\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\MasterSetting\Database\factories\PaymentGatewayFactory;
 
 class PaymentGateway extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

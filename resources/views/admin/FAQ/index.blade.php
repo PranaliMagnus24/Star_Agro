@@ -28,7 +28,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>{{__('FAQCategoryName') }}</th>
+                            <th>{{__('messages.FAQCategoryName') }}</th>
                             <th>{{ __('messages.Question') }}</th>
                             <th>{{ __('messages.Answer') }}</th>
                             <th>{{ __('messages.Status') }}</th>
@@ -36,10 +36,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                    $counter = ($faqs1->currentPage() - 1) * $faqs1->perPage() + 1;
+                    @endphp
                         @foreach($faqs1 as $faq)
+                        
                         <tr>
-                            <td>{{ $faq->id }}</td>
-                            
+                            <td>{{ $counter++ }}</td>
                             <td>{{$faq->faqcategory->name}}</td>
                             <td>{{ ucfirst($faq->question) }}</td>
                             <td>{{ $faq->answer }}</td>

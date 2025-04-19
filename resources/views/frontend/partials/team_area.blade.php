@@ -1,8 +1,5 @@
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
-
-<!-- <section id="faq" class="faq-area pt-120 pb-100" style="background: url(frontend/assets/img/bg/faq-bg.png);background-size: cover; background-position: center center;">
-     -->
-<section id="faq" class="faq-area pt-120 pb-100 faq-bg">
+<section id="faq" class="faq-area pt-100 pb-70 faq-bg">
 
     <div class="container">
          <div class="row">

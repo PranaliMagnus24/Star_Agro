@@ -30,13 +30,30 @@
   <link href="{{ asset('admin/assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
   <link href="{{ asset('admin/assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
   <link href="{{ asset('admin/assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
+  
+
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('admin/assets/css/style.css') }}" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   @livewireStyles
 <style>
+/* text editor-->cms */
+/* Ensure both types of Quill lists are styled properly */
+ol[data-list="bullet"] {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+    }
 
+    ol[data-list="ordered"] {
+        list-style-type: decimal;
+        padding-left: 1.5rem;
+    }
+
+    /* Optional: Better spacing and alignment */
+    li {
+        margin-bottom: 0.5rem;
+    }
 </style>
 </head>
 

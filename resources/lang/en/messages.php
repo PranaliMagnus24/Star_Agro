@@ -188,20 +188,6 @@ return [
     'Contact Us' => 'Contact Us',
     'If you have any questions or concerns about these Terms, please contact us at [contact email or phone number' => 'If you have any questions or concerns about these Terms, please contact us at [contact email or phone number',
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     'Eat Best' => 'Eat Best',
     'Eat Organic' => 'Eat Organic',
     'Fusce suscipit, velit id scelerisque tempus, enim est congue orci, eu sodales turpis tellus non elit. Cras hendrerit auctor cursus' => 'Fusce suscipit, velit id scelerisque tempus, enim est congue orci, eu sodales turpis tellus non elit. Cras hendrerit auctor cursus',

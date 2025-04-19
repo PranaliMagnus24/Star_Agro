@@ -47,7 +47,7 @@
                     </a>
                 </div>
 
-                <div class="col-lg-3 col-md-3">
+                <!-- <div class="col-lg-3 col-md-3">
                     <div class="search-bar position-relative">
                         <form class="search-form d-flex align-items-center" method="GET" action="{{ route('home.index') }}">
                             <input id="liveSearchInput" type="text" name="query" placeholder="{{ __('messages.Search crops') }}.." title="Enter search keyword" autocomplete="off">
@@ -55,7 +55,17 @@
                         </form>
                         <ul id="liveSearchResults" class="list-group position-absolute w-100" style="z-index: 1000;"></ul>
                     </div>
-                </div>
+                </div> -->
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+             <div class="search-bar position-relative">
+                    <form class="search-form d-flex align-items-center" method="GET" action="{{ route('home.crops') }}">
+                        <input id="liveSearchInput" class="form-control me-2" type="text" name="query" placeholder="{{ __('messages.Search crops') }}.." title="Enter search keyword" autocomplete="off"value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-outline-secondary" title="Search"><i class="fa fa-search"></i></button>
+                    </form>
+                <ul id="liveSearchResults" class="list-group position-absolute w-100" style="z-index: 1000;"></ul>
+            </div>
+        </div>
+
 
                 <!-- <div class="col-lg-6 col-md-6 text-right">
                     <div class="header-cta">
@@ -151,17 +161,17 @@
                                 </a>
                                 <ul class="dropdown-menu mt-3" style="min-width: 5rem;">
                                     <li>
-                                        <a href="{{ url('language/en') }}" class="{{ App::getLocale() === 'en' ? 'active' : '' }}">{{ __('messages.English') }}
+                                        <a href="{{ url('language/en') }}" class="{{ App::getLocale() === 'en' ? 'active' : '' }}">Eng
                                         </a>
-                                        </a>
+                                        
                                     </li>
                                     <li>
-                                        <a href="{{ url('language/mr') }}" class="{{ App::getLocale() === 'mr' ? 'active' : '' }}">{{ __('messages.Marathi') }}
+                                        <a href="{{ url('language/mr') }}" class="{{ App::getLocale() === 'mr' ? 'active' : '' }}">Mar
                                         </a>
-                                        </a>
+                                        
                                     </li>
                                     <li>
-                                        <a href="{{ url('language/hi') }}" class="{{ App::getLocale() === 'hi' ? 'active' : '' }}">{{ __('messages.Hindi') }}
+                                        <a href="{{ url('language/hi') }}" class="{{ App::getLocale() === 'hi' ? 'active' : '' }}">Hin
                                         </a>
                                     </li>
                                 </ul>

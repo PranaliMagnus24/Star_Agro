@@ -34,9 +34,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @php
+                        $counter = ($categories->currentPage() - 1) * $categories->perPage() + 1;
+                        @endphp
                             @foreach($categories as $category)
                             <tr>
-                                <td>{{ $category->id }}</td>
+                                 <td>{{ $counter++ }}</td>
                                 <td>{{ ucfirst($category->name) }}</td>
                                 <td>{{ $category->description }}</td>
                                 <td>{{ ucfirst($category->status) }}</td>
