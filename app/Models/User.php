@@ -7,11 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;// add this for softdelete
+use Modules\Members\App\Models\CropManagement;
+
+//bavix
+// use Bavix\Wallet\Traits\HasWallet;
+// use Bavix\Wallet\Interfaces\Wallet;
 
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+// class User extends Authenticatable
+class User extends Authenticatable 
 {
     use HasApiTokens, HasRoles, HasFactory, Notifiable,SoftDeletes; //add softdelete
 
@@ -74,7 +80,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(FarmerDocuments::class, 'user_id', 'id');
     }
+    public function cropManagement()
+    {
+        return $this->hasMany(CropManagement::class, 'farmer_id'); 
+    }
     
-
-
+   
 }

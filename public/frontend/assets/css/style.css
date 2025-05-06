@@ -445,6 +445,19 @@ label {
     text-align: center;
     color: #191d3b;
 }
+/*  global search  */
+.bi-search {
+    font-size: 1rem;
+    margin-left: 50px;
+    color: #e6d9d9;
+}
+
+#liveSearchResults {
+    display: block !important;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 9999;
+}
 .search-top {
     display: inline-block;
     position: absolute;

@@ -273,6 +273,15 @@ return [
     'CMS Page'=>'CMS Page',
     'Marathi'=>'Marathi',
     'English'=>'English',
+    'Address'=>'Address',
+    'Sign Out'=>'Sign Out',
+    'Wallet'=>'Wallet',
+    'walletName'=>'walletName',
+    'Recharge'=>'Recharge',
+    'View Details'=>'View Details',
+    "My Inquiry"=>"My Inquiry",
+    "points"=> "points",
+
 
 
 

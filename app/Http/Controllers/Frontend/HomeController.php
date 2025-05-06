@@ -77,17 +77,64 @@ class HomeController extends Controller
     //     // Return the results as a JSON response
     //     return response()->json($results);
     // }
-    public function liveSearch(Request $request)
-{
-    $query = $request->input('query');
+                    //   original
+//     public function liveSearch(Request $request)
+// {
+//     $query = $request->input('query');
 
+//     $results = collect();
+
+//     if ($query) {
+//         $crops = CropManagement::where('crop_name', 'like', "%{$query}%")
+//                                 ->orWhere('type', 'like', "%{$query}%")
+//                                 ->take(5)
+//                                 ->get();
+
+//         $results = $crops->map(function ($item) {
+//             return [
+//                 'id' => $item->id,
+//                 'name' => $item->crop_name,
+//                 'url' => route('crop.management.list', ['search' => $item->crop_name])
+//             ];
+//         });
+//     }
+
+//     return response()->json($results);
+// }
+// public function liveSearch(Request $request)
+// {
+//     $query = $request->input('search');
+//     $results = collect();
+
+//     if ($query) {
+//         $crops = CropManagement::where('crop_name', 'like', "%{$query}%")
+//                                 ->orWhere('type', 'like', "%{$query}%")
+//                                 ->take(5)
+//                                 ->get();
+
+//         $results = $crops->map(function ($item) {
+//             return [
+//                 'id' => $item->id,
+//                 'name' => $item->crop_name,
+//                 'url' => route('crop.management.list', ['search' => $item->crop_name])
+//             ];
+//         });
+//     }
+
+//     return response()->json($results);
+// }
+
+
+public function liveSearch(Request $request)
+{
+    $query = $request->input('search');
     $results = collect();
 
     if ($query) {
         $crops = CropManagement::where('crop_name', 'like', "%{$query}%")
-                                ->orWhere('type', 'like', "%{$query}%")
-                                ->take(5)
-                                ->get();
+                               ->orWhere('type', 'like', "%{$query}%")
+                               ->take(5)
+                               ->get();
 
         $results = $crops->map(function ($item) {
             return [

@@ -227,7 +227,7 @@
                 <span>{{ __('messages.My Profile') }}</span>
               </a>
             </li>
-            <li>
+            <!-- <li>
               <hr class="dropdown-divider">
             </li>
 
@@ -250,12 +250,12 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li>
+            <li> -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <a class="dropdown-item d-flex align-items-center" onclick="event.preventDefault(); this.closest('form').submit();" href="{{route('logout')}}">
                         <i class="bi bi-box-arrow-right"></i>
-                        <span>Sign Out</span>
+                        <span>{{__('messages.Sign Out') }}</span>
                     </a>
                 </form>
             </li>

@@ -3,6 +3,13 @@
 @section('title', __('messages.Profile'))
 @section('pagetitle', __('messages.Profile'))
 @section('member')
+    <!-- <x-google-location-picker
+        latitude="{{ old('location.latitude', $user->location['latitude'] ?? '') }}"
+        longitude="{{ old('location.longitude', $user->location['longitude'] ?? '') }}"
+        address="{{ old('location.address', $user->location['address'] ?? '') }}"
+        fieldName="location"
+    /> -->
+
 
 
 
@@ -145,6 +152,111 @@
                                         </div>
                                     </div>
 
+                                    <!--     original code  -->
+                                    <!-- <div class="mb-3 d-none">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Country</label>
+                                                    <select name="country" id="country-dropdown"
+                                                        class="form-select form-control">
+                                                        @foreach ($countries as $country)
+    <option value="{{ $country->id }}"
+                                                                {{ $country->id == 101 ? 'selected' : '' }}>
+                                                                {{ $country->name }}</option>
+    @endforeach
+                                                    </select>
+                                                </div>
+                                                @error('country')
+        <span class="text-danger">{{ $message }}</span>
+    @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row mb-3">
+                                                    <label for="state"
+                                                        class="col-md-4 col-form-label">{{ __('messages.State') }}</label>
+                                                    <div class="col-md-8">
+                                                        <select name="state" id="state-dropdown" class="form-control">
+                                                            <option value="">-- Select State --</option>
+                                                            @foreach ($states as $state)
+    <option value="{{ $state->id }}"
+                                                                    {{ $state->id == 4008 ? 'selected' : '' }}>
+                                                                    {{ $state->name }}</option>
+    @endforeach
+                                                        </select>
+                                                    </div>
+                                                    @error('state')
+        <span class="text-danger">{{ $message }}</span>
+    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row mb-3">
+                                                    <label for="district"
+                                                        class="col-md-4 col-form-label">{{ __('messages.District') }}</label>
+                                                    <div class="col-md-8">
+                                                        <select name="district" id="city-dropdown" class="form-control">
+                                                            <option value="">-- Select District --</option>
+                                                            @foreach ($cities as $city)
+    <option value="{{ $city->id }}"
+                                                                    {{ $city->id == 133177 ? 'selected' : '' }}>
+                                                                    {{ $city->name }}</option>
+    @endforeach
+                                                        </select>
+                                                    </div>
+                                                    @error('district')
+        <span class="text-danger">{{ $message }}</span>
+    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="row mb-3">
+                                                    <label for="state"
+                                                        class="col-md-4 col-form-label">{{ __('messages.Zip Code') }}</label>
+                                                    <div class="col-md-8">
+                                                        <input name="pincode" type="text" class="form-control"
+                                                            id="zip_code" value="{{ old('pincode', $user->pincode) }}">
+                                                    </div>
+                                                    @error('pincode')
+        <span class="text-danger">{{ $message }}</span>
+    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="row mb-3">
+                                                    <label for="state"
+                                                        class="col-md-4 col-form-label">{{ __('messages.Taluka') }}</label>
+                                                    <div class="col-md-8">
+                                                        <input name="taluka" type="text" class="form-control"
+                                                            id="taluka" value="{{ old('taluka', $user->taluka) }}">
+                                                    </div>
+                                                    @error('taluka')
+        <span class="text-danger">{{ $message }}</span>
+    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row mb-3">
+                                                    <label for="state"
+                                                        class="col-md-4 col-form-label">{{ __('messages.Town/Village') }}</label>
+                                                    <div class="col-md-8">
+                                                        <input name="town" type="text" class="form-control"
+                                                            id="town" value="{{ old('town', $user->town) }}">
+                                                    </div>
+                                                    @error('town')
+        <span class="text-danger">{{ $message }}</span>
+    @enderror
+                                                </div>
+                                            </div>
+                                        </div> -->
+
+                                    <!--  -->
                                     <div class="mb-3 d-none">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -233,6 +345,7 @@
                                                 @enderror
                                             </div>
                                         </div>
+
                                         <div class="col-md-6">
                                             <div class="row mb-3">
                                                 <label for="state"
@@ -247,6 +360,31 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row mb-3">
+                                    <label for="address-input" class="col-md-4 col-form-label">{{ __('messages.Address') }}</label>
+                                        <!-- <div class="col-md-8">
+                                            <input type="text" id="address-input" class="form-control"
+                                                placeholder="Enter Location"
+                                                value="{{ old('location.address', $user->location['address'] ?? '') }}">
+                                            <input type="hidden" name="location[latitude]" id="latitude"
+                                                value="{{ old('location.latitude', $user->location['latitude'] ?? '') }}">
+                                            <input type="hidden" name="location[longitude]" id="longitude"
+                                                value="{{ old('location.longitude', $user->location['longitude'] ?? '') }}">
+                                        </div> -->
+                                        <div class="col-md-8">
+                                                     <!-- <input type="text" id="address-input" class="form-control" placeholder="Enter Location" value="{{ old('location.address', $user->location['address'] ?? '') }}"> -->
+                                                     <input type="text" id="address-input" name="location[address]" class="form-control" placeholder="Enter Location" value="{{ old('location.address', $user->location['address'] ?? '') }}">
+                                                     <input type="hidden" name="location[latitude]" id="latitude" value="{{ old('location.latitude', $user->location['latitude'] ?? '') }}">
+                                                     <input type="hidden" name="location[longitude]" id="longitude" value="{{ old('location.longitude', $user->location['longitude'] ?? '') }}">
+                                        </div>
+                                        @error('location.address')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div id="map" style="height: 300px; width: 100%; margin-top: 10px;">
+                                    </div>
+                                    <br>
+
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -433,7 +571,7 @@
 
 
 
-                                        <!-- role=entrepreneur -->
+                                    <!-- role=entrepreneur -->
                                     <!--  company logo-->
                                     @if (auth()->user() && auth()->user()->hasRole('entrepreneur'))
                                         <div class="row">
@@ -453,25 +591,28 @@
                                                         @if ($companyLogo && $companyLogo->file_path)
                                                             <div class="mt-2">
                                                                 <strong>Uploaded Logo:</strong><br>
-                                                                <img src="{{ asset('upload/company_documents/'. $user->id . '/' .$companyLogo->file_path) }}"
+                                                                <img src="{{ asset('upload/company_documents/' . $user->id . '/' . $companyLogo->file_path) }}"
                                                                     alt="Company Logo"
                                                                     style="max-width: 150px; border: 1px solid #ddd; padding: 4px;">
                                                                 <br>
                                                                 <!-- @if ($companyLogo->is_verified)
-                                                                    <span class="text-success"
-                                                                        style="font-weight: bold;">{{ __('messages.Verified') }}</span>
-                                                                @else
-                                                                    <span class="text-danger"
-                                                                        style="font-weight: bold;">{{ __('messages.Not Verified') }}</span>
-                                                                @endif -->
+    <span class="text-success"
+                                                                            style="font-weight: bold;">{{ __('messages.Verified') }}</span>
+@else
+    <span class="text-danger"
+                                                                            style="font-weight: bold;">{{ __('messages.Not Verified') }}</span>
+    @endif -->
                                                                 @if ($companyLogo->is_verified)
                                                                     <span class="text-success" style="font-weight: bold;">
-                                                                        <i class="bi bi-file-earmark-check text-success fs-4"></i> <!-- Check icon for verified -->
+                                                                        <i
+                                                                            class="bi bi-file-earmark-check text-success fs-4"></i>
+                                                                        <!-- Check icon for verified -->
                                                                     </span>
-                                                                     @else
-                                                                            <span class="text-danger" style="font-weight: bold;">
-                                                                                <i class="bi bi-file-earmark-x fs-4"></i> <!-- X icon for not verified -->
-                                                                            </span>
+                                                                @else
+                                                                    <span class="text-danger" style="font-weight: bold;">
+                                                                        <i class="bi bi-file-earmark-x fs-4"></i>
+                                                                        <!-- X icon for not verified -->
+                                                                    </span>
                                                                 @endif
                                                             </div>
                                                         @endif
@@ -481,7 +622,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="col-md-6">
                                                 <div class="row mb-3">
                                                     <label for="about"
@@ -527,7 +668,8 @@
                                     @endif
 
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">{{ __('messages.Save') }}</button>
+                                        <button type="submit"
+                                            class="btn btn-primary">{{ __('messages.Save') }}</button>
                                     </div>
                                 </form><!-- End More information form -->
                             </div>
@@ -586,7 +728,9 @@
         </div>
     </section>
 
-
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initMap">
+    </script>
     <script>
         $(document).ready(function() {
 
@@ -690,5 +834,52 @@
             toggleInterestedField(); // Run on load
             $('#solar_dryer_select').change(toggleInterestedField); // Run on change
         });
+    </script>
+
+
+
+    <script>
+        function initMap() {
+            const latitude = parseFloat("{{ old('location.latitude', $user->location['latitude'] ?? 28.7041) }}");
+            const longitude = parseFloat("{{ old('location.longitude', $user->location['longitude'] ?? 77.1025) }}");
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: {
+                    lat: latitude,
+                    lng: longitude
+                },
+                zoom: 13,
+            });
+
+            const marker = new google.maps.Marker({
+                position: {
+                    lat: latitude,
+                    lng: longitude
+                },
+                map: map,
+                draggable: true,
+            });
+
+            const input = document.getElementById("address-input");
+            const autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.bindTo("bounds", map);
+
+            autocomplete.addListener("place_changed", function() {
+                const place = autocomplete.getPlace();
+                if (!place.geometry) return;
+
+                const location = place.geometry.location;
+                document.getElementById("latitude").value = location.lat();
+                document.getElementById("longitude").value = location.lng();
+                marker.setPosition(location);
+                map.setCenter(location);
+            });
+
+            google.maps.event.addListener(marker, "dragend", function() {
+                const position = marker.getPosition();
+                document.getElementById("latitude").value = position.lat();
+                document.getElementById("longitude").value = position.lng();
+            });
+        }
     </script>
 @endsection

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Members\App\Http\Controllers\MembersController;
 use Modules\Members\App\Http\Controllers\CropManagementController;
+use Modules\Members\App\Http\Controllers\RechargeController;
+use Modules\Members\App\Http\Controllers\InquiryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +45,16 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/crop{id}/delete', [CropManagementController::class, 'destroyCrop'])->name('crop.delete');
     Route::get('/crop-inquiries/{id}', [CropManagementController::class, 'showInquiries'])->name('crop.inquiries');
 
+
+    
+    //wallet
+    // Route::get('/enquirywallet', [RechargeController::class, 'index'])->name('wallet.index');
+    Route::get('/enquirywallet/list', [RechargeController::class, 'index'])->name('wallet.management.index');
+    Route::get('/wallet/create', [RechargeController::class, 'create'])->name('wallet.management.create');
+    Route::post('/wallet/store', [RechargeController::class, 'store'])->name('wallet.management.store');
+
+    //inqiury details
+    Route::get('/inquiries', [InquiryController::class, 'index'])->name('member.inquiries');
 
 
 

@@ -50,6 +50,14 @@ public function inquiries()
 }
 
 
+public function walletTransactions()
+{
+    return $this->hasMany(EnquiryWalletTransaction::class, 'enquiry_id');
+}
+
+public function farmer(){
+    return $this->belongsTo(User::class, 'farmer_id');
+}
 // public function toSearchableArray()
 // {
 //     return [

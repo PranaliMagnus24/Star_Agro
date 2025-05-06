@@ -17,6 +17,8 @@ use App\Models\ZipCode;
 use App\Models\Country;
 use App\Models\User;
 use App\Models\FarmerDocuments;
+use App\Models\Location; 
+
 use Illuminate\Support\Facades\Auth;
 use Str;
 use File;
@@ -129,7 +131,7 @@ class MembersController extends Controller
 
 public function store(Request $request): RedirectResponse
 {
-        // dd($request->all());
+        //  dd($request->all());
     $request->validate([
         'gender' => 'required|string',
         'state' => 'required|string',
@@ -148,6 +150,12 @@ public function store(Request $request): RedirectResponse
         'documents' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         'company_name' => 'nullable|string|max:255',
         'solar_dryer' => 'nullable|string|max:255',
+
+
+        // Google Map location validation
+         'location.latitude' => 'required|numeric',
+        'location.longitude' => 'required|numeric',
+        'location.address' => 'required|string|max:255'
     ]);
   
     if (auth()->user()->hasRole('entrepreneur')) {
@@ -168,6 +176,23 @@ public function store(Request $request): RedirectResponse
     $user->known_about_us = $request->known_about_us;
     $user->solar_dryer = $request->solar_dryer;
 
+    $location = Location::where('user_id', $user->id)->first();
+    if ($location) {
+        // Update existing location
+        $location->address = $request->location['address'];
+        $location->latitude = $request->location['latitude'];
+        $location->longitude = $request->location['longitude'];
+        $location->save();
+    } else {
+        // Create new location
+        $location = new Location();
+        $location->user_id = $user->id; // Ensure user_id is set
+        $location->address = $request->location['address'];
+        $location->latitude = $request->location['latitude'];
+        $location->longitude = $request->location['longitude'];
+        $location->save();
+    }
+
 
 
     if ($user->hasRole('entrepreneur')) {
@@ -176,6 +201,13 @@ public function store(Request $request): RedirectResponse
     }
 
     $user->save();
+    $location = Location::firstOrNew(['user_id' => $user->id]); 
+    // $location = Location::firstOrNew(['user_id' => $user->id]);
+    $location->address = $request->location['address'];
+    $location->latitude = $request->location['latitude'];
+    $location->longitude = $request->location['longitude'];
+    $location->save();
+
 
        $farmerDocument = FarmerDocuments::firstOrNew(['user_id' => $user->id]);
 

@@ -296,13 +296,12 @@
                                     <button type="submit" class="btn ss-btn w-30 py-2">{{ __('messages.Submit') }}</button>
                                 </div>
                             </form>
+                            
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-4">
-                <!-- You can add additional content here if needed -->
-            </div>
+            
         </div>
     </div>
 </section>

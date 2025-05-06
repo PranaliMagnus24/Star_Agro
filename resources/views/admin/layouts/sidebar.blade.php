@@ -56,17 +56,17 @@
               </li>
               <li>
                 <a href="{{ route('paymentGateway.list')}}">
-                  <i class="bi bi-circle"></i><span>{{ __('messages.Payment Gateway') }}</span>
+                  <i class="bi bi-credit-card"></i><span>{{ __('messages.Payment Gateway') }}</span>
                 </a>
               </li>
               <li>
                 <a href="{{ route('sms.index')}}">
-                  <i class="bi bi-circle"></i><span>{{ __('messages.SMS Gateway') }}</span>
+                  <i class="bi bi-chat-dots"></i><span>{{ __('messages.SMS Gateway') }}</span>
                 </a>
               </li>
               <li>
                 <a href="{{ route('whatsapp.index')}}">
-                  <i class="bi bi-circle"></i><span>{{ __('messages.Whatsapp') }}</span>
+                  <i class="bi bi-whatsapp"></i><span>{{ __('messages.Whatsapp') }}</span>
                 </a>
               </li>
 
@@ -75,6 +75,13 @@
                   <i class="bi bi-circle"></i><span>{{ __('messages.UnitMass') }}</span>
                 </a>
               </li> 
+
+               <li>
+                <a href="#">
+                  <i class="bi bi-cash"></i><span>{{ __('messages.points') }}</span>
+                </a>
+              </li>
+               
               <!-- <li>
                 <a href="{{ route('admin.faq.index')}}">
                   <i class="bi bi-circle"></i><span>{{ __('messages.FAQ') }}</span>

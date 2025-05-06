@@ -11,6 +11,11 @@ use App\Http\Controllers\Admin\QuantityMass\QuantityMassController;
 use App\Http\Controllers\Admin\FAQ\FAQController;
 use App\Http\Controllers\Admin\FAQ\FaqCategoryController;
 use App\Http\Controllers\Admin\CMS\CMSPagesController;
+use App\Models\User;
+use App\Http\Controllers\Admin\Wallet\WalletController;
+use Modules\Members\App\Http\Controllers\RechargeController;
+use App\Http\Controllers\Admin\Razorpay\RazorpayController;
+
 
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LocationController;
@@ -55,11 +60,17 @@ Route::get('/pages/{slug}', [CMSPagesController::class, 'show'])->name('cms.page
 
 
 /////Crop Controller
+
 Route::get('crops', [CropController::class,'mainCrops'])->name('home.crops');
 Route::get('crops-management/{categoryId}', [CropController::class, 'showCropManagementList'])->name('crop.management.list');
 Route::post('crops-inquiry', [CropController::class,'cropInquiry'])->name('home.cropsInquiry');
 Route::post('/favorites/add', [CropController::class, 'add'])->name('favorite.add')->middleware('auth');
 Route::post('/favorites/remove', [CropController::class, 'remove'])->name('favorite.remove')->middleware('auth');
+
+Route::post('/check-balance', [CropController::class, 'checkBalance'])->name('check.balance');
+// 
+// Route::get('/crop/details/{id}', [CropController::class, 'showDetails'])->name('crop.details');
+// Route::get('/crop-details/{id}', [CropController::class, 'showCropDetails'])->name('crop.details');
 
 
 
@@ -183,5 +194,29 @@ Route::get('location',[LocationController::class,'create'])->name('create.locati
  
      //Route::get('/terms', [CMSPagesController::class, 'showTerms'])->name('terms.show');
     
+     //bavix -- wallet
+    //  Route::get('/test-wallet', function () {
+    //     $user = User::first();
+    //     $user->deposit(100);
+    //     return 'Wallet balance: ' . $user->balance;
+    // });
+
+    Route::get('/wallet', [WalletController::class, 'index'])->name('admin.wallet.index');
+    Route::get('/wallet/create', [WalletController::class, 'create'])->name('admin.wallet.create');
+    Route::post('/wallet', [WalletController::class, 'store'])->name('wallet.store');
+  
+
+    
+
+    // razorpay
+Route::get('/razorpay/payment', [RazorpayController::class, 'index'])->name('razorpay.index');
+Route::post('/razorpay/order', [RazorpayController::class, 'createOrder'])->name('razorpay.createOrder');
+Route::post('/razorpay/verify', [RazorpayController::class, 'verifyPayment'])->name('razorpay.verifyPayment');
+
+Route::get('/razorpay/success', [RazorpayController::class, 'success'])->name('razorpay.success');
+
+
+// Route::post('/razorpay/store', [RazorpayController::class, 'store'])->name('razorpay.store');
+//Route::post('/razorpay/amount', [RazorpayController::class, 'createOrderPay'])->name('create.payment');
 
 require __DIR__.'/auth.php';

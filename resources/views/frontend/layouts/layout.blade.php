@@ -27,9 +27,14 @@ $getSetting = Modules\GeneralSetting\App\Models\GeneralSetting::first();
         <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}?{{ time() }}">
         <!-- Quill styling for proper frontend rendering -->
         <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+      <!-- search  -->
+        <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css"> -->
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        
 
     </head>
     <body>
@@ -118,6 +123,56 @@ $getSetting = Modules\GeneralSetting\App\Models\GeneralSetting::first();
         <script src="{{ asset('frontend/assets/js/element-in-view.js') }}"></script>
         <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
         <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+  
+        <!-- <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script> -->
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+        <script>
+  
+    // var availableTags = [];
+    // $.ajax({
+    //   method:"GET",
+    //   url:"/live-search",
+    //   success:function (response){
+    //   //console.log(response);
+
+    //   }
+    // });
+    // $( "#liveSearchInput" ).autocomplete({
+    //   source: availableTags
+    // });
+
+
+//     $(document).ready(function () {
+//     $("#liveSearchInput").autocomplete({
+//         minLength: 1,
+//         source: function (request, response) {
+//             $.ajax({
+//                 url: "/live-search",
+//                 data: { search: request.term },
+//                 success: function (data) {
+//                     response($.map(data, function (item) {
+//                         return {
+//                             label: item.name,
+//                             value: item.name,
+//                             url: item.url
+//                         };
+//                     }));
+//                 },
+//                 error: function (xhr) {
+//                     console.error("Autocomplete error:", xhr.responseText);
+//                 }
+//             });
+//         },
+//         select: function (event, ui) {
+//             if (ui.item.url) {
+//                 window.location.href = ui.item.url;
+//             }
+//         }
+//     });
+// });
+
+  </script>
 
     </body>
 </html>

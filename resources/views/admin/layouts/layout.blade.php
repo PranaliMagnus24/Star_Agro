@@ -101,9 +101,11 @@ ol[data-list="bullet"] {
             <li class="breadcrumb-item active">@yield('pagetitle')</li>
           </ol>
         </nav>
+       
     </div><!-- End Page Title -->
     @yield('admin')
 
+   
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -126,7 +128,21 @@ ol[data-list="bullet"] {
   <!-- Template Main JS File -->
 
   <script src="{{ asset('admin/assets/js/main.js') }}"></script>
+  <script
+  src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initMap"
+  async
+  defer>
+</script>
 
+</script>
+
+<script>
+    function initMap() {
+        if (window.initMapCallbacks) {
+            window.initMapCallbacks.forEach(cb => cb());
+        }
+    }
+</script>
 </body>
 
 </html>

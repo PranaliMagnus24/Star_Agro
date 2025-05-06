@@ -1,9 +1,9 @@
 <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>MagnusIdeas</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>Star Agro Fruits and vegetables processing</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
 
-      Designed by <a href="https://bootstrapmade.com/">MagnusIdeas</a>
+      Designed and developed by <a href="https://bootstrapmade.com/">MagnusIdeas.Pvt.Ltd</a>
     </div>
   </footer><!-- End Footer -->

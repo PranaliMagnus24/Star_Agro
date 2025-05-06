@@ -10,12 +10,14 @@ use Illuminate\View\View;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Role;
+use Modules\Members\App\Models\EnquiryWallet;
 use App\Models\City;
 use App\Models\State;
 use App\Models\Country;
 use App\Models\User;
 use App\Models\FarmerDocument;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Str;
 use File;
 
@@ -51,6 +53,17 @@ class UserRegistrationController extends Controller
             'password' => Hash::make($request->password),
             'terms' => $request->terms,
         ]);
+        $user->syncRoles($request->roles);
+        
+       
+$roleId = $user->roles->first()?->id ?? 0;
+
+EnquiryWallet::create([
+    'wallet_name' => 'My Wallet',
+    'balance'     => 200,
+    'user_id'     => $user->id,
+    'role_id'     => $roleId,
+]);
         Auth::login($user);
 
         $user->syncRoles($request->roles);

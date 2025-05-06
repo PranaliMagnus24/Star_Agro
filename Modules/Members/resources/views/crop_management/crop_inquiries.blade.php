@@ -47,7 +47,9 @@
                             <td>{{ $inquiry->mobile_number }}</td>
                             <td>{{ $inquiry->description }}</td>
                             <td>{{ $inquiry->city }}</td>
-                            <td></td>
+                            @if(Auth::check() && Auth::user()->email == $inquiry->email)
+                                    <a href="{{ route('crop.details', $inquiry->id) }}" class="btn btn-info btn-sm">View Details</a>
+                            @endif
                         </tr>
                     @endforeach
                     </tbody>

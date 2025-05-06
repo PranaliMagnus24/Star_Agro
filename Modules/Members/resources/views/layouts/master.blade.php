@@ -9,6 +9,8 @@
 @endphp
   <title>@yield('title', 'Dashboard')</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
+ 
+
   <meta content="" name="description">
   <meta content="" name="keywords">
 

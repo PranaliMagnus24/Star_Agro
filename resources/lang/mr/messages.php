@@ -125,6 +125,7 @@ return [
     'Subject' => 'विषय',
     'Write comments' => 'टिप्पण्या लिहा',
     'Office Address' => 'कार्यालयाचा पत्ता',
+    'Address'=>'पत्ता',
     'Timeing' => 'टाइमिंग',
     'Related Categories' => 'संबंधित श्रेणी',
     'No data available' => 'कोणताही डेटा उपलब्ध नाही.',
@@ -226,5 +227,13 @@ return [
     'Marathi'=>'मराठी',
     'English'=> 'इंग्रजी',
     'Hindi'=>'हिन्दी',
+    'Sign Out'=>'साइन आउट',
+    'Wallet'=>'वॉलेट',
+    'walletName'=>'वॉलेटनाव',
+    'balance'=>'बॅलेन्स ',
+    'Recharge'=>'रिचार्ज',
+    'View Details'=>'व्डिटेल्स पहा',
+    "My Inquiry"=>"माय इन्क्वायरी",
+    'points'=>"पॉइंट्स",
 
 ];

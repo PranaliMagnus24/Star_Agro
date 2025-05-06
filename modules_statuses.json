@@ -3,5 +3,7 @@
     "GeneralSetting": true,
     "MasterSetting": true,
     "Members": true,
-    "CropManagement": true
+    "CropManagement": true,
+    "Controller": true,
+    "RechargeController": true
 }
