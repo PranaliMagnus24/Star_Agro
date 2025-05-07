@@ -392,11 +392,11 @@
                                                 <label for="referral_code"
                                                     class="col-md-4 col-form-label">{{ __('messages.Referral Code') }}
                                                 </label>
-                                                <div class="col-md-8">
+                                                <!-- <div class="col-md-8">
                                                     <input type="text" name="referral_code" id="referral_code"
                                                         class="form-control"
                                                         value="{{ old('referral_code', $user->referral_code) }}">
-                                                </div>
+                                                </div> -->
                                                 @error('referral_code')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -556,6 +556,13 @@
                                                             <option value="social_media"
                                                                 {{ old('known_about_us', $user->known_about_us ?? '') == 'social_media' ? 'selected' : '' }}>
                                                                 Social Media</option>
+                                                                <option value="social_media"
+                                                                {{ old('known_about_us', $user->known_about_us ?? '') == 'Newspaper' ? 'selected' : '' }}>
+                                                                Newspaper</option>
+                                                                <option value="social_media"
+                                                                {{ old('known_about_us', $user->known_about_us ?? '') == 'Friends' ? 'selected' : '' }}>
+                                                                Friends</option>
+
                                                             <option value="seminar"
                                                                 {{ old('known_about_us', $user->known_about_us ?? '') == 'seminar' ? 'selected' : '' }}>
                                                                 Seminar</option>

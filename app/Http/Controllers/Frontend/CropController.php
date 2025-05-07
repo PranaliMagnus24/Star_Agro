@@ -17,6 +17,7 @@ use App\Models\Country;
 use App\Models\User;
 use App\Models\FarmerDocument;
 use App\Models\CropInquiry;
+use App\Models\PointsSetting;
 use App\Models\Favorite;
 use Modules\Category\App\Models\Category;
 use Modules\Members\App\Models\CropImages;
@@ -221,6 +222,9 @@ class CropController extends Controller
         // if (!$user) {
         //     return back()->with('error', 'User not authenticated.');
         // }
+            // Fetch the dynamic points deduction value
+            $pointsSetting = PointsSetting::first();
+            $pointsToDeduct = $pointsSetting ? $pointsSetting->points_per_inquiry : 10; // Fallback to 10 if not set
 
                  $wallet = EnquiryWallet::where('user_id', $user->id)->first();
          if (!$wallet) {
@@ -228,7 +232,8 @@ class CropController extends Controller
         }
 
         // Deduct points
-        $pointsDeduction = $this->deductPoints($user->id, 10, $enquiryId);
+       
+        $pointsDeduction = $this->deductPoints($user->id, $pointsToDeduct, $enquiryId);
       // dd($pointsDeduction);
 
 

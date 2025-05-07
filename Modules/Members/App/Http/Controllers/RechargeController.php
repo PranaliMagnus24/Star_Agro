@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\User;
+use App\Models\PointsSetting; 
 
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
@@ -125,7 +126,43 @@ class RechargeController extends Controller
     {
         //
     }
-    public function makeEnquiry(Request $request)
+//     public function makeEnquiry(Request $request)
+// {
+//     $user = auth()->user();
+
+//     DB::beginTransaction();
+
+//     try {
+//         $wallet = EnquiryWallet::where('user_id', $user->id)->firstOrFail();
+
+//         if ($wallet->balance < 10) {
+//             return back()->with('error', 'Insufficient points in your wallet.');
+//         }
+
+//         // Deduct points
+//         $wallet->balance -= 10;
+//         $wallet->save();
+
+//         // Log transaction
+//         EnquiryWalletTransaction::create([
+//             'wallet_id'   => $wallet->id,
+//             'enquiry_id'  => null, // or pass the created enquiry id if applicable
+//             'type'        => 'debit',
+//             'amount'      => 10,
+//             'description' => 'Deducted for crop enquiry',
+//         ]);
+
+
+//     DB::commit();
+
+//         return back()->with('success', 'Enquiry submitted and 10 points deducted.');
+//     } catch (\Exception $e) {
+//         DB::rollback();
+//         return back()->with('error', 'Something went wrong: ' . $e->getMessage());
+//     }
+// }
+
+public function makeEnquiry(Request $request)
 {
     $user = auth()->user();
 
@@ -133,28 +170,31 @@ class RechargeController extends Controller
 
     try {
         $wallet = EnquiryWallet::where('user_id', $user->id)->firstOrFail();
+      
 
-        if ($wallet->balance < 10) {
+        $deductionPoints = PointsSetting::orderBy('updated_at', 'desc')->first()?->points_per_inquiry ?? 10;
+
+
+        if ($wallet->balance < $deductionPoints) {
             return back()->with('error', 'Insufficient points in your wallet.');
         }
 
         // Deduct points
-        $wallet->balance -= 10;
+        $wallet->balance -= $deductionPoints;
         $wallet->save();
-
+       
         // Log transaction
         EnquiryWalletTransaction::create([
             'wallet_id'   => $wallet->id,
-            'enquiry_id'  => null, // or pass the created enquiry id if applicable
+            'enquiry_id'  => null,
             'type'        => 'debit',
-            'amount'      => 10,
+            'amount'      => $deductionPoints,
             'description' => 'Deducted for crop enquiry',
         ]);
 
+        DB::commit();
 
-    DB::commit();
-
-        return back()->with('success', 'Enquiry submitted and 10 points deducted.');
+        return back()->with('success', "Enquiry submitted and {$deductionPoints} points deducted.");
     } catch (\Exception $e) {
         DB::rollback();
         return back()->with('error', 'Something went wrong: ' . $e->getMessage());

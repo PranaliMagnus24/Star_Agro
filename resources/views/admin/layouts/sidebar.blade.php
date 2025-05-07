@@ -77,7 +77,7 @@
               </li> 
 
                <li>
-                <a href="#">
+                <a href="{{ route('admin.points.index')}}">
                   <i class="bi bi-cash"></i><span>{{ __('messages.points') }}</span>
                 </a>
               </li>

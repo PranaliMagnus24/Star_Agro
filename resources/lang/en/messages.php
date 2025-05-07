@@ -281,6 +281,8 @@ return [
     'View Details'=>'View Details',
     "My Inquiry"=>"My Inquiry",
     "points"=> "points",
+    "Points Settings"=>"Points Settings",
+    "Edit Points Settings"=>"Edit Points Settings",
 
 
 

@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\QuantityMass\QuantityMassController;
 use App\Http\Controllers\Admin\FAQ\FAQController;
 use App\Http\Controllers\Admin\FAQ\FaqCategoryController;
 use App\Http\Controllers\Admin\CMS\CMSPagesController;
+
+use App\Http\Controllers\Admin\points\PointsSettingController;
 use App\Models\User;
 use App\Http\Controllers\Admin\Wallet\WalletController;
 use Modules\Members\App\Http\Controllers\RechargeController;
@@ -23,7 +25,6 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserRegistrationController;
 use App\Http\Controllers\Frontend\CropController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-
 
 
 // Route::get('/', function () {
@@ -216,7 +217,31 @@ Route::post('/razorpay/verify', [RazorpayController::class, 'verifyPayment'])->n
 Route::get('/razorpay/success', [RazorpayController::class, 'success'])->name('razorpay.success');
 
 
-// Route::post('/razorpay/store', [RazorpayController::class, 'store'])->name('razorpay.store');
-//Route::post('/razorpay/amount', [RazorpayController::class, 'createOrderPay'])->name('create.payment');
+//points 
+// Route::get('/points',[PointsSettingController::class,'index'])->name('admin.points.index');
+
+// Route::prefix('admin')->middleware('auth')->group(function () {
+//     Route::resource('points', PointsSettingController::class);
+// });
+
+Route::prefix('admin')->middleware('auth')->group(function () {
+    // List points settings
+    Route::get('points', [PointsSettingController::class, 'index'])->name('admin.points.index');
+
+    // Show form to create a new point setting
+    Route::get('points/create', [PointsSettingController::class, 'create'])->name('admin.points.create');
+
+    // Store a new point setting
+    Route::post('points', [PointsSettingController::class, 'store'])->name('admin.points.store');
+
+    // Show form to edit a point setting
+    Route::get('points/{id}/edit', [PointsSettingController::class, 'edit'])->name('admin.points.edit');
+
+    // Update the point setting
+    Route::put('points/{id}', [PointsSettingController::class, 'update'])->name('admin.points.update');
+
+    // Delete the point setting
+    Route::delete('points/{id}', [PointsSettingController::class, 'destroy'])->name('admin.points.destroy');
+});
 
 require __DIR__.'/auth.php';

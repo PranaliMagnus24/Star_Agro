@@ -235,5 +235,7 @@ return [
     'View Details'=>'व्डिटेल्स पहा',
     "My Inquiry"=>"माय इन्क्वायरी",
     'points'=>"पॉइंट्स",
+    "Points Settings"=>"पॉइंट्स सेटिंग्स",
+    "Edit Points Settings"=>"एडिट पॉइंट्स सेटिंग्स",
 
 ];
