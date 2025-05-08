@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;// add this for softdelete
 use Modules\Members\App\Models\CropManagement;
-
+use Str;
 //bavix
 // use Bavix\Wallet\Traits\HasWallet;
 // use Bavix\Wallet\Interfaces\Wallet;
@@ -85,5 +85,10 @@ class User extends Authenticatable
         return $this->hasMany(CropManagement::class, 'farmer_id'); 
     }
     
-   
+    protected static function booted()
+    {
+        static::creating(function ($user) {
+            $user->referral_code = strtoupper(Str::random(8));
+        });
+    }
 }

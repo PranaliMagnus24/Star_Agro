@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\FAQ\FaqCategoryController;
 use App\Http\Controllers\Admin\CMS\CMSPagesController;
 
 use App\Http\Controllers\Admin\points\PointsSettingController;
+use App\Http\Controllers\Admin\points\ReferralSettingController;
 use App\Models\User;
 use App\Http\Controllers\Admin\Wallet\WalletController;
 use Modules\Members\App\Http\Controllers\RechargeController;
@@ -216,32 +217,27 @@ Route::post('/razorpay/verify', [RazorpayController::class, 'verifyPayment'])->n
 
 Route::get('/razorpay/success', [RazorpayController::class, 'success'])->name('razorpay.success');
 
-
-//points 
-// Route::get('/points',[PointsSettingController::class,'index'])->name('admin.points.index');
-
-// Route::prefix('admin')->middleware('auth')->group(function () {
-//     Route::resource('points', PointsSettingController::class);
-// });
+//Walllet points
 
 Route::prefix('admin')->middleware('auth')->group(function () {
-    // List points settings
     Route::get('points', [PointsSettingController::class, 'index'])->name('admin.points.index');
-
-    // Show form to create a new point setting
     Route::get('points/create', [PointsSettingController::class, 'create'])->name('admin.points.create');
-
-    // Store a new point setting
     Route::post('points', [PointsSettingController::class, 'store'])->name('admin.points.store');
-
-    // Show form to edit a point setting
     Route::get('points/{id}/edit', [PointsSettingController::class, 'edit'])->name('admin.points.edit');
-
-    // Update the point setting
     Route::put('points/{id}', [PointsSettingController::class, 'update'])->name('admin.points.update');
-
-    // Delete the point setting
     Route::delete('points/{id}', [PointsSettingController::class, 'destroy'])->name('admin.points.destroy');
+});
+
+// referral points 
+// Referral Settings Routes
+
+Route::prefix('admin')->middleware('auth')->group(function () {
+Route::get('referral', [ReferralSettingController::class, 'index'])->name('admin.referral.index');
+Route::get('referral/create', [ReferralSettingController::class, 'create'])->name('admin.referral.create');
+Route::post('referral', [ReferralSettingController::class, 'store'])->name('admin.referral.store');
+Route::get('referral/{id}/edit', [ReferralSettingController::class, 'edit'])->name('admin.referral.edit');
+Route::put('referral/{id}', [ReferralSettingController::class, 'update'])->name('admin.referral.update');
+Route::delete('referral/{id}', [ReferralSettingController::class, 'destroy'])->name('admin.referral.destroy');
 });
 
 require __DIR__.'/auth.php';

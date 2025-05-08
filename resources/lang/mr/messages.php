@@ -234,8 +234,20 @@ return [
     'Recharge'=>'रिचार्ज',
     'View Details'=>'व्डिटेल्स पहा',
     "My Inquiry"=>"माय इन्क्वायरी",
-    'points'=>"पॉइंट्स",
-    "Points Settings"=>"पॉइंट्स सेटिंग्स",
-    "Edit Points Settings"=>"एडिट पॉइंट्स सेटिंग्स",
+    "Wallet points"=>"वॉलेट पॉइंट्स",
+    "Wallet Points Settings"=>"वॉलेट पॉइंट्स सेटिंग्स",
+    "Edit Wallet  Points Settings"=>"एडिट वॉलेट पॉइंट्स सेटिंग्स",
+    "Enter your referral code(optional)"=>"तुमचा रेफरल कोड एंटर करा (पर्यायी)",
+    "Referral"=>" रेफरल",
+    "Your Referral Link"=>"तुमची रेफरल लिंक",
+    "Share this link with your friends, family, and network to earn reward points in your wallet."=>"तुमच्या वॉलेटमध्ये रिवॉर्ड पॉइंट्स मिळवण्यासाठी ही लिंक तुमच्या मित्रमैत्रिणी, कुटुंब आणि नेटवर्कसोबत शेअर करा.",
+    "Referral points"=>"रेफरल पॉइंट्स",
+    "Referral Points Settings"=>"रेफरल पॉइंट्स सेटिंग्स",
+    "Referral Points"=>"रेफरल पॉइंट्स",
+    "Hi! I’ve been using Star Agro and thought you’d find it useful too. You can register using my referral link to get started:"=>"हॅलो! मी Star Agro चा वापर करत आहे आणि मला वाटते की हे तुमच्यासाठीही उपयुक्त ठरेल. तुम्ही माझ्या रेफरल लिंकचा वापर करून नोंदणी करू शकता:",
+    "Hi there! I’m using Star Agro to manage and explore agricultural services. I highly recommend it. Register now using my referral link:"=>"हॅलो! मी Star Agro चा वापर करत आहे जेणेकरून कृषी सेवांचा व्यवस्थापन आणि अन्वेषण करू शकेन. मी याची शिफारस करतो. आता माझ्या रेफरल लिंकचा वापर करून नोंदणी करा: ",
+    "Share with friends:"=>"मित्रांसह शेयर करा:",
+
+
 
 ];

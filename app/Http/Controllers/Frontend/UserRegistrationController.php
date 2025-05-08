@@ -11,14 +11,17 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Role;
 use Modules\Members\App\Models\EnquiryWallet;
+use App\Models\ReferralSetting;
 use App\Models\City;
 use App\Models\State;
 use App\Models\Country;
 use App\Models\User;
+use App\Models\Referral;
 use App\Models\FarmerDocument;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Str;
+use URL;
 use File;
 
 class UserRegistrationController extends Controller
@@ -44,6 +47,20 @@ class UserRegistrationController extends Controller
 
         ]);
 
+         // Check for referral code in request or URL
+           // Check for referral code in request or URL
+            $referralCode = $request->query('ref') ?? $request->input('referral_code');
+            $parentUser = null;
+
+        if ($referralCode) {
+            $parentUser = User::where('referral_code', $referralCode)->first();
+
+            // If referral code is entered but invalid, return with error
+          if (!$parentUser) {
+                return back()->withInput()->withErrors(['referral_code' => 'Please enter a correct referral code.']);
+            }
+        }
+
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -52,7 +69,30 @@ class UserRegistrationController extends Controller
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
             'terms' => $request->terms,
+            'referral_code' => strtoupper(Str::random(8)),
         ]);
+         // Store referral relationship
+        Referral::create([
+         'referral_code' => $user->referral_code,
+            'user_id' => $user->id,
+            'parent_user_id' => $parentUser?->id,
+        ]);
+
+        $domain=URL::to('/');
+        $url=$domain.'referral-registration?ref='. $referralCode ;
+        
+       // Assign reward points to the parent (if referral is valid)
+       if ($parentUser) {
+        $reward = ReferralSetting::where('status', 'active')->latest()->first()->referral_points ?? 20;
+
+        // Add points to parent's EnquiryWallet
+        $wallet = EnquiryWallet::where('user_id', $parentUser->id)->first();
+        if ($wallet) {
+            $wallet->increment('balance', $reward);
+        }
+    }
+
+
         $user->syncRoles($request->roles);
         
        

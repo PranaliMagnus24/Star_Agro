@@ -5,6 +5,7 @@ use Modules\Members\App\Http\Controllers\MembersController;
 use Modules\Members\App\Http\Controllers\CropManagementController;
 use Modules\Members\App\Http\Controllers\RechargeController;
 use Modules\Members\App\Http\Controllers\InquiryController;
+use Modules\Members\App\Http\Controllers\ReferralController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,9 @@ Route::middleware(['auth'])->group(function () {
     //inqiury details
     Route::get('/inquiries', [InquiryController::class, 'index'])->name('member.inquiries');
 
+//referral
+    Route::get('/referral', [ReferralController::class, 'index'])->name('member.referral');
+    Route::get('/referral/link', [ReferralController::class, 'showReferralLink'])->name('member.referral.link');
 
 
 

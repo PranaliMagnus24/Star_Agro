@@ -99,6 +99,8 @@
                                     </div>
                                 </div>
 
+                               
+
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -117,6 +119,30 @@
                                         </div>
                                     </div>
                                 </div>
+                                @php
+    $isReferral = request()->fullUrl() !== url('/registration');
+@endphp
+
+<div class="mb-3">
+    <div class="row">
+        <div class="col-md-12">
+            <label class="form-label">{{ __('messages.Referral Code') }}</label>
+            <input 
+                type="text" 
+                name="referral_code" 
+                value="{{ request()->query('ref') ?? old('referral_code') }}" 
+                class="form-control"
+                placeholder="{{ __('messages.Enter your referral code (optional)') }}"
+                @if($isReferral) readonly style="pointer-events: none; background-color: lightgray;" @endif
+            >
+            @error('referral_code')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+    </div>
+</div>
+
+                               
                                 <div class="container mt-5">
                                     <!-- Terms and Conditions Checkbox -->
                                     <div class="form-check">

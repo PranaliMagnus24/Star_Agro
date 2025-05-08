@@ -387,21 +387,21 @@
 
 
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <div class="row mb-3">
                                                 <label for="referral_code"
                                                     class="col-md-4 col-form-label">{{ __('messages.Referral Code') }}
                                                 </label>
-                                                <!-- <div class="col-md-8">
+                                                 <div class="col-md-8">
                                                     <input type="text" name="referral_code" id="referral_code"
                                                         class="form-control"
                                                         value="{{ old('referral_code', $user->referral_code) }}">
-                                                </div> -->
+                                                </div> 
                                                 @error('referral_code')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div> -->
                                         @if (auth()->user() && auth()->user()->hasRole('trader'))
                                             <div class="col-md-6">
                                                 <div class="row mb-3">

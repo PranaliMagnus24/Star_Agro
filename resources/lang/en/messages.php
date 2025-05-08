@@ -280,11 +280,19 @@ return [
     'Recharge'=>'Recharge',
     'View Details'=>'View Details',
     "My Inquiry"=>"My Inquiry",
-    "points"=> "points",
-    "Points Settings"=>"Points Settings",
-    "Edit Points Settings"=>"Edit Points Settings",
-
-
+    "Wallet points"=> "Wallet points",
+    "Wallet Points Settings"=>"Wallet Points Settings",
+    "Edit Wallet Points Settings"=>"Edit Wallet Points Settings",
+    "Enter your referral code(optional)"=>"Enter your referral code(optional)",
+    "Referral"=>"Referral",
+    "Your Referral Link"=>"Your Referral Link",
+    "Share this link with your friends, family, and network to earn reward points in your wallet."=>"Share this link with your friends, family, and network to earn reward points in your wallet.",
+    "Referral points"=>"Referral points",
+    "Referral Points Settings"=>"Referral Points Settings",
+    "Referral Points"=>"Referral Points",
+    "Hi! I’ve been using Star Agro and thought you’d find it useful too. You can register using my referral link to get started:"=>"Hi! I’ve been using Star Agro and thought you’d find it useful too. You can register using my referral link to get started:",
+    "Hi there! I’m using Star Agro to manage and explore agricultural services. I highly recommend it. Register now using my referral link:"=>"Hi there! I’m using Star Agro to manage and explore agricultural services. I highly recommend it. Register now using my referral link: ",
+    "Share with friends:"=>"Share with friends:",
 
 
 

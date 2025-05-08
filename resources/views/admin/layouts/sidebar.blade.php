@@ -78,15 +78,16 @@
 
                <li>
                 <a href="{{ route('admin.points.index')}}">
-                  <i class="bi bi-cash"></i><span>{{ __('messages.points') }}</span>
+                  <i class="bi bi-cash"></i><span>{{ __('messages.Wallet points') }}</span>
                 </a>
               </li>
                
-              <!-- <li>
-                <a href="{{ route('admin.faq.index')}}">
-                  <i class="bi bi-circle"></i><span>{{ __('messages.FAQ') }}</span>
+              <li>
+                <a href="{{ route('admin.referral.index')}}">
+                  <i class="bi bi-cash"></i><span>{{ __('messages.Referral points') }}</span>
                 </a>
-              </li>  -->
+              </li>
+               
 
         </ul>
       </li><!-- End Master Setting -->

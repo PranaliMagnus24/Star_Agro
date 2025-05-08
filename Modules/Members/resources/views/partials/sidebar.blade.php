@@ -32,19 +32,28 @@
         </ul>
       </li> -->
       <li class="nav-item">
+    <a class="nav-link" href="{{ route('member.referral.link') }}">
+        <i class="bi bi-person-plus"></i>
+        <span>{{ __('messages.Referral') }}</span>
+    </a>
+</li>
+
+
+      <!-- end referral  -->
+      <li class="nav-item">
         <a class="nav-link " href="{{ route('wallet.management.index') }}">
-            <i class="bi bi-wallet2"></i>
+            <i class="bi bi-cash"></i>
           <span>{{ __('messages.Wallet') }}</span>
         </a>
       </li>
       <!-- End Wallet Nav -->
       <li class="nav-item">
         <a class="nav-link " href="{{route('member.inquiries') }}">
-            <i class="bi bi-wallet2"></i>
+            <i class="bi-info-circle"></i>
           <span>{{ __('messages.My Inquiry') }}</span>
         </a>
       </li>
-      <!-- End Wallet Nav -->
+      <!-- End Inquiry Nav -->
     </ul>
 
   </aside><!-- End Sidebar-->
