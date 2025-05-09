@@ -139,18 +139,21 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="row mb-3">
-                                                <label for="dob"
-                                                    class="col-md-4 col-form-label">{{ __('messages.Date Of Birth') }}</label>
+                                                 @php
+                                                    $maxDate = now()->subYears(18)->format('Y-m-d');
+                                                 @endphp
+                                                <label for="dob" class="col-md-4 col-form-label">{{ __('messages.Date Of Birth') }}</label>
                                                 <div class="col-md-8">
-                                                    <input type="date" class="form-control" name="dob"
-                                                        id="dob" value="{{ old('dob', $user->dob) }}">
+                                                    <input id="dob" name="dob" type="date" class="form-control" placeholder="Date of Birth"
+                                                        value="{{ old('dob', $user->dob) }}" max="{{ $maxDate }}">
                                                 </div>
                                                 @error('dob')
-                                                    <span class="text-danger">{{ $message }}</span>
+                                                <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                         </div>
-                                    </div>
+
+                                    </div>  
 
                                     <!--     original code  -->
                                     <!-- <div class="mb-3 d-none">

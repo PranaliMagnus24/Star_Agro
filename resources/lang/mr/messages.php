@@ -51,7 +51,7 @@ return [
     'Zip Code' => 'पिन कोड',
     'Taluka' => 'तालुका',
     'Town/Village' => 'शहर/गाव',
-    'Referral Code' => 'रेफरल कोड',
+    'Referral Code(optional)' => 'रेफरल कोड(ऑप्शनल)',
     'Farmer Certificate' => 'शेतकरी प्रमाणपत्र',
     'How do you know about us' => 'तुम्हाला आमच्याबद्दल कशी माहिती मिळाली?',
     'Save' => 'सेव',
@@ -247,7 +247,17 @@ return [
     "Hi! I’ve been using Star Agro and thought you’d find it useful too. You can register using my referral link to get started:"=>"हॅलो! मी Star Agro चा वापर करत आहे आणि मला वाटते की हे तुमच्यासाठीही उपयुक्त ठरेल. तुम्ही माझ्या रेफरल लिंकचा वापर करून नोंदणी करू शकता:",
     "Hi there! I’m using Star Agro to manage and explore agricultural services. I highly recommend it. Register now using my referral link:"=>"हॅलो! मी Star Agro चा वापर करत आहे जेणेकरून कृषी सेवांचा व्यवस्थापन आणि अन्वेषण करू शकेन. मी याची शिफारस करतो. आता माझ्या रेफरल लिंकचा वापर करून नोंदणी करा: ",
     "Share with friends:"=>"मित्रांसह शेयर करा:",
-
+    "Email already exists."=>"ईमेल आधीपासून अस्तित्वात आहे.",
+    "Phone number must be exactly 10 digits."=>"फोन नंबर १० अंकांचा असावा.",
+    "The first name field is required."=>" पहिले नाव आवश्यक आहे.",
+    "The last name field is required."=>"आडनाव आवश्यक आहे.",
+    "The phone field is required."=>"फोन नंबर आवश्यक आहे.",
+    "The password field is required."=>"पासवर्ड आवश्यक आहे.",
+    "The terms field must be accepted."=>"अटी स्वीकारल्या पाहिजेत.",
+    'User Referred by You: Details'=>'तुम्ही रेफर केलेला वापरकर्ता: डिटेल्स',
+    'Total Referrals: :count' => 'एकूण रेफेर्रल्स: :count',
+    'Date'=> 'तारीख',
+    'Total Referral Points Earned'=>'एकूण मिळवलेले रेफरल पॉइंट्स',
 
 
 ];

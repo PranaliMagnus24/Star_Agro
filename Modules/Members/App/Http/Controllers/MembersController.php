@@ -138,7 +138,7 @@ public function store(Request $request): RedirectResponse
         'district' => 'required|string',
         'taluka' => 'required|string',
         'town' => 'required|string',
-        'dob' => 'nullable|date',
+        'dob' =>[ 'nullable','date', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d')],
         'pincode' => 'nullable|string|max:10',
         'referral_code' => 'nullable|string|max:255',
         // 'gst_no' =>'nullable|string',

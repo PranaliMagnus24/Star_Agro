@@ -4,6 +4,9 @@ namespace Modules\Members\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use App\Models\Referral;
+use App\Models\ReferralSetting;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -64,10 +67,38 @@ class ReferralController extends Controller
     {
         //
     }
+    public function referralDetails()
+{
+    
+    $user = auth()->user();
+    $referralLink = route('home.register', ['ref' => $user->referral_code]);
+
+    // Fetch all referrals for the logged-in user (users who signed up with their referral code)
+    // $referrals = Referral::where('referral_code', $user->referral_code)->get();
+    $referrals = Referral::where('parent_user_id', $user->id)->get();
+
+
+
+    $totalReferrals = $referrals->count();
+    $userDetails = User::whereIn('id', $referrals->pluck('user_id'))->get();
+
+    // Fetch referral points from referral_settings
+    $referralPointsSetting = \DB::table('referral_settings')->first(); 
+    $pointsPerReferral = $referralPointsSetting->referral_points ?? 0;
+
+    // Calculate total referral points
+    $totalReferralPoints = $totalReferrals * $pointsPerReferral;
+
+    return view('members::referral_management.index', compact('totalReferrals', 'userDetails', 'referralLink','totalReferralPoints',
+        'pointsPerReferral'));
+}
+
+
+    /**
+     * Show the referral link for the user.
+     */
     public function showReferralLink()
     {
-        $user = auth()->user();
-        $referralLink = route('home.register', ['ref' => $user->referral_code]);
-        return view('members::referral_management.index', compact('referralLink'));
+        return $this->referralDetails(); 
     }
 }

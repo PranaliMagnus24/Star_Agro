@@ -46,6 +46,7 @@ class LoginRequest extends FormRequest
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
+                
             ]);
         }
 
@@ -82,4 +83,12 @@ class LoginRequest extends FormRequest
     {
         return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
     }
+    public function messages(): array
+{
+    return [
+        'email.required' => 'The email field is required.',
+        'password.required' => 'The password field is required.',
+    ];
+}
+
 }

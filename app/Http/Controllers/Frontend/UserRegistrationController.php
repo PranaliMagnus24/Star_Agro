@@ -43,9 +43,20 @@ class UserRegistrationController extends Controller
             'phone' => ['required','integer','digits:10'],
             'email' => ['nullable', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'terms' => 'accepted', 
+            'terms' => 'accepted', ],
+            [
+                 'first_name'=> __('messages.The first name field is required.'),
+                'last_name'=>__('messages.The last name field is required.'),
+                'email.unique' => __('messages.Email already exists.'),
+                'phone.digits' => __('messages.Phone number must be exactly 10 digits.'),
+                'phone'=> __('messages.The phone field is required.'),
+                'password'=>__('messages.The password field is required.'),
+                'terms'=>__('messages.The terms field must be accepted.'),
 
-        ]);
+
+            ]);
+
+        
 
          // Check for referral code in request or URL
            // Check for referral code in request or URL
@@ -83,7 +94,8 @@ class UserRegistrationController extends Controller
         
        // Assign reward points to the parent (if referral is valid)
        if ($parentUser) {
-        $reward = ReferralSetting::where('status', 'active')->latest()->first()->referral_points ?? 20;
+        $reward = ReferralSetting::where('status', 'Active')->latest()->first()->referral_points ?? 20;
+
 
         // Add points to parent's EnquiryWallet
         $wallet = EnquiryWallet::where('user_id', $parentUser->id)->first();

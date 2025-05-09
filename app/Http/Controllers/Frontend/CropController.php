@@ -23,6 +23,7 @@ use Modules\Category\App\Models\Category;
 use Modules\Members\App\Models\CropImages;
 use Modules\Members\App\Models\CropManagement;
 
+
 use Modules\Members\App\Models\EnquiryWallet;
 use Modules\Members\App\Models\EnquiryWalletTransaction;
 use Illuminate\Support\Facades\DB;
@@ -147,10 +148,19 @@ class CropController extends Controller
     }
 
     // Fetch expected price and user's wallet balance
-    $expectedPrice = (float) $cropManagement->expected_price;
-    $walletBalance = (float) $wallet->balance;
+    // $expectedPrice = (float) $cropManagement->expected_price;
+    // $walletBalance = (float) $wallet->balance;
 
-    if ($expectedPrice > $walletBalance) {
+    // if ($expectedPrice > $walletBalance) {
+
+
+     // Fetch  points_per_inquiry
+      $PointsSetting = PointsSetting::first();
+      $points_per_inquiry = PointsSetting::value('points_per_inquiry') ?? 0;
+      
+     // Fetch user's wallet balance
+     $walletBalance = (float) $wallet->balance;
+     if ($points_per_inquiry>$walletBalance) {
         return response()->json([
             'success' => false,
             'message' => 'Insufficient balance, please recharge.'

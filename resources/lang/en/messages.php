@@ -51,7 +51,7 @@ return [
     'Zip Code' => 'Zip Code',
     'Taluka' => 'Taluka',
     'Town/Village' => 'Town/Village',
-    'Referral Code' => 'Referral Code',
+    'Referral Code(optional)' => 'Referral Code(optional)',
     'Farmer Certificate' => 'Farmer Certificate',
     'How do you know about us' => 'How do you know about us',
     'Save' => 'Save',
@@ -283,7 +283,7 @@ return [
     "Wallet points"=> "Wallet points",
     "Wallet Points Settings"=>"Wallet Points Settings",
     "Edit Wallet Points Settings"=>"Edit Wallet Points Settings",
-    "Enter your referral code(optional)"=>"Enter your referral code(optional)",
+    "Enter your referral code(optional)"=>"Enter your referral code (optional)",
     "Referral"=>"Referral",
     "Your Referral Link"=>"Your Referral Link",
     "Share this link with your friends, family, and network to earn reward points in your wallet."=>"Share this link with your friends, family, and network to earn reward points in your wallet.",
@@ -293,7 +293,20 @@ return [
     "Hi! I’ve been using Star Agro and thought you’d find it useful too. You can register using my referral link to get started:"=>"Hi! I’ve been using Star Agro and thought you’d find it useful too. You can register using my referral link to get started:",
     "Hi there! I’m using Star Agro to manage and explore agricultural services. I highly recommend it. Register now using my referral link:"=>"Hi there! I’m using Star Agro to manage and explore agricultural services. I highly recommend it. Register now using my referral link: ",
     "Share with friends:"=>"Share with friends:",
-
+    "Email already exists."=>"Email already exists.",
+    "Phone number must be exactly 10 digits."=>"Phone number must be exactly 10 digits.",
+    "The first name field is required."=>"The first name field is required.",
+    "The last name field is required."=>"The last name field is required.",
+    "The phone field is required."=>"The phone field is required.",
+    "The password field is required."=>"The password field is required.",
+    "The terms field must be accepted."=>"The terms field must be accepted.",
+    'failed' => 'These credentials do not match our records.',
+    'password' => 'The provided password is incorrect.',
+    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'User Referred by You: Details'=>'User Referred by You: Details',
+   'Total Referrals: :count' => 'Total Referrals: :count',
+   'Date'=> 'Date',
+   'Total Referral Points Earned'=>'Total Referral Points Earned'
 
 
 

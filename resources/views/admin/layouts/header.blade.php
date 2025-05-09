@@ -205,14 +205,17 @@
 
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <!-- <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown"> -->
+            <a class="nav-link nav-profile d-flex flex-column align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="{{ asset('admin/assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+            
+            <h6 class="mb-0">{{ Auth::user()->name }}</h6>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
+            <h6>{{ Auth::user()->name }}</h6>
+            <span>{{ Auth::user()->role ?? 'User' }}</span> {{-- Optional: role or any other field --}}
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -221,7 +224,8 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="">
                 <i class="bi bi-person"></i>
-                <span>My Profile</span>
+                <span>{{ __('messages.My Profile') }}</span>
+
               </a>
             </li>
             <li>
@@ -253,7 +257,8 @@
                     @csrf
                     <a class="dropdown-item d-flex align-items-center" onclick="event.preventDefault(); this.closest('form').submit();" href="{{route('logout')}}">
                         <i class="bi bi-box-arrow-right"></i>
-                        <span>Sign Out</span>
+                        <span>{{ __('messages.Sign Out') }}</span>
+
                     </a>
                 </form>
             </li>

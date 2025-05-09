@@ -60,7 +60,7 @@ Route::middleware(['auth'])->group(function () {
 //referral
     Route::get('/referral', [ReferralController::class, 'index'])->name('member.referral');
     Route::get('/referral/link', [ReferralController::class, 'showReferralLink'])->name('member.referral.link');
-
+    Route::get('referral-details', [ReferralController::class, 'referralDetails'])->name('member.referral.details');
 
 
 });
