@@ -44,9 +44,9 @@
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="col-md">
-                                            <label class="form-label">{{ __('messages.Email') }} <span class="text-danger">*</span></label>
-                                            <input type="email" name="email" class="form-control" placeholder="{{ __('messages.Enter your email') }}" value="{{ old('email')}}">
-                                            @error('email')
+                                            <label class="form-label">{{ __('messages.Phone Number') }} <span class="text-danger">*</span></label>
+                                            <input type="text" name="phone" class="form-control" placeholder="{{ __('messages.Enter your mobile number') }}" value="{{ old('phone')}}">
+                                            @error('phone')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
                                         </div>

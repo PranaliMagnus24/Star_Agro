@@ -129,8 +129,8 @@
     .portfolio-active .slick-next {
     left: 75.5%;
 }
- 
-    
+
+
 .top-btn {
    font-size: 11px;
 padding: 16px 27px;
@@ -319,7 +319,7 @@ padding: 16px 27px;
     .testimonial-active2 .slick-arrow{
         display: none !important;
     }
-    
+
     .slider-content h2 {
     font-size: 90px;
 }
@@ -342,7 +342,7 @@ padding: 16px 27px;
     .services-area .services-box {
     background-size: cover !important;
 }
-    
+
       .button-group {
     display: flex;
     overflow: scroll;
@@ -418,7 +418,7 @@ padding: 16px 27px;
     width: 100%;
     padding-left: 0;
 }
-    
+
 .cta-area.cta-bg::before {
     height: 100%;
     width: 100%;
@@ -459,7 +459,7 @@ padding: 16px 27px;
     .main-menu .has-sub > ul{
         position: relative;
     }
-    
+
 .container-p {
 	padding: 0 30px;
 }
@@ -663,7 +663,8 @@ padding-top: 200px;
     width: 90px;
 }
     .logo img {
-    width: 75%;
+    width: 75px;
+    height: 60px;
 }
     .testimonial-active .qt-img {
     position: absolute;
@@ -690,12 +691,12 @@ margin-top: 0;
     .testimonial-active2 .slick-arrow{
         display: none !important;
     }
-    
+
     .blog-content2 {
     padding: 25px;
 }
 
-    
+
 .testimonial-active2 {
     width: 100%;
     background: rgb(80, 82, 171);
@@ -757,23 +758,23 @@ margin-top: 0;
      .header-two   .mean-container a.meanmenu-reveal {
     margin-top: -56px;
 }
-    
+
     .adim-box{
         margin-bottom: 30px;
     }
        .services-area {
     background: none !important;
 }
-    
+
     .s-about-img.p-relative {
     margin-bottom: 50px;
     margin-left: 0;
 }
-    
+
     .mean-container a.meanmenu-reveal {
     margin-top: -46px;
 }
-  
+
     .pricing-box {
     padding: 0;
 }
@@ -803,7 +804,7 @@ margin-top: 0;
     .slider-active .slick-track::before {
     background: #fff5f4;
 }
-    
+
     #feature-top {
     margin-top: -40px;
   }
@@ -822,7 +823,7 @@ margin-top: 0;
     left: inherit;
     right: 0px;
 }
-  
+
     .faq-wrap {
     margin-top: 50px;
 }
@@ -854,7 +855,7 @@ margin-top: 0;
     .services-active2 .slider-nav {
     position: absolute;
     top: 150px;
-}   
+}
     .services-active2 .slick-arrow {
     left: -15px;
     }
@@ -897,7 +898,7 @@ margin-top: 0;
     .com-icon img{
         width: 100%;
     }
-    
+
     .counter-area {
     background-size: cover;
     padding: 120px 0;
@@ -942,7 +943,7 @@ margin-top: 0;
     line-height: inherit;
     width: 50%;
 }
-    
+
 	.slider-price {
     display: none;
 }
@@ -990,7 +991,7 @@ margin-top: 0;
 .has-mega-menu{
         position:relative;
     }
-	 
+
     li.has-sub.has-mega-menu ul{
         position: relative;
         top: 0px; /*insert the needed value*/
@@ -1003,9 +1004,9 @@ margin-top: 0;
     /*flexbox fallback for browsers that do not support CSS GRID lyout*/
         display: flex;
         flex-wrap: wrap;
-    /*CSS GRID lyout*/ 
+    /*CSS GRID lyout*/
         display: grid;
-        grid-template-columns: repeat(auto-fit,minmax(100%, 1fr));   
+        grid-template-columns: repeat(auto-fit,minmax(100%, 1fr));
 		margin-left: 0px;
 		height:200px;
 		overflow:auto;
@@ -1013,8 +1014,8 @@ margin-top: 0;
 	.timeline {
 
     padding: 50px 0px 50px 50px;
-   
-}	
+
+}
 	.tag-template img {
     width: 100% !important;
 }
@@ -1075,7 +1076,7 @@ margin-top: 0;
 	.wp-block-gallery li {
     width: 50%;
 	}
-	
+
 .main-menu .has-sub > ul {
     display: none;
     position: relative;
@@ -1094,7 +1095,7 @@ margin-top: 0;
     width: 100%;
     margin-bottom: 10px;
 	margin-left:0;
-	margin-top:0;	
+	margin-top:0;
 	padding-left:15px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
 	border-top:1px solid #f7f7f7;
@@ -1137,7 +1138,7 @@ border-bottom: none;
     background-position: -500px 0;
 }
 .slider-content h2 {
-    font-size: 50px;
+    font-size: 25px !important;
     letter-spacing: 0;
     margin-bottom: 30px;
     margin-left: 0;
@@ -1324,7 +1325,7 @@ background: #002e5b;
 }
 .testimonial-active {
     width: 100%;
-   
+
 }
 .testimonial-active .slick-arrow {
     width: 87%;
@@ -1488,7 +1489,8 @@ padding-top: 200px;
 }
 .s-slider-content p {
 	padding-right: 0;
-    width: 85%
+    width: 85%;
+    font-size: 19px !important;
 }
 .slider-btn.mt-55 {
 	margin-top: 25px;

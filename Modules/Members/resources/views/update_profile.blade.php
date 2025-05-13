@@ -140,7 +140,7 @@
                                                 <input type="text" class="form-control" name="company_name" id="company_name" value="{{ old('company_name', $user->company_name) }}">
                                             </div>
                                             @error('company_name')
-                                            <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-danger">{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>

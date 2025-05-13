@@ -24,34 +24,53 @@ class LoginRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
+    // public function rules(): array
+    // {
+    //     return [
+    //         'email' => ['required', 'string', 'email'],
+    //         'password' => ['required', 'string'],
+    //     ];
+    // }
     public function rules(): array
-    {
-        return [
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
-        ];
-    }
+{
+    return [
+        'phone' => ['required', 'string'],
+        'password' => ['required', 'string'],
+    ];
+}
 
     /**
      * Attempt to authenticate the request's credentials.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    // public function authenticate(): void
+    // {
+    //     $this->ensureIsNotRateLimited();
+
+    //     if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+    //         RateLimiter::hit($this->throttleKey());
+
+    //         throw ValidationException::withMessages([
+    //             'email' => trans('auth.failed'),
+    //         ]);
+    //     }
+
+    //     RateLimiter::clear($this->throttleKey());
+    // }
+
+
     public function authenticate(): void
-    {
-        $this->ensureIsNotRateLimited();
-
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
-            ]);
-        }
-
-        RateLimiter::clear($this->throttleKey());
+{
+    if (! Auth::attempt([
+        'phone' => $this->phone,
+        'password' => $this->password,
+    ], $this->boolean('remember'))) {
+        throw ValidationException::withMessages([
+            'phone' => __('auth.failed'),
+        ]);
     }
-
+}
     /**
      * Ensure the login request is not rate limited.
      *

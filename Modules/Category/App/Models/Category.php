@@ -20,10 +20,6 @@ class Category extends Model
     protected $fillable = ['category_name','category_image', 'description', 'status','parent_id','subcategory_id'];
 
 
-    protected static function newFactory(): CategoryFactory
-    {
-        //return CategoryFactory::new();
-    }
 
     public function cropManagements()
     {
@@ -31,14 +27,14 @@ class Category extends Model
     }
 
 
-    public function toSearchableArray()
-    {
-        return [
-            'category_name' => $this->category_name,
-            'description' => $this->description,
-            'status' => $this->status,
-        ];
-    }
+    // public function toSearchableArray()
+    // {
+    //     return [
+    //         'category_name' => $this->category_name,
+    //         'description' => $this->description,
+    //         'status' => $this->status,
+    //     ];
+    // }
 
 
 }

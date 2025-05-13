@@ -15,6 +15,8 @@ use App\Models\CropInquiry;
 use App\Models\City;
 use Str;
 use File;
+use Yajra\DataTables\Facades\DataTables;
+
 
 
 
@@ -24,24 +26,56 @@ class CropManagementController extends Controller
      * Display a listing of the resource.
      */
     public function indexCrop(Request $request)
+{
+    $user = auth()->user();
+
+    if ($request->ajax())
     {
-        $user = auth()->user();
-        $datas = CropManagement::with(['user', 'inquiries'])
-                    ->where('farmer_id', $user->id);
+        $datas = CropManagement::withCount('inquiries')
+                ->where('farmer_id', $user->id)
+                ->orderBy('created_at', 'desc');
 
-        if ($request->has('search')) {
-            $searchTerm = $request->input('search');
-            $datas->where(function($query) use ($searchTerm) {
-                $query->where('crop_name', 'like', '%' . $searchTerm . '%')
-                      ->orWhere('planating_date', 'like', '%' . $searchTerm . '%')
-                      ->orWhere('harvesting_start_date', 'like', '%' . $searchTerm . '%');
-            });
+            return DataTables::eloquent($datas)
+            ->addIndexColumn()
+            ->addColumn('crop_name', function ($data)
+            {
+                return ucfirst($data->crop_name);
+            })
+            ->addColumn('planating_date', function ($data)
+            {
+                 return \Carbon\Carbon::parse($data->planating_date)->format('d F Y');
+            })
+            ->addColumn('harvesting_start_date', function ($data)
+            {
+                return \Carbon\Carbon::parse($data->harvesting_start_date)->format('d F Y');
+            })
+            ->addColumn('harvesting_end_date', function ($data)
+            {
+                 return \Carbon\Carbon::parse($data->harvesting_end_date)->format('d F Y');
+            })
+            ->addColumn('expected_price', function ($data)
+            {
+                return $data->expected_price;
+            })
+            ->addColumn('inquiry_count', function ($data)
+            {
+                return '<a href="' . route('crop.inquiries', $data->id) . '">' . $data->inquiries_count . '</a>';
+            })
+            ->addColumn('action', function ($data)
+            {
+                return '
+                <div class="d-flex align-items-center nowrap">
+                <a href="'.route('crop.edit', $data->id).'" class="btn btn-primary me-1"><i class="bi bi-pencil-square"></i></a>
+                <a href="'.route('crop.delete', $data->id).'" class="btn btn-danger delete-confirm me-1"><i class="bi bi-trash3-fill"></i></a>
+                </div>
+                ';
+            })
+            ->rawColumns(['inquiry_count', 'action'])
+            ->make(true);
         }
-
-        $datas = $datas->orderBy('created_at', 'desc')->paginate(10);
-
-        return view('members::crop_management.index', compact('datas', 'user'));
+        return view('members::crop_management.index');
     }
+
     /**
      * Show the form for creating a new resource.
      */

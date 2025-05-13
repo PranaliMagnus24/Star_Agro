@@ -16,8 +16,5 @@ class CropImages extends Model
     protected $table = 'crop_images';
     protected $fillable = ['crop_images','crop_video','crop_id','farmer_id'];
 
-    protected static function newFactory(): CropImagesFactory
-    {
-        //return CropImagesFactory::new();
-    }
+
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Category\App\Models\Category;
+use Yajra\DataTables\Facades\DataTables;
 
 class CategoryController extends Controller
 {
@@ -15,13 +16,21 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
+      if ($request->ajax()){
+            $categories = Category::query()->orderBy('created_at', 'desc');
+            return DataTables::eloquent($categories)
+            ->addIndexColumn()
+            ->addColumn('action', function($category){
+               return '
+                     <a href="'.route('category.edit', $category->id).'" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                     <a href="'.route('category.delete', $category->id).'" class="btn btn-danger delete-confirm"><i class="bi bi-trash3-fill"></i></a>
+               ';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+           };
 
-        $categories = Category::when($search, function ($query) use ($search) {
-            return $query->where('category_name', 'like', "%{$search}%");
-        })->paginate(20);
-
-        return view('category::index', compact('categories', 'search'));
+        return view('category::index');
     }
 
     /**

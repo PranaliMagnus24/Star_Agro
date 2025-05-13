@@ -21,10 +21,7 @@ class CropManagement extends Model
     protected $table = 'crop_management';
     protected $fillable = ['farmer_id','category_id','subcategory_id','crop_id','crop_name','planating_date','expected_price','min_qty','max_qty','type','description','status','harvesting_start_date', 'harvesting_end_date','max_qty_mass', 'min_qty_mass',];
 
-    protected static function newFactory(): CropManagementFactory
-    {
-        //return CropManagementFactory::new();
-    }
+
 
     public function user()
 {
@@ -50,20 +47,20 @@ public function inquiries()
 }
 
 
-public function toSearchableArray()
-{
-    return [
-        'crop_name' => $this->crop_name,
-        'planating_date' => $this->planating_date,
-        'expected_price' => $this->expected_price,
-        'min_qty' => $this->min_qty,
-        'max_qty' => $this->max_qty,
-        'type' => $this->type,
-        'description' => $this->description,
-        'harvesting_start_date' => $this->harvesting_start_date,
-        'harvesting_end_date' => $this->harvesting_end_date,
-    ];
-}
+// public function toSearchableArray()
+// {
+//     return [
+//         'crop_name' => $this->crop_name,
+//         'planating_date' => $this->planating_date,
+//         'expected_price' => $this->expected_price,
+//         'min_qty' => $this->min_qty,
+//         'max_qty' => $this->max_qty,
+//         'type' => $this->type,
+//         'description' => $this->description,
+//         'harvesting_start_date' => $this->harvesting_start_date,
+//         'harvesting_end_date' => $this->harvesting_end_date,
+//     ];
+// }
 
 
 }

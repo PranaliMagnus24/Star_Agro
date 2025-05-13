@@ -1,56 +1,65 @@
 
+<style>
+    .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0; /* Adjust padding as needed */
+}
+
+.header-top .container {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+}
+
+.header-top .search-bar {
+    flex: 1; /* Allow search bar to take available space */
+    margin: 0 10px; /* Add margin for spacing */
+}
+
+.header-cta {
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+}
+
+.header-cta ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header-cta ul li {
+    margin-left: 20px; /* Space between items */
+}
+
+
+
+</style>
 <header class="header-area header-three">
     <div class="header-top second-header d-none d-lg-block">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-3 col-md-3 d-none d-lg-block text-center">
+                <div class="col-lg-3 col-md-3 text-center">
                     <a href="{{ route('home.index') }}">
                         <img src="{{ url('upload/general_setting/'.$getSetting->header_logo) }}" alt="logo" style="height: 172px; width: 128px; margin-bottom: -27px;">
                         <div style="font-size: 20px;"><strong>शेतकऱ्यांचे हक्काचे व्यासपीठ</strong></div>
                     </a>
-
                 </div>
 
+                <div class="col-lg-3 col-md-3">
+                    <div class="search-bar position-relative">
+                        <form class="search-form d-flex align-items-center" method="GET" action="{{ route('home.index') }}">
+                            <input id="liveSearchInput" type="text" name="query" placeholder="{{ __('messages.Search crops') }}.." title="Enter search keyword" autocomplete="off">
+                            <button type="submit" title="Search"><i class="fa fa-search"></i></button>
+                        </form>
+                        <ul id="liveSearchResults" class="list-group position-absolute w-100" style="z-index: 1000;"></ul>
+                    </div>
+                </div>
 
- <!-- 🔍 Global Search Bar -->
- <div class="col-lg-3 col-md-3 d-none d-md-block">
-    <div class="search-bar position-relative">
-        <form class="search-form d-flex align-items-center" method="GET" action="{{ route('home.index') }}">
-            <input id="liveSearchInput" type="text" name="query" placeholder="{{ __('messages.Search crops') }}.." title="Enter search keyword" autocomplete="off">
-            <button type="submit" title="Search"><i class="fa fa-search"></i></button>
-        </form>
-        <ul id="liveSearchResults" class="list-group position-absolute w-100" style="z-index: 1000;"></ul>
-    </div>
-</div>
-
-
-
-                <div class="col-lg-6 col-md-6 d-none d-md-block text-right">
+                <div class="col-lg-6 col-md-6 text-right">
                     <div class="header-cta">
                         <ul class="list-inline">
-                            <!------------profile login logout dropdown---------------->
-                            <li class="list-inline-item">
-                                <div class="text">
-                                    @if(Auth::check())
-                                    <div class="dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            {{ Auth::user()->name }}
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                            <a class="dropdown-item" style="color:#76bc02;" href="{{ route('member.profile')}}">{{ __('messages.My Profile') }}</a>
-                                            <a class="dropdown-item text-success" href="{{ route('logout') }}"
-                                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('messages.Logout') }}</a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                @csrf
-                                            </form>
-                                        </div>
-                                    </div>
-                                @else
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('messages.Login') }}</a>
-                                @endif
-                                </div>
-                            </li>
-<!------------profile login logout dropdown End---------------->
                             <li class="list-inline-item">
                                 <div class="text">
                                     <i class="far fa-phone-alt"></i>
@@ -67,15 +76,13 @@
                                     </div>
                                 </div>
                             </li>
-
                         </ul>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
+
     <div id="header-sticky" class="menu-area">
         <div class="container">
             <div class="second-menu">
@@ -86,7 +93,7 @@
                     <div style="font-size: 14px; margin-top: 5px; color: #fff"><strong>शेतकऱ्यांचे हक्काचे व्यासपीठ</strong></div>
                     </div>
 
-                    <div class="col-xl-8 col-lg-8">
+                    <div class="col-xl-10 col-lg-10">
 
                         <div class="main-menu">
                             <nav id="mobile-menu" style="display: block;">
@@ -95,20 +102,47 @@
                                         <a href="{{ route('home.index')}}">{{ __('messages.Home') }}</a>
                                     </li>
                                     <li><a href="{{ route('home.about')}}">{{ __('messages.About Us') }}</a></li>
+                                    <li class="has-sub">
+                                        <a href="{{ route('home.services')}}">{{ __('messages.Services') }}</a>
+                                      </li>
+                                      <li><a href="{{ route('home.crops')}}">{{ __('messages.Crops') }}</a></li>
+
                                     <li class="has-sub"><a href="{{ route('home.gallery')}}">{{ __('messages.Gallery') }}</a>
                                     </li>
-                                    <li class="has-sub">
-                                      <a href="{{ route('home.services')}}">{{ __('messages.Services') }}</a>
-                                    </li>
-                                    <li><a href="{{ route('home.contact')}}">{{ __('messages.Contact') }}</a></li>
-                                    <li><a href="{{ route('home.register')}}">{{ __('messages.Register') }}</a></li>
-                                    <li><a href="{{ route('home.crops')}}">{{ __('messages.Crops') }}</a></li>
 
+                                    <li><a href="{{ route('home.contact')}}">{{ __('messages.Contact') }}</a></li>
+                                    <!-------------Login------------------>
+                                    @if(Auth::check())
+                                    <li class="has-sub">
+                                        <a href="#">{{ Auth::user()->name }}</a>
+                                        <ul>
+                                            <li>
+                                                <a href="{{ route('member.profile') }}" style="color:#76bc02;">
+                                                    {{ __('messages.My Profile') }}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('logout') }}" class="text-success" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                    {{ __('messages.Logout') }}
+                                                </a>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                    @csrf
+                                                </form>
+                                            </li>
+                                        </ul>
+                                     </li>
+                                     @else
+                                     <li><a href="{{ route('home.register')}}">{{ __('messages.Register') }}</a></li>
+                                     <li>
+                                        <a href="{{ route('login') }}">{{ __('messages.Login') }}</a>
+                                    </li>
+                                    @endif
+                                    <!------------login end------------------>
                                 </ul>
                             </nav>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 text-right d-none d-lg-block">
+                    <div class="col-xl-2 col-lg-2 text-right d-none d-lg-block">
                        <div class="search-top2">
                            <ul>
                             <li class="dropdown">
@@ -130,9 +164,6 @@
                                     </li>
                                 </ul>
                             </li>
-                               <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                               <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fas fa-search"></i></a></li>
                                 <li><a href="#" class="menu-tigger"><i class="fal fa-bars"></i></a></li>
                             </ul>
                         </div>
