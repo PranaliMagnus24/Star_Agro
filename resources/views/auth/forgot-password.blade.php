@@ -53,7 +53,7 @@
                                 <!-- Terms and Conditions Modal -->
 
                                 <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-success w-30 py-2">{{ __('messages.Email Password Reset Link') }}</button>
+                                    <button type="submit" class="btn ss-btn w-30 py-2">{{ __('messages.Email Password Reset Link') }}</button>
                                 </div>
                             </form>
                         </div>

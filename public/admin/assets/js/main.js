@@ -6,6 +6,62 @@
  * License: https://bootstrapmade.com/license/
  */
 
+// Category Selection
+$(document).ready(function () {
+    $("#category_id").change(function () {
+        var categoryId = $(this).val();
+        $("#subcategory_id")
+            .empty()
+            .append('<option value="">--Select Sub Category--</option>');
+        $("#subsubcategory_id")
+            .empty()
+            .append('<option value="">--Select Sub Sub Category--</option>');
+
+        if (categoryId) {
+            $.ajax({
+                url: "/get-subcategories/" + categoryId,
+                type: "GET",
+                success: function (data) {
+                    $.each(data, function (key, value) {
+                        $("#subcategory_id").append(
+                            '<option value="' +
+                                value.id +
+                                '">' +
+                                value.category_name +
+                                "</option>"
+                        );
+                    });
+                },
+            });
+        }
+    });
+
+    $("#subcategory_id").change(function () {
+        var subcategoryId = $(this).val();
+        $("#crop_id")
+            .empty()
+            .append('<option value="">--Select Crop Name--</option>');
+
+        if (subcategoryId) {
+            $.ajax({
+                url: "/get-crops/" + subcategoryId,
+                type: "GET",
+                success: function (data) {
+                    $.each(data, function (key, value) {
+                        $("#crop_id").append(
+                            '<option value="' +
+                                value.id +
+                                '">' +
+                                value.category_name +
+                                "</option>"
+                        );
+                    });
+                },
+            });
+        }
+    });
+});
+
 (function () {
     "use strict";
 
@@ -342,39 +398,6 @@
             }).observe(mainContainer);
         }, 200);
     }
-
-    // Category Selection
-    $(document).ready(function () {
-        $("#category_id").change(function () {
-            var categoryId = $(this).val();
-            $("#subcategory_id")
-                .empty()
-                .append('<option value="">--Select Sub Category--</option>');
-            $("#subsubcategory_id")
-                .empty()
-                .append(
-                    '<option value="">--Select Sub Sub Category--</option>'
-                );
-
-            if (categoryId) {
-                $.ajax({
-                    url: "/get-subcategories/" + categoryId,
-                    type: "GET",
-                    success: function (data) {
-                        $.each(data, function (key, value) {
-                            $("#subcategory_id").append(
-                                '<option value="' +
-                                    value.id +
-                                    '">' +
-                                    value.category_name +
-                                    "</option>"
-                            );
-                        });
-                    },
-                });
-            }
-        });
-    });
 
     document.getElementById("zip_code").addEventListener("blur", function () {
         var pincode = this.value.trim();

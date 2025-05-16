@@ -7,13 +7,7 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <form class="d-flex me-5" method="GET" action="#">
-                            </form> 
-
-                            <div class="card p-4">
+                 <div class="card p-4">
                                 <p style="font-weight: 700;font-size: 1.1rem;color: #2c3e50;background-color: #d4edda;padding: 10px 15px;border-radius: 8px;display: inline-block;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                                 {{__('messages.Total Referral Points Earned') }}:  <span style="color: #27ae60;">{{ $totalReferralPoints }}</span>
                                 </p>
@@ -64,7 +58,7 @@
                                                 <tr>
                                                     <td>{{ $user->name }}</td>
                                                     <td>{{ $user->phone }}</td>
-                                                    <td>{{ $user->created_at->format('Y-m-d H:i') }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d-M-Y') }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -72,9 +66,6 @@
                                 </div>
 
                             </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

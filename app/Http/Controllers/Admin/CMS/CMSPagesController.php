@@ -9,14 +9,32 @@ use App\Models\pages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Http\RedirectResponse;
+use Yajra\DataTables\Facades\DataTables;
 
 
 class CMSPagesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pages = Pages::all();
-        return view('admin.cms.index', compact('pages'));
+        
+         if ($request->ajax()) {
+            $pages  = pages::query()->orderBy('created_at', 'desc');
+            return DataTables::eloquent($pages )
+                ->addIndexColumn()
+               
+                ->addColumn('action', function($page) {
+                    return '
+                        <div class="d-flex align-items-center nowrap">
+                            <a href="'.route('pages.show', $page->id).'" class="btn btn-info btn-sm-1 me-2"><i class="bi bi-eye"></i></a>
+                            <a href="'.route('pages.edit', $page->id).'" class="btn btn-primary me-2"><i class="bi bi-pencil-square"></i></a>
+                            <a href="'.route('pages.destroy', $page->id).'" class="btn btn-danger delete-confirm me-1"><i class="bi bi-trash3-fill"></i></a>
+                        </div>
+                    ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('admin.cms.index');
     }
 
     

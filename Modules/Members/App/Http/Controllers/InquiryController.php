@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Response;
 use App\Models\State; // Assuming you have a State model
 use App\Models\City; 
+use Yajra\DataTables\DataTables;
 
 class InquiryController extends Controller
 {
@@ -38,37 +39,64 @@ class InquiryController extends Controller
     //     return view('members::inquiry_management.index', compact('inquiries', 'cropManagement','states', 'City'));
     // }
     public function index(Request $request)
-    { 
-        $userEmail = Auth::user()->email;
+{
+    $states = State::pluck('name', 'id')->toArray();
+    $cities = City::pluck('name', 'id')->toArray();
+    $userEmail = Auth::user()->email;
 
-        // Get the search term from the request
-        $search = $request->query('search');
+    if ($request->ajax()) {
+        // Fetch inquiries ordered by 'created_at' in descending order (most recent first)
+        $inquiries = CropInquiry::with(['cropManagement.farmer', 'walletTransactions'])
+            ->where('email', $userEmail)
+            ->orderBy('created_at', 'desc'); // Ensure the latest inquiries come first
 
-        // Build the query
-        $inquiriesQuery = CropInquiry::with(['walletTransactions', 'cropManagement.farmer'])
-            ->where('email', $userEmail);
-
-        // If a search term is provided, filter the inquiries
-        if ($search) {
-            $inquiriesQuery->where(function($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%')
-                      ->orWhere('mobile_number', 'like', '%' . $search . '%')
-                      ->orWhere('description', 'like', '%' . $search . '%')
-                      ->orWhereHas('cropManagement', function($q) use ($search) {
-                          $q->where('crop_name', 'like', '%' . $search . '%');
-                      });
-            });
+        return DataTables::of($inquiries)
+            ->addColumn('id', function ($row) {
+                return $row->getKey(); // Automatically use the primary key
+            })
+            ->addColumn('crop_name', fn($row) => $row->cropManagement->crop_name ?? 'N/A')
+            ->addColumn('farmer_name', fn($row) => $row->cropManagement->farmer->name ?? 'N/A')
+            ->addColumn('mobile', fn($row) => $row->cropManagement->farmer->phone ?? 'N/A')
+            ->addColumn('email', fn($row) => $row->cropManagement->farmer->email ?? 'N/A')
+            ->addColumn('city', function ($row) use ($states, $cities) {
+                $farmer = $row->cropManagement->farmer ?? null;
+                return ($farmer->town ?? 'Unknown Town');
+            })
+            ->addColumn('date', fn($row) => $row->created_at->format('d M Y'))
+           ->addColumn('wallet', function ($row) {
+    if ($row->walletTransactions->count()) {
+        $html = '<table class="table table-sm table-bordered text-center mb-0">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+        foreach ($row->walletTransactions as $transaction) {
+            $html .= '<tr>
+                        <td>' . ucfirst($transaction->type) . '</td>
+                        <td>' . $transaction->amount . '</td>
+                        <td>' . $transaction->description . '</td>
+                        <td>' . \Carbon\Carbon::parse($transaction->created_at)->format('d M Y') . '</td>
+                      </tr>';
         }
+        $html .= '</tbody></table>';
+        return $html;
+    } else {
+        return '<p class="text-muted">No wallet transactions available.</p>';
+    }
+})
 
-        $inquiries = $inquiriesQuery->orderBy('created_at', 'desc')->paginate(12);
 
-        // Fetch states and cities for mapping
-        $states = State::pluck('name', 'id')->toArray();
-        $cities = City::pluck('name', 'id')->toArray();
-        
-        return view('members::inquiry_management.index', compact('inquiries', 'states', 'cities'));
+            ->rawColumns(['wallet']) // important to render HTML
+            ->make(true);
     }
 
+    return view('members::inquiry_management.index');
+}
 
     /**
      * Show the form for creating a new resource.

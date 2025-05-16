@@ -258,6 +258,17 @@ return [
     'Total Referrals: :count' => 'टोटल रेफेर्रल्स: :count',
     'Date'=> 'तारीख',
     'Total Referral Points Earned'=>'अर्जित कुल रेफरल अंक',
+    'Complete Your Payment'=> 'अपना पेमेंट पूरा करें',
+    'Amount (₹):'=> 'अमाउंट (₹):',
+    'Enter amount min 100Rs'=> 'न्यूनतम 100रु.अमाउंट दर्ज करें',
+    'Proceed to Pay'=>'प्रोसीड टू पे',
+    'Code'=>'कोड',
+    'Districts'=>'जिले',
+    'Talukas'=>'तालुके',
+    'Villages'=>'गावे',
+    'Village'=> 'गाँव',
+    'Select language'=>'भाषा चुने',
+
 
 
 

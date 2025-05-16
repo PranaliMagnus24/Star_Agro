@@ -7,13 +7,36 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class RoleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $roles = Role::paginate(10);
-        return view('admin.role_management.role.index',compact('roles'));
+        if ($request->ajax()) {
+            $roles = Role::query()->orderBy('created_at', 'desc');
+            return DataTables::eloquent($roles)
+                ->addIndexColumn()
+                ->addColumn('action', function ($role) {
+                    $editUrl = route('role.edit', $role->id);
+                    $deleteUrl = route('role.delete', $role->id);
+                    $permUrl = route('role.permissions', $role->id);
+                    $buttons = '<a href="' . $permUrl . '" class="btn btn-primary btn-sm">Add / Edit Role Permission</a> ';
+                    if (Auth::user()->can('update role')) {
+                        $buttons .= '<a href="' . $editUrl . '" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a> ';
+                    }
+                    if (Auth::user()->can('delete role')) {
+                        $buttons .= '<a href="' . $deleteUrl . '" class="btn btn-danger btn-sm delete-confirm"><i class="bi bi-trash3-fill"></i></a>';
+                    }
+                    return $buttons;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        
+        return view('admin.role_management.role.index');
     }
 
     public function create()

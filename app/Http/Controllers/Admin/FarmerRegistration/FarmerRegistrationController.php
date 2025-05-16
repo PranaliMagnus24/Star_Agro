@@ -16,7 +16,8 @@ class FarmerRegistrationController extends Controller
     public function farmerIndex(Request $request)
 {
     $search = $request->input('search');
-    $solarDryer = $request->input('solar_dryer');
+    $solarDryer = $request->input('solar_dryer'); 
+    ///modal 
 
     $users = User::role('farmer')
         ->when($search, function ($query) use ($search) {
@@ -35,7 +36,7 @@ class FarmerRegistrationController extends Controller
 
         // Count farmers with solar dryer set to 'yes'
         $yesCount = User::role('farmer')->where('solar_dryer', 'yes')->count();
-
+        $users = User::with('farmerDocuments')->role('farmer')->paginate(10);
         return view('admin.farmer_registration.farmer_index', compact('users', 'yesCount'));
 
 }

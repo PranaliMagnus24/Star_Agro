@@ -306,7 +306,19 @@ return [
     'User Referred by You: Details'=>'User Referred by You: Details',
    'Total Referrals: :count' => 'Total Referrals: :count',
    'Date'=> 'Date',
-   'Total Referral Points Earned'=>'Total Referral Points Earned'
+   'Total Referral Points Earned'=>'Total Referral Points Earned',
+   'Edit Unit Mass'=>'Edit Unit Mass',
+   'Complete Your Payment'=>'Complete Your Payment',
+   'Amount (₹):'=> 'Amount (₹):',
+   'Enter amount min 100Rs'=> 'Enter amount min 100Rs',
+   'Proceed to Pay'=> 'Proceed to Pay',
+   'balance'=>'balance',
+   'Code'=>'Code',
+   'Districts'=>'Districts',
+   'Talukas'=>'Talukas',
+   'Villages'=>'Villages',
+   'Village'=>'Village',
+   'Select language'=>'Select language',
 
 
 

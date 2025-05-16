@@ -69,7 +69,7 @@
                                                 <label class="form-label">{{ __('messages.Language') }}</label>
                                                 <select name="language" id="language" class="form-control"
                                                     onchange="location = this.value;">
-                                                    <option value="" disabled selected>-- Select language --</option>
+                                                    <option value="" disabled selected>-- {{ __('messages.Select language') }} --</option>
                                                     <option value="{{ url('language/en') }}"
                                                         {{ App::getLocale() === 'en' ? 'selected' : '' }}>English</option>
                                                     <option value="{{ url('language/mr') }}"

@@ -46,7 +46,31 @@
                 <a href="{{ route('create.location')}}">
                   <i class="bi bi-circle"></i><span>{{ __('messages.Location') }}</span>
                 </a>
+                   <ul>
+                     <li>
+                           <a href="{{ route('districts.index') }}">
+                           <i class="bi bi-circle"></i><span>{{ __('messages.Districts') }}</span>
+                         </a>
+                     </li>
+                  </ul>
+
+                  <ul>
+                     <li>
+                           <a href="{{ route('talukas.index') }}">
+                           <i class="bi bi-circle"></i><span>{{ __('messages.Talukas') }}</span>
+                         </a>
+                     </li>
+                  </ul>
+
+                  <ul>
+                     <li>
+                           <a href="{{ route('villages.index') }}">
+                           <i class="bi bi-circle"></i><span>{{ __('messages.Villages') }}</span>
+                         </a>
+                     </li>
+                  </ul>
               </li>
+
               <li>
                 @can('view general setting')
                 <a href="{{ route('create.generalSetting')}}">
@@ -99,7 +123,7 @@
         <ul id="farmer-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
                 <a href="{{ route('admin.farmer.index')}}">
-                  <i class="bi bi-circle"></i><span>{{ __('messages.Farmer') }}</span>
+                  <i class="bi bi-person"></i><span>{{ __('messages.Farmer') }}</span>
                 </a>
               </li>
         </ul>

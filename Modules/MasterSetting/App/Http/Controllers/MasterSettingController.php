@@ -9,19 +9,31 @@ use Illuminate\Http\Response;
 use Modules\MasterSetting\App\Models\PaymentGateway;
 use Modules\MasterSetting\App\Models\Whatsapp;
 use Modules\MasterSetting\App\Models\SMSGateway;
+use Yajra\DataTables\Facades\DataTables;
 
 class MasterSettingController extends Controller
 {
    ///Whatsapp list
    public function index(Request $request)
    {
-       $search = $request->input('search');
+    if ($request->ajax()) {
+        $whatsapps =Whatsapp::query()->orderBy('created_at', 'desc');
+        return DataTables::eloquent($whatsapps)
+            ->addIndexColumn()
+           
+            ->addColumn('action', function($whatsapp) {
+                return '
+                    <div class="d-flex align-items-center nowrap">
+                        <a href="'.route('whatsapp.edit', $whatsapp->id).'" class="btn btn-primary me-1"><i class="bi bi-pencil-square"></i></a>
+                        <a href="'.route('whatsapp.delete', $whatsapp->id).'" class="btn btn-danger delete-confirm me-1"><i class="bi bi-trash3-fill"></i></a>
+                    </div>
+                ';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
 
-       $whatsapps = Whatsapp::when($search, function ($query) use ($search) {
-           return $query->where('api_key', 'LIKE', "%{$search}%");
-       })->paginate(20);
-
-       return view('mastersetting::whatsapp.index', compact('whatsapps'));
+       return view('mastersetting::whatsapp.index');
    }
 
 
@@ -87,13 +99,23 @@ class MasterSettingController extends Controller
     /////Payment Gateway list
     public function paymentGatewaylist(Request $request)
     {
-        $search = $request->input('search');
-        $payments = PaymentGateway::when($search, function ($query) use ($search) {
-            return $query->where('api_key', 'like', "%{$search}%")
-                         ->orWhere('secret_key', 'like', "%{$search}%");
-        })->paginate(20);
-
-        return view('mastersetting::payment_gateway.index', compact('payments'));
+        if ($request->ajax()) {
+            $payments =PaymentGateway ::query()->orderBy('created_at', 'desc');
+            return DataTables::eloquent($payments)
+                ->addIndexColumn()
+               
+                ->addColumn('action', function($payment) {
+                    return '
+                        <div class="d-flex align-items-center nowrap">
+                            <a href="'.route('paymentGateway.edit',$payment->id).'" class="btn btn-primary me-1"><i class="bi bi-pencil-square"></i></a>
+                            <a href="'.route('paymentGateway.delete',$payment->id).'" class="btn btn-danger delete-confirm me-1"><i class="bi bi-trash3-fill"></i></a>
+                        </div>
+                    ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('mastersetting::payment_gateway.index');
     }
 
     ////Payment gateway add and edit page
@@ -158,13 +180,24 @@ class MasterSettingController extends Controller
 ///////SMS Gateway
     public function smsList(Request $request)
     {
-        $search = $request->input('search');
+        if ($request->ajax()) {
+            $datas =SMSGateway::query()->orderBy('created_at', 'desc');
+            return DataTables::eloquent($datas)
+                ->addIndexColumn()
+               
+                ->addColumn('action', function($data) {
+                    return '
+                        <div class="d-flex align-items-center nowrap">
+                            <a href="'.route('sms.edit', $data->id).'" class="btn btn-primary me-1"><i class="bi bi-pencil-square"></i></a>
+                            <a href="'.route('sms.delete', $data->id).'" class="btn btn-danger delete-confirm me-1"><i class="bi bi-trash3-fill"></i></a>
+                        </div>
+                    ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
-        $datas = SMSGateway::when($search, function ($query) use ($search) {
-            return $query->where('api_key', 'LIKE', "%{$search}%");
-        })->paginate(20);
-
-        return view('mastersetting::sms.index', compact('datas'));
+        return view('mastersetting::sms.index');
     }
 
     public function smsCreate($id = null)

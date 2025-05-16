@@ -18,7 +18,7 @@
                             @method('PUT')
                         @endif
                         <input type="hidden" name="parent_id" id="parent_id">
-                        <input type="hidden" name="subcategory_id" id="subcategory_id">
+                        <input type="hidden" name="subcategory_id" id="hdnsubcategory_id">
                         <div class="row mb-3">
                             <label for="" class="col-md-4 col-lg-3 col-form-label">Title</label>
                             <div class="col-md-8 col-lg-8">
@@ -94,4 +94,8 @@
 </div>
 @endsection
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+   
+    
+</script>
 

@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body mt-3">
                     {{-- @livewire('permission-table') --}}
-                  <table class="table table-bordered table-striped">
+                  <table class="table table-bordered table-striped userlist">
                     <thead>
                         <tr>
                             <th>{{ __('messages.ID') }}</th>
@@ -24,35 +24,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($users as $user)
-                        <tr>
-                            <td>{{ $users->firstItem() + $loop->index }}</td>
-                            <td>{{ ucfirst($user->name) }}</td>
-                            <td>{{ $user->email}}</td>
-                            <td>
-                                @if($user->getRoleNames()->isNotEmpty())
-                                    @foreach($user->getRoleNames() as $rolename)
-                                        <label class="badge bg-primary mx-1 text-white">{{ $rolename }} </label>
-                                    @endforeach
-                                @endif
-                            </td>
-                            <td>
-                                @can('update user')
-                              <a href="{{ route('user.edit', $user->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
-                              @endcan
-                              @can('delete user')
-                              <a href="{{ route('user.delete', $user->id) }}" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></a>
-                              @endcan
-                            </td>
-                        </tr>
-
-                        @endforeach
+                        
                     </tbody>
 
                   </table>
-                  <div class="d-flex justify-content-center">
-                    {{$users->links()}}
-                  </div>
+                 
                 </div>
             </div>
         </div>
@@ -60,3 +36,6 @@
 </div>
 
 @endsection
+<script>
+      const userUrl = "{{ route('users.list') }}";
+</script>

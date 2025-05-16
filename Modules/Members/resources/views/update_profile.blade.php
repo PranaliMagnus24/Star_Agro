@@ -3,12 +3,7 @@
 @section('title', __('messages.Profile'))
 @section('pagetitle', __('messages.Profile'))
 @section('member')
-    <!-- <x-google-location-picker
-        latitude="{{ old('location.latitude', $user->location['latitude'] ?? '') }}"
-        longitude="{{ old('location.longitude', $user->location['longitude'] ?? '') }}"
-        address="{{ old('location.address', $user->location['address'] ?? '') }}"
-        fieldName="location"
-    /> -->
+   
 
 
 
@@ -21,11 +16,16 @@
                         <!-- Bordered Tabs -->
                         <ul class="nav nav-tabs nav-tabs-bordered">
                             <li class="nav-item">
-                                <button class="nav-link {{ request()->get('tab') == 'profile-edit' ? 'active' : '' }} "
+                                  @php
+                                $tab = request()->get('tab', 'profile-edit');
+                                @endphp
+                                <button class="nav-link {{$tab == 'profile-edit' ? 'active' : '' }} "
                                     data-bs-toggle="tab"
-                                    data-bs-target="#profile-edit">{{ __('messages.Edit Profile') }}</button>
+                                    data-bs-target="#profile-edit"
+                                    id="profile-edit-tab">{{ __('messages.Edit Profile') }}</button>
                             </li>
-                            <li class="nav-item">
+
+                             <li class="nav-item">
                                 <button
                                     class="nav-link {{ request()->get('tab') == 'profile-change-password' ? 'active' : '' }}"
                                     data-bs-toggle="tab"
@@ -40,6 +40,7 @@
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade {{ request()->get('tab') == 'profile-edit' ? 'show active' : '' }} profile-edit pt-3"
                                 id="profile-edit">
+                                
                                 <!-- Profile Edit Form -->
                                 <form method="POST" action="{{ route('member.profile.update') }}"
                                     enctype="multipart/form-data">
@@ -48,7 +49,7 @@
                                         <div class="col-md-6">
                                             <div class="row">
                                                 <label for="first_name"
-                                                    class="col-md-4 col-form-label">{{ __('messages.First Name') }}</label>
+                                                    class="col-md-4 col-form-label">{{ __('messages.First Name') }} <span class="text-danger">*</span></label>
                                                 <div class="col-md-8">
                                                     <input name="first_name" type="text" class="form-control"
                                                         id="first_name" value="{{ $user->first_name }}">
@@ -61,7 +62,7 @@
                                         <div class="col-md-6">
                                             <div class="row">
                                                 <label for="last_name"
-                                                    class="col-md-4 col-form-label">{{ __('messages.Last Name') }}</label>
+                                                    class="col-md-4 col-form-label">{{ __('messages.Last Name') }} <span class="text-danger">*</span></label>
                                                 <div class="col-md-8">
                                                     <input name="last_name" type="text" class="form-control"
                                                         id="last_name" value="{{ $user->last_name }}">
@@ -77,7 +78,7 @@
                                         <div class="col-md-6">
                                             <div class="row">
                                                 <label for="email"
-                                                    class="col-md-4 col-form-label">{{ __('messages.Email') }}</label>
+                                                    class="col-md-4 col-form-label">{{ __('messages.Email') }} <span class="text-danger">*</span></label>
                                                 <div class="col-md-8">
                                                     <input name="email" type="email" class="form-control" id="email"
                                                         value="{{ $user->email }}">
@@ -90,7 +91,7 @@
                                         <div class="col-md-6">
                                             <div class="row">
                                                 <label for="phone"
-                                                    class="col-md-4 col-form-label">{{ __('messages.Phone') }}</label>
+                                                    class="col-md-4 col-form-label">{{ __('messages.Phone') }} <span class="text-danger">*</span></label>
                                                 <div class="col-md-8">
                                                     <input name="phone" type="text" class="form-control" id="phone"
                                                         value="{{ $user->phone }}">
@@ -110,6 +111,15 @@
 
                             <div class="tab-pane fade {{ request('tab') == 'profile-change-password' ? 'show active' : '' }} pt-3"
                                 id="profile-change-password">
+                                <!-- @if(request()->get('tab') === 'profile-change-password')
+                                    @if(session('success'))
+                                    <div class="alert alert-success">{{ session('success') }}</div>
+                                    @elseif(session('error'))
+                                    <div class="alert alert-danger">{{ session('error') }}</div>
+                                    @endif
+                                @endif -->
+
+                            
                                 <!-- More information Form -->
                                 <form method="POST" action="{{ route('member.store') }}" enctype="multipart/form-data">
                                     @csrf
@@ -117,9 +127,9 @@
                                         <div class="col-md-6">
                                             <div class="row mb-3">
                                                 <label for="gender"
-                                                    class="col-md-4 col-form-label">{{ __('messages.Gender') }}</label>
+                                                    class="col-md-4 col-form-label">{{ __('messages.Gender') }} <span class="text-danger">*</span></label>
                                                 <div class="col-md-8">
-                                                    <select name="gender" id="gender" class="form-control">
+                                                    <select name="gender" id="gender" class="form-select">
                                                         <option value="">-- Select Gender --</option>
                                                         <option value="male"
                                                             {{ old('gender', $user->gender) == 'male' ? 'selected' : '' }}>
@@ -155,111 +165,8 @@
 
                                     </div>  
 
-                                    <!--     original code  -->
-                                    <!-- <div class="mb-3 d-none">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Country</label>
-                                                    <select name="country" id="country-dropdown"
-                                                        class="form-select form-control">
-                                                        @foreach ($countries as $country)
-    <option value="{{ $country->id }}"
-                                                                {{ $country->id == 101 ? 'selected' : '' }}>
-                                                                {{ $country->name }}</option>
-    @endforeach
-                                                    </select>
-                                                </div>
-                                                @error('country')
-        <span class="text-danger">{{ $message }}</span>
-    @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="row mb-3">
-                                                    <label for="state"
-                                                        class="col-md-4 col-form-label">{{ __('messages.State') }}</label>
-                                                    <div class="col-md-8">
-                                                        <select name="state" id="state-dropdown" class="form-control">
-                                                            <option value="">-- Select State --</option>
-                                                            @foreach ($states as $state)
-    <option value="{{ $state->id }}"
-                                                                    {{ $state->id == 4008 ? 'selected' : '' }}>
-                                                                    {{ $state->name }}</option>
-    @endforeach
-                                                        </select>
-                                                    </div>
-                                                    @error('state')
-        <span class="text-danger">{{ $message }}</span>
-    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="row mb-3">
-                                                    <label for="district"
-                                                        class="col-md-4 col-form-label">{{ __('messages.District') }}</label>
-                                                    <div class="col-md-8">
-                                                        <select name="district" id="city-dropdown" class="form-control">
-                                                            <option value="">-- Select District --</option>
-                                                            @foreach ($cities as $city)
-    <option value="{{ $city->id }}"
-                                                                    {{ $city->id == 133177 ? 'selected' : '' }}>
-                                                                    {{ $city->name }}</option>
-    @endforeach
-                                                        </select>
-                                                    </div>
-                                                    @error('district')
-        <span class="text-danger">{{ $message }}</span>
-    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="row mb-3">
-                                                    <label for="state"
-                                                        class="col-md-4 col-form-label">{{ __('messages.Zip Code') }}</label>
-                                                    <div class="col-md-8">
-                                                        <input name="pincode" type="text" class="form-control"
-                                                            id="zip_code" value="{{ old('pincode', $user->pincode) }}">
-                                                    </div>
-                                                    @error('pincode')
-        <span class="text-danger">{{ $message }}</span>
-    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="row mb-3">
-                                                    <label for="state"
-                                                        class="col-md-4 col-form-label">{{ __('messages.Taluka') }}</label>
-                                                    <div class="col-md-8">
-                                                        <input name="taluka" type="text" class="form-control"
-                                                            id="taluka" value="{{ old('taluka', $user->taluka) }}">
-                                                    </div>
-                                                    @error('taluka')
-        <span class="text-danger">{{ $message }}</span>
-    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="row mb-3">
-                                                    <label for="state"
-                                                        class="col-md-4 col-form-label">{{ __('messages.Town/Village') }}</label>
-                                                    <div class="col-md-8">
-                                                        <input name="town" type="text" class="form-control"
-                                                            id="town" value="{{ old('town', $user->town) }}">
-                                                    </div>
-                                                    @error('town')
-        <span class="text-danger">{{ $message }}</span>
-    @enderror
-                                                </div>
-                                            </div>
-                                        </div> -->
-
-                                    <!--  -->
+                                    
+                                    
                                     <div class="mb-3 d-none">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -283,9 +190,9 @@
                                         <div class="col-md-6">
                                             <div class="row mb-3">
                                                 <label for="state"
-                                                    class="col-md-4 col-form-label">{{ __('messages.State') }}</label>
+                                                    class="col-md-4 col-form-label">{{ __('messages.State') }} <span class="text-danger">*</span></label>
                                                 <div class="col-md-8">
-                                                    <select name="state" id="state-dropdown" class="form-control">
+                                                    <select name="state" id="state-dropdown" class="form-select">
                                                         <option value="">-- Select State --</option>
                                                         @foreach ($states as $state)
                                                             <option value="{{ $state->id }}"
@@ -299,17 +206,20 @@
                                                 @enderror
                                             </div>
                                         </div>
+
+                                        <!-- district dropdown -->
                                         <div class="col-md-6">
                                             <div class="row mb-3">
                                                 <label for="district"
-                                                    class="col-md-4 col-form-label">{{ __('messages.District') }}</label>
+                                                    class="col-md-4 col-form-label">{{ __('messages.District') }} <span class="text-danger">*</span></label>
                                                 <div class="col-md-8">
-                                                    <select name="district" id="city-dropdown" class="form-control">
+                                                    <select name="district" id="city-dropdown" class="form-select">
                                                         <option value="">-- Select District --</option>
                                                         @foreach ($cities as $city)
                                                             <option value="{{ $city->id }}"
-                                                                {{ $city->id == 133177 ? 'selected' : '' }}>
-                                                                {{ $city->name }}</option>
+                                                                {{ old('district', $selectedDistrict ?? 22) == $city->id ? 'selected' : '' }}>
+                                                                {{ $city->district_name }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -319,7 +229,46 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
+                                     <!-- Taluka Dropdown -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row mb-3">
+                                            <label for="taluka"
+                                                class="col-md-4 col-form-label">{{ __('messages.Taluka') }} <span class="text-danger">*</span></label>
+                                            <div class="col-md-8">
+                                                <select name="taluka" id="taluka-dropdown" class="form-select">
+                                                    <option value="">--Select Taluka--</option>
+                                                    @foreach ($talukas as $taluka)
+                                                        <option value="{{ $taluka->id }}"
+                                                            {{ $taluka->id == 213 ? 'selected' : '' }}>
+                                                            {{ $taluka->taluka_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            @error('taluka')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <!-- village dropdown  -->
+                                     
+                                    <div class="col-md-6">
+                                        <div class="row mb-3">
+                                             <label for="village" class="col-md-4 col-form-label">{{ __('messages.Village') }} <span class="text-danger">*</span></label>
+                                             <div class="col-md-8">
+                                                 <select name="town" id="village-dropdown" class="form-select">
+                                                    <option value="">-- Select Village --</option>
+                                                        
+                                                </select>
+                                            </div>
+                                             @error('town')
+                                                 <span class="text-danger">{{ $message }}</span>
+                                             @enderror
+                                         </div>
+                                    </div>
+                                </div>
+
+                                    <!-- <div class="row mb-3">
                                         <div class="col-md-6">
                                             <div class="row mb-3">
                                                 <label for="state"
@@ -333,47 +282,13 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <div class="row mb-3">
-                                                <label for="state"
-                                                    class="col-md-4 col-form-label">{{ __('messages.Taluka') }}</label>
-                                                <div class="col-md-8">
-                                                    <input name="taluka" type="text" class="form-control"
-                                                        id="taluka" value="{{ old('taluka', $user->taluka) }}">
-                                                </div>
-                                                @error('taluka')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                    </div> -->
+                                    
 
-                                        <div class="col-md-6">
-                                            <div class="row mb-3">
-                                                <label for="state"
-                                                    class="col-md-4 col-form-label">{{ __('messages.Town/Village') }}</label>
-                                                <div class="col-md-8">
-                                                    <input name="town" type="text" class="form-control"
-                                                        id="town" value="{{ old('town', $user->town) }}">
-                                                </div>
-                                                @error('town')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <!-- google location -->
                                     <div class="row mb-3">
                                     <label for="address-input" class="col-md-4 col-form-label">{{ __('messages.Address') }}</label>
-                                        <!-- <div class="col-md-8">
-                                            <input type="text" id="address-input" class="form-control"
-                                                placeholder="Enter Location"
-                                                value="{{ old('location.address', $user->location['address'] ?? '') }}">
-                                            <input type="hidden" name="location[latitude]" id="latitude"
-                                                value="{{ old('location.latitude', $user->location['latitude'] ?? '') }}">
-                                            <input type="hidden" name="location[longitude]" id="longitude"
-                                                value="{{ old('location.longitude', $user->location['longitude'] ?? '') }}">
-                                        </div> -->
+                                       
                                         <div class="col-md-8">
                                                      <!-- <input type="text" id="address-input" class="form-control" placeholder="Enter Location" value="{{ old('location.address', $user->location['address'] ?? '') }}"> -->
                                                      <input type="text" id="address-input" name="location[address]" class="form-control" placeholder="Enter Location" value="{{ old('location.address', $user->location['address'] ?? '') }}">
@@ -390,26 +305,12 @@
 
 
                                     <div class="row">
-                                        <!-- <div class="col-md-6">
-                                            <div class="row mb-3">
-                                                <label for="referral_code"
-                                                    class="col-md-4 col-form-label">{{ __('messages.Referral Code') }}
-                                                </label>
-                                                 <div class="col-md-8">
-                                                    <input type="text" name="referral_code" id="referral_code"
-                                                        class="form-control"
-                                                        value="{{ old('referral_code', $user->referral_code) }}">
-                                                </div> 
-                                                @error('referral_code')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div> -->
+                                        
                                         @if (auth()->user() && auth()->user()->hasRole('trader'))
                                             <div class="col-md-6">
                                                 <div class="row mb-3">
                                                     <label for="aadhar_pancard"
-                                                        class="col-md-4 col-form-label">{{ __('messages.upload aadhar or PAN card') }}</label>
+                                                        class="col-md-4 col-form-label">{{ __('messages.upload aadhar or PAN card') }} <span class="text-danger">*</span></label>
                                                     <div class="col-md-8">
                                                         <input type="file" name="aadhar_pancard" class="form-control">
                                                     </div>
@@ -428,7 +329,7 @@
                                             <div class="col-md-6">
                                                 <div class="row mb-3">
                                                     <label for="company_name"
-                                                        class="col-md-4 col-form-label">{{ __('messages.Company Name') }}</label>
+                                                        class="col-md-4 col-form-label">{{ __('messages.Company Name') }} <span class="text-danger">*</span></label>
                                                     <div class="col-md-8">
                                                         <input type="text" class="form-control" name="company_name"
                                                             id="company_name"
@@ -446,7 +347,7 @@
                                             <div class="col-md-6">
                                                 <div class="row mb-3">
                                                     <label for="gst_no"
-                                                        class="col-md-4 col-form-label">{{ __('messages.GST No') }}</label>
+                                                        class="col-md-4 col-form-label">{{ __('messages.GST No') }} <span class="text-danger">*</span></label>
                                                     <div class="col-md-8">
                                                         <input type="text" name="gst_no" id="gst_no"
                                                             class="form-control"
@@ -468,7 +369,7 @@
                                                 <div class="row">
                                                     <label for="farmer_certificate" class="col-md-4 col-form-label">
                                                         {{ __('messages.Farmer Certificate') }}, 7/12
-                                                        {{ __('messages.Certificate') }}
+                                                        {{ __('messages.Certificate') }} <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-md-8">
                                                         <input type="file" name="farmer_certificate"
@@ -497,7 +398,7 @@
                                             <div class="col-md-6">
                                                 <div class="row">
                                                     <label for="solar_dryer" class="col-md-4 col-form-label">
-                                                        {{ __('messages.Do you have solar dryer?') }}
+                                                        {{ __('messages.Do you have solar dryer?') }} <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-md-8">
                                                         <select name="solar_dryer" class="form-control"
@@ -522,7 +423,7 @@
                                         <div class="row mb-3" id="interested_solar_dryer" style="display: none;">
                                             <div class="col-md-6 offset-md-6">
                                                 <label
-                                                    class="form-label d-block">{{ __('messages.Interested in installing a solar dryer?') }}</label>
+                                                    class="form-label d-block">{{ __('messages.Interested in installing a solar dryer?') }} <span class="text-danger">*</span></label>
                                                 <div class="d-flex gap-4 mt-2">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
@@ -551,7 +452,7 @@
                                             <div class="col-md-9">
                                                 <div class="row mb-3">
                                                     <label for="about"
-                                                        class="col-md-4 col-form-label">{{ __('messages.How do you know about us') }}</label>
+                                                        class="col-md-4 col-form-label">{{ __('messages.How do you know about us') }} <span class="text-danger">*</span></label>
                                                     <div class="col-md-6">
                                                         <select name="known_about_us" id="known_about_us"
                                                             class="form-control">
@@ -685,11 +586,18 @@
                             </div>
                             <div class="tab-pane fade {{ request('tab') == 'change-password' ? 'show active' : '' }} pt-3"
                                 id="change-password">
+                                @if(session('error') && request()->get('tab') == 'change-password')
+                                @endif
+                                @if(session('success') && request()->get('tab') == 'change-password')
+                                <div class="alert alert-success">{{ session('success') }}</div>
+                                @endif
+
+                               
                                 <form action="{{ route('updatePassword') }}" method="POST">
                                     @csrf
                                     <div class="row mb-3">
                                         <label for="CurrentPassword"
-                                            class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Current Password') }}</label>
+                                            class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Current Password') }} <span class="text-danger">*</span></label>
                                         <div class="col-md-8 col-lg-3">
                                             <input type="password" class="form-control" id="currentPassword"
                                                 name="current_password">
@@ -699,7 +607,7 @@
                                         @enderror
 
                                         <label for="newPassword"
-                                            class="col-md-4 col-lg-3 col-form-label">{{ __('messages.New Password') }}</label>
+                                            class="col-md-4 col-lg-3 col-form-label">{{ __('messages.New Password') }} <span class="text-danger">*</span></label>
                                         <div class="col-md-8 col-lg-3">
                                             <input type="password" class="form-control" id="newPassword"
                                                 name="new_password">
@@ -711,7 +619,7 @@
 
                                     <div class="row mb-3">
                                         <label for="confirmPassword"
-                                            class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Confirm New Password') }}</label>
+                                            class="col-md-4 col-lg-3 col-form-label">{{ __('messages.Confirm New Password') }} <span class="text-danger">*</span></label>
                                         <div class="col-md-8 col-lg-3">
                                             <input type="password" class="form-control" id="confirmPassword"
                                                 name="confirm_password">
@@ -737,13 +645,14 @@
             </div>
         </div>
     </section>
-
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initMap">
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoK_5LdEGyseZdIo6EiQP1gSd0Lrjupso&libraries=places&callback=initMap">
     </script>
     <script>
         $(document).ready(function() {
-
+        //state dropdown 
             $('#country-dropdown').on('change', function() {
 
                 var idCountry = this.value;
@@ -787,7 +696,7 @@
 
             });
 
-
+            //district dropdown 
             $('#state-dropdown').on('change', function() {
 
                 var idState = this.value;
@@ -827,8 +736,53 @@
                 });
 
             });
+            // Taluka dropdown
+            $('#city-dropdown').on('change', function() {
+                var districtId = this.value;
+                $("#taluka-dropdown").html('');
+                $.ajax({
+                    url: "{{ url('api/fetch-talukas') }}",
+                    type: "POST",
+                    data: {
+                        district_id: districtId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    dataType: 'json',
+                    success: function(result) {
+                        $('#taluka-dropdown').html(
+                            '<option value="">-- Select Taluka --</option>');
+                        $.each(result.talukas, function(key, value) {
+                            $("#taluka-dropdown").append('<option value="' + value.id +
+                                '">' + value.taluka_name + '</option>');
+                        });
+                    }
+                });
+            });
+            // Taluka dropdown
+$('#taluka-dropdown').on('change', function() {
+    var talukaId = this.value;
+    $("#village-dropdown").html('');
+    $.ajax({
+        url: "{{ url('api/fetch-villages') }}",
+        type: "POST",
+        data: {
+            taluka_id: talukaId,
+            _token: '{{ csrf_token() }}'
+        },
+        dataType: 'json',
+        success: function(result) {
+            $('#village-dropdown').html('<option value="">-- Select Village --</option>');
+            $.each(result.villages, function(key, value) {
+                $("#village-dropdown").append('<option value="' + value.id + '">' + value.village_name + '</option>');
+            });
+        }
+    });
+});
 
-        });
+ });
+  </script>
+
+    <script>
 
         $(document).ready(function() {
             function toggleInterestedField() {
@@ -892,4 +846,18 @@
             });
         }
     </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        let tab = urlParams.get('tab') || 'profile-edit'; 
+
+        const tabButton = document.querySelector(`#${tab}-tab`);
+        const tabContent = document.querySelector(`#${tab}`);
+        if (tabButton && tabContent) {
+            tabButton.classList.add('active');
+            tabContent.classList.add('show', 'active');
+        }
+    });
+</script>
+
 @endsection

@@ -156,18 +156,21 @@
                                             </li>
                                              @endif
 
+                                             @can('view wallet')
                                             <li>
                                                 <a href="{{ route('wallet.management.index') }}" style="color:#76bc02;">
                                                     {{ __('messages.Wallet') }}
                                                 </a>
                                             </li>
+                                            @endcan
                                           
-
+                                            @can('view my inquiry')
                                             <li>
                                             <a href="{{ route(  'member.inquiries') }}" style="color:#76bc02;">
                                                     {{ __('messages.My Inquiry') }}
                                                 </a>
                                             </li>
+                                            @endcan
                                             
                                             <li>
                                                 <a href="{{ route('logout') }}" class="text-success" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

@@ -12,12 +12,16 @@ use Illuminate\View\View;
 use Illuminate\Auth\Events\Registered;
 use Spatie\Permission\Models\Role;
 use App\Models\City;
+use Modules\Location\App\Models\District;
+use Modules\Location\App\Models\Taluka;
+use Modules\Location\App\Models\Village;
 use App\Models\State;
 use App\Models\ZipCode;
 use App\Models\Country;
 use App\Models\User;
 use App\Models\FarmerDocuments;
 use App\Models\Location; 
+
 
 use Illuminate\Support\Facades\Auth;
 use Str;
@@ -33,6 +37,7 @@ class MembersController extends Controller
     {
 
         return view('members::index');
+        
     }
 
     /**
@@ -43,9 +48,11 @@ class MembersController extends Controller
         $user = auth()->user();
         $countries = Country::get(["name", "id"]);
         $states = State::where('country_id',101)->get(["name", "id"]);
-        $cities = City::where('state_id',4008)->get(["name", "id"]);
-        $farmerDocument = FarmerDocuments::where('user_id', $user->id)->first(); // Retrieve the farmer document
-        return view('members::update_profile', compact('user','countries','states','cities'));
+        $cities = District::where('state_id',4008)->get(["district_name", "id"]);
+        $talukas = Taluka::where('district_id')->get();
+        $villages=Village::where('taluka_id')->get();
+        $farmerDocument = FarmerDocuments::where('user_id', $user->id)->first(); 
+        return view('members::update_profile', compact('user','countries','states','cities','talukas','villages'));
     }
 
 
@@ -69,69 +76,15 @@ class MembersController extends Controller
 
         $user->save();
 
-        return redirect()->back()->with('success', 'Profile updated successfully.');
+    return redirect()->to('/profile?tab=profile-edit')->with('success', 'Profile updated successfully.');
+    
     }
-
-    ///Update more information
-//     public function store(Request $request): RedirectResponse
-// {
-//     $request->validate([
-//         'gender' => 'required|string',
-//         'state' => 'required|string',
-//         'district' => 'required|string',
-//         'taluka' => 'required|string',
-//         'town' => 'required|string',
-//         'dob' => 'nullable|date',
-//         'pincode' => 'nullable|string|max:10',
-//         'referral_code' => 'nullable|string|max:255',
-//         'known_about_us' => 'nullable|string|max:255',
-//         'farmer_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
-//     ]);
-
-//     $user = auth()->user();
-//     $user->gender = $request->gender;
-//     $user->state = $request->state;
-//     $user->dob = $request->dob;
-//     $user->district = $request->district;
-//     $user->pincode = $request->pincode;
-//     $user->taluka = $request->taluka;
-//     $user->town = $request->town;
-//     $user->referral_code = $request->referral_code;
-//     $user->known_about_us = $request->known_about_us;
-
-//     $user->save();
-//     if ($request->hasFile('farmer_certificate')) {
-//         $userFolder = public_path('upload/farmer_documents/' . $user->id);
-//         if (!file_exists($userFolder)) {
-//             mkdir($userFolder, 0755, true);
-//         }
-
-//         $existingDocument = FarmerDocuments::where('user_id', $user->id)->first();
-//         if ($existingDocument) {
-//             $oldFilePath = public_path($existingDocument->file_path);
-//             if (file_exists($oldFilePath)) {
-//                 unlink($oldFilePath);
-//             }
-//             $existingDocument->delete();
-//         }
-
-//         $file = $request->file('farmer_certificate');
-//         $filename = Str::random(30) . '.' . $file->getClientOriginalExtension();
-//         $file->move($userFolder, $filename);
-
-//         FarmerDocuments::create([
-//             'user_id' => $user->id,
-//             'farmer_certificate' => $filename,
-//         ]);
-//     }
-
-//     return redirect()->back()->with('success', 'Information added successfully.');
-// }
 
 
 public function store(Request $request): RedirectResponse
 {
-        //  dd($request->all());
+    try{
+        // dd($request->all());
     $request->validate([
         'gender' => 'required|string',
         'state' => 'required|string',
@@ -141,7 +94,6 @@ public function store(Request $request): RedirectResponse
         'dob' =>[ 'nullable','date', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d')],
         'pincode' => 'nullable|string|max:10',
         'referral_code' => 'nullable|string|max:255',
-        // 'gst_no' =>'nullable|string',
         'known_about_us' => 'nullable|string|max:255',
         'farmer_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         'aadhar_pancard' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
@@ -150,9 +102,6 @@ public function store(Request $request): RedirectResponse
         'documents' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         'company_name' => 'nullable|string|max:255',
         'solar_dryer' => 'nullable|string|max:255',
-
-
-        // Google Map location validation
          'location.latitude' => 'required|numeric',
         'location.longitude' => 'required|numeric',
         'location.address' => 'required|string|max:255'
@@ -255,37 +204,18 @@ public function store(Request $request): RedirectResponse
             $this->uploadDocument($request->file('documents'), $user->id, $documentType);
         }
     }
+ return redirect()->to('/profile?tab=profile-change-password')
+                     ->with('success', 'Information updated successfully!');
+} catch (\Exception $e) {
+    return redirect()->to('/profile?tab=profile-change-password')
+                     ->with('error', 'Something went wrong!');
+}
 
-    return redirect()->back()->with('success', 'Information added successfully.');
+
+
 }
 
 private function uploadDocument($file, $userId, $documentType, $farmerDocument = null)
-// {
-//     $userFolder = public_path('upload/farmer_documents/' . $userId);
-//     if (!file_exists($userFolder)) {
-//         mkdir($userFolder, 0755, true);
-//     }
-
-//     $filename = $documentType . '_' . Str::random(30) . '.' . $file->getClientOriginalExtension();
-//     $file->move($userFolder, $filename);
-
-//     if ($farmerDocument) {
-//         $farmerDocument->file_path = $filename;
-//         $farmerDocument->document_type = $documentType;
-//         $farmerDocument->aadhar_pancard = $documentType === 'aadhar_pancard' ? $filename : null;
-//         $farmerDocument->save();
-//     } else {
-//         FarmerDocuments::create([
-//             'user_id' => $userId,
-//             'file_path' => $filename,
-//             'document_type' => $documentType,
-//             'company_logo' => $documentType === 'company_logo' ? $filename : null,
-//             'farmer_certificate' => $documentType === 'farmer_certificate' ? $filename : null,
-//             'aadhar_pancard'=>$documentType ===  'aadhar_pancard'? $filename : null,
-//         ]);
-//     }
-// }
-
 {
     $user = auth()->user();
 
@@ -379,6 +309,24 @@ private function uploadDocument($file, $userId, $documentType, $farmerDocument =
 
     }
 
+    //fetch talukas 
+    public function fetchTaluka(Request $request)
+{
+    $data['talukas'] = Taluka::where("district_id", $request->district_id)
+                              ->get(["taluka_name", "id"]);
+    return response()->json($data);
+}
+
+//fetch villages
+public function fetchVillage(Request $request)
+{
+    $data['villages'] = Village::where("taluka_id", $request->taluka_id)
+                                ->orderBy("village_name", "asc") // Order alphabetically by name
+                                ->get(["id", "village_name"]);
+
+    return response()->json($data);
+}
+
 
     /////Fetch zip code and taluka
     public function getTalukaTown($pincode)
@@ -400,29 +348,26 @@ private function uploadDocument($file, $userId, $documentType, $farmerDocument =
     }
 
 ////Change Password & update password
-    public function updatePassword(Request $request)
-    {
-        $user = auth()->user();
+   public function updatePassword(Request $request)
+{
+    $user = auth()->user();
 
-
-        if (!Hash::check($request->current_password, $user->password)) {
-
-            return back()->withErrors(['current_password' => 'Current password is incorrect.']);
-        }
-
-
-        if ($request->filled('new_password')) {
-
-            $user->password = Hash::make($request->new_password);
-            $user->save();
-
-            return redirect()->back()->with('success','Password updated successfully!');
-        }
-
-
-        return back()->with('info', 'No changes made to the password.');
+    if (!Hash::check($request->current_password, $user->password)) {
+        return redirect()->to('/profile?tab=change-password')
+                         ->withErrors(['current_password' => 'Current password is incorrect.'])
+                         ->withInput();
     }
 
+    if ($request->filled('new_password')) {
+        $user->password = Hash::make($request->new_password);
+        $user->save();
 
+        return redirect()->to('/profile?tab=change-password')
+                         ->with('success', 'Password updated successfully!');
+    }
+
+    return redirect()->to('/profile?tab=change-password')
+                     ->with('info', 'No changes made to the password.');
+}
 
 }

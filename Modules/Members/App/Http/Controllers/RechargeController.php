@@ -16,6 +16,7 @@ use App\Models\PointsSetting;
 
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 
 class RechargeController extends Controller
@@ -28,12 +29,29 @@ class RechargeController extends Controller
     //     return view('members::index');
     // }
     
-    public function index()
-    {
-        $wallets = EnquiryWallet::where('user_id', auth()->id())->paginate(10);
-        return view('members::wallet_management.index', compact('wallets'));
+ public function index(Request $request)
+{
+    if ($request->ajax()) {
+        $wallets = EnquiryWallet::with('user')->where('user_id', auth()->id())->get();
+        
+        // Debugging: Check if wallets are retrieved
+        if ($wallets->isEmpty()) {
+            return response()->json(['message' => 'No wallets found.'], 404);
+        }
+
+        return DataTables::of($wallets)
+            ->addIndexColumn()
+            ->editColumn('wallet_name', function ($wallet) {
+                return ucfirst($wallet->wallet_name);
+            })
+            ->editColumn('balance', function ($wallet) {
+                return number_format($wallet->balance, 2);
+            })
+            ->make(true);
     }
-    
+    return view('members::wallet_management.index');
+}
+
     public function razorpay()
     {
         $razorpayGateway = PaymentGateway::where('payment', 'Razorpay')->first();

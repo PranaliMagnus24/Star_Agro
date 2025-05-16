@@ -14,7 +14,7 @@
                 </div>
                 <div class="card-body mt-3">
                     {{-- @livewire('permission-table') --}}
-                  <table class="table table-bordered table-striped">
+                  <table class="table table-bordered table-striped roleList">
                     <thead>
                         <tr>
                             <th>{{ __('messages.ID') }}</th>
@@ -23,32 +23,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($roles as $role)
-                        <tr>
-                            <td>{{ $roles->firstItem() + $loop->index }}</td>
-                            <td>{{ ucfirst($role->name) }}</td>
-                            <td>
-                                @can('view permission button')
-                                <a href="{{ route('role.permissions', $role->id) }}" class="btn btn-primary btn-sm">Add / Edit role permission</a>
-                                @endcan
-                                @can('update role')
-                                {{-- @role('admin') --}}
-                                <a href="{{ route('role.edit', $role->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
-                                {{-- @endrole --}}
-                                @endcan
-                                @can('delete role')
-                                <a href="{{ route('role.delete', $role->id) }}" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></a>
-                                @endcan
-                            </td>
-                        </tr>
-
-                        @endforeach
+                       
                     </tbody>
 
                   </table>
-                  <div class="d-flex justify-content-center">
-                {{$roles->links()}}
-                  </div>
+                 
                 </div>
             </div>
         </div>
@@ -56,3 +35,6 @@
 </div>
 
 @endsection
+<script>
+    const roleUrl = "{{ route('role.list') }}";
+</script>

@@ -8,7 +8,14 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="mb-0">Edit CMS Page</h4>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+    <h4 class="mb-0">Edit CMS Page</h4>
+    <a href="{{ route('pages.index') }}" class="btn btn-primary btn-sm">
+        <i class="bi bi-skip-backward-fill"></i> 
+    </a>
+</div>
+
+                    
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('pages.update', $page->id) }}" enctype="multipart/form-data">

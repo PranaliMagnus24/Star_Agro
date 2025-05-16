@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\QuantityMass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 
 class QuantityMassController extends Controller
@@ -14,17 +15,26 @@ class QuantityMassController extends Controller
      */
     public function index(Request $request)
     {
-        $query = QuantityMass::query();
-
-        // Search functionality
-        if ($request->has('search')) {
-            $searchTerm = $request->input('search');
-            $query->where('name', 'like', '%' . $searchTerm . '%');
+        if ($request->ajax()) {
+            $unitMasses = QuantityMass::query()->orderBy('name', 'asc');
+            return DataTables::eloquent($unitMasses)
+                ->addIndexColumn()
+                ->editColumn('name', function($unitmass) {
+                    return ucfirst($unitmass->name);
+                })
+               
+                ->addColumn('action', function($unitmass) {
+                    return '
+                        <div class="d-flex align-items-center nowrap">
+                            <a href="'.route('admin.quantityMass.edit', $unitmass->id).'" class="btn btn-primary me-1"><i class="bi bi-pencil-square"></i></a>
+                            <a href="'.route('admin.quantityMass.delete', $unitmass->id).'" class="btn btn-danger delete-confirm me-1"><i class="bi bi-trash3-fill"></i></a>
+                        </div>
+                    ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
         }
-
-        $unitMasses = $query->paginate(10); // Adjust the pagination as needed
-
-        return view('admin.quantity_mass.index', compact('unitMasses'));
+        return view('admin.quantity_mass.index');
     }
 
     /**

@@ -6,17 +6,40 @@ use App\Http\Controllers\Controller;
 use App\Models\FaqCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class FaqCategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $categories = FaqCategory::when($search, function ($query) use ($search) {
-            return $query->where('name', 'like', "%{$search}%");
-        })->paginate(10);
+       if ($request->ajax()) {
+            $categories = FaqCategory::query()->orderBy('created_at', 'desc');
+            
 
-        return view('admin.faq.faqCategory.index', compact('categories'));
+            return DataTables::eloquent($categories)
+                ->addIndexColumn()
+                ->addColumn('name', function ($category) {
+                    return ucfirst($category->name);
+                })
+                ->addColumn('description', function ($category) {
+                    return $category->description ?? '-';
+                })
+                ->addColumn('status', function ($category) {
+                    return ucfirst($category->status);
+                })
+                ->addColumn('action', function ($category) {
+                    return '
+                     <div class="d-flex align-items-center nowrap">
+                       <a href="' . route('admin.faq.faqCategory.edit', $category->id) . '" class="btn btn-success btn-sm me-1"><i class="bi bi-pencil-square"></i></a>
+                            <a href="' . route('admin.faq.faqCategory.delete', $category->id) . '" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></a>
+                    </div>           
+                   ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('admin.faq.faqCategory.index');
     }
 
     public function create()

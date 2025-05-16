@@ -28,7 +28,8 @@ class UserRegistrationController extends Controller
 {
     public function mainRegister()
     {
-        $roles = Role::whereNotIn('name', ['admin', 'super-admin'])->pluck('name', 'name')->all();
+        // $roles = Role::whereNotIn('name', ['admin', 'super-admin'])->pluck('name', 'name')->all();
+         $roles = Role::where('name', 'Farmer')->pluck('name', 'name')->all(); 
         $countries = Country::get(["name", "id"]);
         return view('frontend.menus.register', compact('countries', 'roles'));
     }

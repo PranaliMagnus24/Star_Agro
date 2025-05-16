@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Models\CropInquiry;
 use App\Models\City;
 use App\Models\QuantityMass;
+use Yajra\DataTables\Facades\DataTables;
 
 use Str;
 use File;
@@ -26,30 +27,71 @@ class CropManagementController extends Controller
      * Display a listing of the resource.
      */
     public function indexCrop(Request $request)
+{
+    $user = auth()->user();
+    if ($request->ajax())
     {
-        $user = auth()->user();
-        $datas = CropManagement::with(['user', 'inquiries'])
-                    ->where('farmer_id', $user->id);
+        $datas = CropManagement::withCount('inquiries')
+                ->where('farmer_id', $user->id)
+                ->orderBy('created_at', 'desc');
+            return DataTables::eloquent($datas)
+            ->addIndexColumn()
+            ->addColumn('crop_name', function ($data)
+            {
+                return ucfirst($data->crop_name);
+            })
+            ->addColumn('planating_date', function ($data)
+            {
+                 return \Carbon\Carbon::parse($data->planating_date)->format('d F Y');
+            })
+            ->addColumn('harvesting_start_date', function ($data)
+            {
+                return \Carbon\Carbon::parse($data->harvesting_start_date)->format('d F Y');
+            })
+            ->addColumn('harvesting_end_date', function ($data)
+            {
+                 return \Carbon\Carbon::parse($data->harvesting_end_date)->format('d F Y');
+            })
+            ->addColumn('expected_price', function ($data)
+            {
+                return $data->expected_price;
+            })
+            ->addColumn('inquiry_count', function ($data)
+            {
+                return '<a href="' . route('crop.inquiries', $data->id) . '">' . $data->inquiries_count . '</a>';
+            })
+            ->addColumn('action', function ($data) {
+    $editUrl = route('crop.edit', $data->id);
+    $deleteUrl = route('crop.delete', $data->id);
 
-        if ($request->has('search')) {
-            $searchTerm = $request->input('search');
-            $datas->where(function($query) use ($searchTerm) {
-                $query->where('crop_name', 'like', '%' . $searchTerm . '%')
-                      ->orWhere('planating_date', 'like', '%' . $searchTerm . '%')
-                      ->orWhere('harvesting_start_date', 'like', '%' . $searchTerm . '%');
-            });
+    return '
+    <div class="d-flex align-items-center nowrap">
+        <a href="'.$editUrl.'" class="btn btn-primary me-1">
+            <i class="bi bi-pencil-square"></i>
+        </a>
+        <form action="'.$deleteUrl.'" method="POST" onsubmit="return confirm(\'Are you sure?\');" style="display:inline;">
+            '.csrf_field().'
+            '.method_field('DELETE').'
+            <button type="submit" class="btn btn-danger me-1 mt-3">
+                <i class="bi bi-trash3-fill"></i>
+            </button>
+        </form>
+    </div>';
+})
+            ->rawColumns(['inquiry_count', 'action'])
+            ->make(true);
         }
-
-        $datas = $datas->orderBy('created_at', 'desc')->paginate(10);
-
-        return view('members::crop_management.index', compact('datas', 'user'));
+        return view('members::crop_management.index');
     }
     /**
      * Show the form for creating a new resource.
      */
     public function createCrop()
     {
-        $categories = Category::all();
+        // $categories = Category::all();
+       $categories = Category::where('parent_id', 0)
+                      ->where('subcategory_id', 0)
+                      ->get();
         $datas = QuantityMass::all();
         return view('members::crop_management.create', compact('categories','datas'));
     }
@@ -178,7 +220,9 @@ class CropManagementController extends Controller
     public function editCrops($id)
     {
         $data = CropManagement::findOrFail($id);
-        $categories = Category::all();
+           $categories = Category::where('parent_id', 0)
+                      ->where('subcategory_id', 0)
+                      ->get();
         return view('members::crop_management.edit', compact('data','categories'));
     }
 
@@ -297,8 +341,38 @@ public function getCrops($subcategoryId)
 
 public function showInquiries($cropManagementId)
 {
-    $inquiries = CropInquiry::with('city')->where('crop_management_id', $cropManagementId)->paginate(10);
-    return view('members::crop_management.crop_inquiries', compact('inquiries'));
+    if (request()->ajax()) {
+        $inquiries = CropInquiry::with(['city', 'cropManagement.farmer', 'walletTransactions'])
+            ->where('crop_management_id', $cropManagementId);
+
+        return DataTables::of($inquiries)
+        ->addColumn('DT_RowIndex', function ($inquiry) {
+                // Adding row index
+                static $index = 0;
+                return ++$index;
+            })
+            ->addColumn('farmer_name', function ($inquiry) {
+                return optional(optional($inquiry->cropManagement)->farmer)->name ?? 'N/A';
+            })
+            ->addColumn('contact', function ($inquiry) {
+                $farmer = optional($inquiry->cropManagement)->farmer;
+                return $farmer->phone . ' / ' . $farmer->email;
+            })
+           ->addColumn('city', function ($inquiry) {
+              $farmer = optional($inquiry->cropManagement)->farmer;
+              return ($farmer->state ?? '') . ', ' . 
+           ($farmer->district ?? 'N/A') . ', ' . 
+           ($farmer->town ?? 'N/A');
+          })
+            ->addColumn('date', function ($inquiry) {
+                return $inquiry->created_at->format('d M Y');
+            })
+            ->rawColumns(['farmer_name', 'contact', 'location', 'date'])
+            ->make(true);
+    }
+
+    return view('members::crop_management.crop_inquiries', compact('cropManagementId'));
 }
 
-}
+
+}   

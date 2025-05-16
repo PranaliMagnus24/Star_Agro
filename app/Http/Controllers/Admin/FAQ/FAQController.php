@@ -7,6 +7,8 @@ use App\Models\Faq;
 use App\Models\FaqCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
+
 
 
 class FAQController extends Controller
@@ -16,19 +18,29 @@ class FAQController extends Controller
      */
     public function index(Request $request)
     {
-        $query = FAQ::query();
+        if ($request->ajax()) {
+            $query = FAQ::with('faqcategory')->select('faqs1.*');
 
-        // Search functionality
-        if ($request->has('search')) {
-            $searchTerm = $request->input('search');
-            $query->where('question', 'like', '%' . $searchTerm . '%');
-            $query->where('answer', 'like', '%' . $searchTerm . '%');
-
+            return DataTables::eloquent($query)
+                ->addIndexColumn()
+                ->editColumn('faqcategory.name', function ($faq) {
+                    return $faq->faqcategory ? ucfirst($faq->faqcategory->name) : '';
+                })
+                ->editColumn('status', function ($faq) {
+                    return ucfirst($faq->status);
+                })
+                ->addColumn('action', function ($faq) {
+                    return '
+                        <div class="d-flex align-items-center nowrap">
+                            <a href="' . route('admin.faq.edit', $faq->id) . '" class="btn btn-success btn-sm me-1"><i class="bi bi-pencil-square"></i></a>
+                            <a href="' . route('admin.faq.delete', $faq->id) . '" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></a>
+                        </div>
+                    ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
         }
-
-        $faqs1 = $query->with('faqcategory')->paginate(10); 
-        // dd($faqs1);
-        return view('admin.faq.index', compact('faqs1'));
+        return view('admin.faq.index');
     }
 
     /**

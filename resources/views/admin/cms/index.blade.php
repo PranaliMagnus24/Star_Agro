@@ -18,44 +18,19 @@
                       </div>
                 </div>
                 <div class="card-body mt-3">
-                  <table class="table table-bordered table-striped pageList nowrap">
+                  <table class="table table-bordered table-striped pageList nowrap cmsList">
                     <thead>
                         <tr>
                         <th>{{ __('messages.ID') }}</th>
                             <th>{{__('messages.Title')}}</th>
                             <th>{{__('messages.Summary')}}</th>
-                            <th>{{__('messages.Description') }}</th>
+                            <!-- <th>{{__('messages.Description') }}</th> -->
                             <th>{{__('messages.Action')}}</th>
                         </tr>
                     </thead>
                     @php $counter = 1; @endphp
                     <tbody>
-    @foreach($pages as $page)
    
-    <tr>
-         <td>{{ $counter++ }}</td>
-        <td>{{ $page->title }}</td>
-        <td>{{ $page->summary }}</td>
-        <!-- <td>{{ $page->description }}</td> -->
-        <td>{{ \Illuminate\Support\Str::words(strip_tags($page->description), 10, '...') }}</td>
-
-        <td class="text-center text-nowrap">
-        <a href="{{ route('pages.show', $page->id) }}" class="btn btn-info btn-sm" title="Show">
-        <i class="bi bi-eye"></i>
-    </a>
-            <a href="{{ route('pages.edit', $page->id) }}" class="btn btn-success btn-sm" title="Edit">
-                <i class="bi bi-pencil-square"></i>
-            </a>
-            <form action="{{ route('pages.destroy', $page->id) }}" method="POST" style="display:inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this page?');" title="Delete">
-                    <i class="bi bi-trash"></i>
-                </button>
-            </form>
-        </td>
-    </tr>
-    @endforeach
 </tbody>
 
                   </table>
@@ -190,6 +165,10 @@
         });
     });
 });
+</script>
+
+<script>
+    const cmsUrl="{{ route('pages.index') }}";
 </script>
 
 

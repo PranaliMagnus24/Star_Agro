@@ -9,8 +9,12 @@
         <div class="col-md-12">
             <div class="card">
             <div class="d-flex justify-content-between align-items-center mb-2">
-            <h4 class="mb-1">CMS Page Details</h4>
-            <a href="{{ route('pages.index') }}" class="btn btn-primary">Back</a>
+            
+    <h4 class="mb-0">CMS Page details</h4>
+    <a href="{{ route('pages.index') }}" class="btn btn-primary btn-sm">
+        <i class="bi bi-skip-backward-fill"></i> 
+    </a>
+</div>
             </div>
 
                 <div class="card-body">

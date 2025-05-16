@@ -43,7 +43,8 @@ class CropController extends Controller
         if ($subcategoryId) {
             $query->where('subcategory_id', $subcategoryId);
         } else {
-            $query->where('parent_id', '>', 0)->where('subcategory_id', '>', 0);
+           // $query->where('parent_id', '>', 0)->where('subcategory_id', '>', 0);
+            $query->where('subcategory_id', '>', 0);
         }
 
         if ($search) {

@@ -14,7 +14,7 @@
                 </div>
                 <div class="card-body mt-3">
                     {{-- @livewire('permission-table') --}}
-                  <table class="table table-bordered table-striped">
+                  <table class="table table-bordered table-striped permissionList">
                     <thead>
                         <tr>
                             <th>{{ __('messages.ID') }}</th>
@@ -23,27 +23,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($permissions as $permission)
-                        <tr>
-                            <td>{{ $permissions->firstItem() + $loop->index }}</td>
-                            <td>{{ ucfirst($permission->name) }}</td>
-                            <td>
-                                @can('update permission')
-                              <a href="{{ route('permission.edit', $permission->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
-                              @endcan
-                              @can('delete permission')
-                              <a href="{{ route('permission.delete', $permission->id) }}" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></a>
-                              @endcan
-                            </td>
-                        </tr>
-
-                        @endforeach
+                       
                     </tbody>
 
                   </table>
-                <div class="d-flex justify-content-center">
-               {{$permissions->links()}}
-                </div>
+               
                 </div>
             </div>
         </div>
@@ -51,3 +35,6 @@
 </div>
 
 @endsection
+<script>
+    const permissionUrl = "{{route('permission.list') }}";
+</script>

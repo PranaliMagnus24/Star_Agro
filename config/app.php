@@ -169,6 +169,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Nwidart\Modules\LaravelModulesServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
         // Modules\Category\App\Providers\CategoryServiceProvider::class,
     ])->toArray(),
 

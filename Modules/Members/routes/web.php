@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Location\App\Http\Controllers\TalukaController;
+use Modules\Location\App\Http\Controllers\VillageController;
+use Modules\Location\App\Http\Controllers\DistrictController;
 use Modules\Members\App\Http\Controllers\MembersController;
 use Modules\Members\App\Http\Controllers\CropManagementController;
 use Modules\Members\App\Http\Controllers\RechargeController;
@@ -30,6 +33,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('api/fetch-states', [MembersController::class, 'fetchState']);
     Route::post('api/fetch-cities', [MembersController::class, 'fetchCity']);
+    Route::post('api/fetch-talukas', [MembersController::class, 'fetchTaluka']);
+    Route::post('api/fetch-villages', [MembersController::class, 'fetchVillage']);
+
     Route::get('api/get-zipcodes', [MembersController::class, 'getZipCodes']);
     Route::post('api/fetch-zipcode-details', [MembersController::class, 'fetchZipCodeDetails']);
     Route::get('/get-taluka-town/{pincode}', [MembersController::class, 'getTalukaTown']);

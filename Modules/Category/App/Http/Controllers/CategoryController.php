@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Yajra\DataTables\Facades\DataTables;
 use Modules\Category\App\Models\Category;
 
 class CategoryController extends Controller
@@ -15,13 +16,25 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
+        
+        if ($request->ajax()) {
+            $categories = Category::query()->orderBy('created_at', 'desc');
+            return DataTables::eloquent($categories)
+                ->addIndexColumn()
+               
+                ->addColumn('action', function($category) {
+                    return '
+                        <div class="d-flex align-items-center nowrap">
+                            <a href="'.route('category.edit', $category->id).'" class="btn btn-primary me-1"><i class="bi bi-pencil-square"></i></a>
+                            <a href="'.route('category.delete', $category->id).'" class="btn btn-danger delete-confirm me-1"><i class="bi bi-trash3-fill"></i></a>
+                        </div>
+                    ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
-        $categories = Category::when($search, function ($query) use ($search) {
-            return $query->where('category_name', 'like', "%{$search}%");
-        })->paginate(20);
-
-        return view('category::index', compact('categories', 'search'));
+        return view('category::index');
     }
 
     /**
@@ -29,7 +42,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        // $categories = Category::all();
+         $categories = Category::where('parent_id', 0)
+                      ->where('subcategory_id', 0)
+                      ->get();
         return view('category::create', compact('categories'));
     }
 

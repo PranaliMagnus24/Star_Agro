@@ -9,13 +9,40 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserRoleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(10);
-        return view('admin.role_management.user.index',compact('users'));
+        if ($request->ajax()) {
+            $users = User::with('roles')->orderBy('created_at', 'desc');
+            return DataTables::eloquent($users)
+                ->addIndexColumn()
+                ->addColumn('roles', function ($user) {
+                    return $user->getRoleNames()
+                                ->map(function ($role) {
+                                    return '<span class="badge bg-primary mx-1 text-white">' . $role . '</span>';
+                                })->implode(' ');
+                })
+                ->addColumn('action', function ($user) {
+                    $editUrl = route('user.edit', $user->id);
+                    $deleteUrl = route('user.delete', $user->id);
+                    $buttons = '';
+                    if (Auth::user()->can('update user')) {
+                        $buttons .= '<a href="' . $editUrl . '" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a> ';
+                    }
+                    if (Auth::user()->can('delete user')) {
+                        $buttons .= '<a href="' . $deleteUrl . '" class="btn btn-danger btn-sm delete-confirm"><i class="bi bi-trash3-fill"></i></a>';
+                    }
+                    return $buttons;
+                })
+                ->rawColumns(['roles', 'action'])
+                ->make(true);
+        }
+
+        return view('admin.role_management.user.index');
     }
 
     public function create()

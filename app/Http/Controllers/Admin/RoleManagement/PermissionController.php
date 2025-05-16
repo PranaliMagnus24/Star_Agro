@@ -6,13 +6,34 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class PermissionController extends Controller
 {
-    public function index()
+    public function index( Request $request)
     {
-        $permissions = Permission::paginate(10);
-        return view('admin.role_management.permission.index',compact('permissions'));
+       
+                if ($request->ajax()) {
+                    $permissions = Permission::query()->orderBy('name', 'asc');
+                    return DataTables::eloquent($permissions)
+                        ->addIndexColumn()
+                        ->editColumn('name', function($permission) {
+                            return ucfirst($permission->name);
+                        })
+                       
+                        ->addColumn('action', function($permission) {
+                            return '
+                                <div class="d-flex align-items-center nowrap">
+                                    <a href="'.route('permission.edit', $permission->id).'" class="btn btn-primary me-1"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="'.route('permission.delete', $permission->id).'" class="btn btn-danger delete-confirm me-1"><i class="bi bi-trash3-fill"></i></a>
+                                </div>
+                            ';
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
+            }
+        return view('admin.role_management.permission.index');
     }
 
     public function create()

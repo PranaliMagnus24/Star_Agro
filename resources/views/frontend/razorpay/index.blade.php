@@ -1,17 +1,17 @@
 @extends('members::layouts.master')
 
-@section('title', __('messages.Wallet'))
-@section('pagetitle', __('messages.Wallet'))
+@section('title', __('messages.Recharge'))
+@section('pagetitle', __('messages.Recharge'))
 
 @section('member')
 
 
-    <h1>Complete Your Payment</h1>
+    <h2>{{__('messages.Complete Your Payment') }}</h2>
   <!-- Input for amount -->
     <!-- Form for entering the payment amount -->
-    <label for="amount">Amount (₹):</label>
-    <input type="number" id="amount" placeholder="Enter amount" required min="100">
-    <button id="pay-btn">Proceed to Pay</button>
+    <label for="amount">{{__('messages.Amount (₹):') }}</label>
+    <input type="number" id="amount" placeholder="{{__('messages.Enter amount min 100Rs') }}" required min="100">
+    <button id="pay-btn">{{__('messages.Proceed to Pay') }}</button>
 
 
     <script>
@@ -22,7 +22,12 @@
 
             // Validate the entered amount
             if (!enteredAmount || enteredAmount <= 0) {
-                alert("Please enter a valid amount.");
+                 Swal.fire({
+                icon: 'error',
+                title: 'Invalid Amount',
+                text: 'Please enter an amount of at least ₹100.',
+                confirmButtonText: 'OK'
+            });
                 return;
             }
             // Get CSRF token

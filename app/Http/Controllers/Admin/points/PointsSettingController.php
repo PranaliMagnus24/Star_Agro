@@ -5,14 +5,31 @@ namespace App\Http\Controllers\Admin\points;
 use App\Http\Controllers\Controller;
 use App\Models\PointsSetting;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class PointsSettingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $settings= PointsSetting::query()->orderBy('created_at', 'desc');
+            return DataTables::eloquent($settings)
+                ->addIndexColumn()
+               
+                ->addColumn('action', function($setting) {
+                    return '
+                        <div class="d-flex align-items-center nowrap">
+                            <a href="'.route('admin.points.edit', $setting->id).'" class="btn btn-primary me-1"><i class="bi bi-pencil-square"></i></a>
+                            <a href="'.route('admin.points.destroy', $setting->id).'" class="btn btn-danger delete-confirm me-1"><i class="bi bi-trash3-fill"></i></a>
+                        </div>
+                    ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
         
-        $settings = PointsSetting::paginate(10); 
-        return view('admin.points.index', compact('settings'));
+        
+        return view('admin.points.index');
     }
 
     public function create()

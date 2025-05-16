@@ -25,7 +25,7 @@
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->created_at->format('Y-m-d H:i') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d/M/Y') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
