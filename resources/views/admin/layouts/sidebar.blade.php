@@ -3,6 +3,13 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
+        <a class="nav-link"  href="{{ route('home.index')}}">
+          <i class="bi bi-house"></i>
+          <span>{{ __('messages.Home') }}</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
         <a class="nav-link " href="{{ route('dashboard')}}">
           <i class="bi bi-grid"></i>
           <span>{{ __('messages.Dashboard') }}</span>
@@ -183,6 +190,13 @@
             </li>
         </ul>
       </li><!-- End FAQ Section -->
+       <li class="nav-item">
+    <a class="nav-link" href="{{ route('admin.job.job_index') }}">
+        <i class="bi bi-person"></i>
+        <span>{{ __('messages.Job Application') }}</span>
+    </a>
+</li>
+
 
     </ul>
   </aside><!-- End Sidebar-->

@@ -39,17 +39,21 @@ class UserRegistrationController extends Controller
         // dd($request->all());
 
         $request->validate([
-            'first_name' => ['required','string'],
-            'last_name' => ['required','string'],
-            'phone' => ['required','integer','digits:10'],
+             'first_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/'],
+             'last_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/'],
+            // 'phone' => ['required', 'digits:10', 'unique:users,phone','regex:/[0-9]{10}$/'],
+            'phone' => ['required', 'regex:/^[0-9]{10}$/', 'unique:users,phone'],
             'email' => ['nullable', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'terms' => 'accepted', ],
             [
                  'first_name'=> __('messages.The first name field is required.'),
+                 'first_name.regex' => __('messages.First name must contain only letters.'),
                 'last_name'=>__('messages.The last name field is required.'),
+                'last_name.regex' => __('messages.Last name must contain only letters.'),
                 'email.unique' => __('messages.Email already exists.'),
                 'phone.digits' => __('messages.Phone number must be exactly 10 digits.'),
+                'phone.unique' => __('messages.Phone number already exists.'),
                 'phone'=> __('messages.The phone field is required.'),
                 'password'=>__('messages.The password field is required.'),
                 'terms'=>__('messages.The terms field must be accepted.'),
@@ -72,7 +76,7 @@ class UserRegistrationController extends Controller
                 return back()->withInput()->withErrors(['referral_code' => 'Please enter a correct referral code.']);
             }
         }
-
+        $phone = '+91' . $request->phone;
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,

@@ -134,7 +134,7 @@ class CategoryController extends Controller
         ]);
 
         $category = Category::findOrFail($id);
-        $category->category_name = $request->category_name;
+        $category->category_name_marathi = $request->category_name_marathi;
         $category->description = $request->description;
         $category->status = $request->status;
 
@@ -192,5 +192,7 @@ class CategoryController extends Controller
         $subsubcategories = Category::where('subcategory_id', $id)->get();
         return response()->json($subsubcategories);
     }
+
+
 
 }

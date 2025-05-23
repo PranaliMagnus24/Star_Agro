@@ -85,10 +85,10 @@ class User extends Authenticatable
         return $this->hasMany(CropManagement::class, 'farmer_id'); 
     }
     
-    protected static function booted()
-    {
-        static::creating(function ($user) {
-            $user->referral_code = strtoupper(Str::random(8));
-        });
-    }
+    // protected static function booted()
+    // {
+    //     static::creating(function ($user) {
+    //         $user->referral_code = strtoupper(Str::random(8));
+    //     });
+    // }
 }

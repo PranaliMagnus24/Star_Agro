@@ -15,7 +15,7 @@ class PermissionController extends Controller
     {
        
                 if ($request->ajax()) {
-                    $permissions = Permission::query()->orderBy('name', 'asc');
+                    $permissions = Permission::query()->orderBy('created_at','desc');
                     return DataTables::eloquent($permissions)
                         ->addIndexColumn()
                         ->editColumn('name', function($permission) {

@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\points\PointsSettingController;
 use App\Http\Controllers\Admin\points\ReferralSettingController;
 use App\Models\User;
 use App\Http\Controllers\Admin\Wallet\WalletController;
+use Modules\Category\App\Http\Controllers\CategoryController;
 use Modules\Members\App\Http\Controllers\RechargeController;
 use App\Http\Controllers\Admin\Razorpay\RazorpayController;
 
@@ -26,6 +27,11 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserRegistrationController;
 use App\Http\Controllers\Frontend\CropController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use Illuminate\Http\Request;
+use Modules\Location\App\Http\Controllers\TalukaController;
+use Modules\Location\App\Http\Controllers\VillageController;
+use Modules\Location\App\Http\Controllers\DistrictController;
+use App\Http\Controllers\Admin\Job\JobController;
 
 
 // Route::get('/', function () {
@@ -49,6 +55,8 @@ Route::get('contact', [HomeController::class,'mainContact'])->name('home.contact
 Route::get('/live-search', [HomeController::class, 'liveSearch'])->name('live.search'); 
 
 Route::get('/faqs', [HomeController::class, 'mainFaq'])->name('home.faq');
+Route::get('/jobs', [HomeController::class, 'mainJob'])->name('home.job');
+Route::post('/jobs', [HomeController::class, 'submitJobApplication'])->name('home.job.submit');
 
 //slug pages
 Route::get('/home/{slug}', [HomeController::class, 'mainTerms'])->name('home.terms');
@@ -70,14 +78,22 @@ Route::post('/favorites/add', [CropController::class, 'add'])->name('favorite.ad
 Route::post('/favorites/remove', [CropController::class, 'remove'])->name('favorite.remove')->middleware('auth');
 
 Route::post('/check-balance', [CropController::class, 'checkBalance'])->name('check.balance');
+Route::get('/autosuggest-crops', [CropController::class, 'autosuggestCrops'])->name('autosuggest.crops');
+
+
+
 // 
 // Route::get('/crop/details/{id}', [CropController::class, 'showDetails'])->name('crop.details');
 // Route::get('/crop-details/{id}', [CropController::class, 'showCropDetails'])->name('crop.details');
 
 
 
-Route::post('api/fetch-states', [HomeController::class, 'fetchState']);
-Route::post('api/fetch-cities', [HomeController::class, 'fetchCity']);
+Route::post('home/api/fetch-states', [HomeController::class, 'fetchState']);
+Route::post('home/api/fetch-cities', [HomeController::class, 'fetchCity']);
+Route::post('home/api/fetch-talukas', [HomeController::class, 'fetchTaluka']);
+Route::post('home/api/fetch-villages', [HomeController::class, 'fetchVillage']);
+
+
 
 ////User Registration Controller
 Route::get('registration', [UserRegistrationController::class,'mainRegister'])->name('home.register');
@@ -194,14 +210,6 @@ Route::get('location',[LocationController::class,'create'])->name('create.locati
 
     //slug
  
-     //Route::get('/terms', [CMSPagesController::class, 'showTerms'])->name('terms.show');
-    
-     //bavix -- wallet
-    //  Route::get('/test-wallet', function () {
-    //     $user = User::first();
-    //     $user->deposit(100);
-    //     return 'Wallet balance: ' . $user->balance;
-    // });
 
     Route::get('/wallet', [WalletController::class, 'index'])->name('admin.wallet.index');
     Route::get('/wallet/create', [WalletController::class, 'create'])->name('admin.wallet.create');
@@ -228,7 +236,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('points/{id}', [PointsSettingController::class, 'destroy'])->name('admin.points.destroy');
 });
 
-// referral points 
+
 // Referral Settings Routes
 
 Route::prefix('admin')->middleware('auth')->group(function () {
@@ -239,5 +247,17 @@ Route::get('referral/{id}/edit', [ReferralSettingController::class, 'edit'])->na
 Route::put('referral/{id}', [ReferralSettingController::class, 'update'])->name('admin.referral.update');
 Route::delete('referral/{id}', [ReferralSettingController::class, 'destroy'])->name('admin.referral.destroy');
 });
+
+
+////otp
+    Route::post('/send-otp', [AuthenticatedSessionController::class, 'sendOtp'])->name('send.otp');
+    Route::post('verify-otp', [AuthenticatedSessionController::class, 'verifyOtp'])->name('verify.otp');
+    Route::get('clear-cache', [AuthenticatedSessionController::class, 'clearCache']);
+
+
+    ///job superadmin
+    Route::get('/job_index', [JobController::class, 'job_index'])->name('admin.job.job_index');
+    Route::get('/job_show/{id}', [JobController::class, 'job_show'])->name('job_show');
+    Route::get('/export-job', [JobController::class, 'exportjob'])->name('admin.job_export');
 
 require __DIR__.'/auth.php';

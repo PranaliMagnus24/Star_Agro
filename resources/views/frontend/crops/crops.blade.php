@@ -36,25 +36,39 @@
                 </div>
             </div>
         </div>
-        <div class="row mb-3">
-            <div class="col-lg-6 col-sm-6">
-
-            </div>
-            <div class="col-lg-6 col-sm-6 text-right">
+        <!-- <div class="row mb-3">
+            <div class="col-lg-8 col-sm-8 d-flex justify-content-end">
                 <form method="GET" action="{{ route('home.crops') }}" class="d-flex align-items-center">
-                    <input type="text" name="search" placeholder="Search categories..." aria-label="Search categories" class="form-control category-search-input" value="{{ request()->query('search') }}">
-                    <select name="orderby" class="orderby form-control" aria-label="Shop order">
-                        <option value="menu_order" selected="selected">Default sorting</option>
-                        <option value="popularity">Sort by popularity</option>
-                        <option value="rating">Sort by average rating</option>
-                        <option value="date">Sort by latest</option>
-                        <option value="price">Sort by price: low to high</option>
-                        <option value="price-desc">Sort by price: high to low</option>
-                    </select>
+                    <input type="text" name="search" placeholder="{{__('messages.Search Crop..') }}" aria-label="Search categories" 
+                    class="form-control category-search-input" value="{{ request()->query('search') }}" style="width:500px;">
                 </form>
             </div>
+        </div> -->
+        <div class="row mb-3">
+                <div class="col-lg-8 col-sm-8 d-flex justify-content-end">
+                     <form id="search-form" method="GET" action="{{ route('home.crops') }}" class="d-flex align-items-center w-100 justify-content-end">
+                        <div class="position-relative" style="width: 500px;">
+                                 <!-- <input type="text" 
+                                    name="search" 
+                                    placeholder="{{ __('messages.Search Crop..') }}" 
+                                    aria-label="Search categories" 
+                                    class="form-control category-search-input pr-5" 
+                                    value="{{ request()->query('search') }}"> -->
+
+                                    <button type="submit" 
+                                        class="position-absolute border-0 bg-transparent" 
+                                        style="top: 50%; right: 10px; transform: translateY(-50%); color: #aaa;">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+
+                                     <!-- <div id="search-suggestions" class="list-group position-absolute w-100" style="z-index: 1000;"></div> -->
+                                    <input type="text" id="crop-search" name="search" placeholder="Search Crops..." class="form-control" autocomplete="off"> 
+                                    </div>
+                     </form>
+             </div>
         </div>
-        <div class="row">
+
+        <div class="row mt-5">
             @foreach($categories as $category)
                 @if ($category->crop_managements_count > 0)
                     <div class="col-6 col-sm-4 col-md-2 mb-4">
@@ -83,27 +97,7 @@
 
 
 
-        {{-- <div class="row">
-            @foreach ($categories as $category)
-                @if ($category->crop_managements_count > 0)
-                    <div class="col-6 col-md-4 col-lg-2 mb-2">
-                        <div class="item">
-                            <a href="{{ route('crop.management.list', $category->id) }}">
-                                <div class="category-card" style="background-image: url('{{ asset($category->category_image) }}');">
-                                    <div class="pos1">
-                                        <div class="circle-badge">
-                                            {{ $category->crop_managements_count }}
-                                        </div>
-                                        <div class="category-name">{{ $category->category_name }}</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                @endif
-            @endforeach
-        </div> --}}
-
+       
     </div>
     <div class="row">
         <div class="col-12">
@@ -135,31 +129,19 @@
         </div>
     </div>
 </section>
-            <!-- services-area-end -->
-            {{-- <section id="graph" class="features-area pt-70 pb-50"  style="background:url('frontend/assets/img/bg/shop-bg.png');">
-                <div class="container">
+           
+<script>
+    $(function () {
+        $("#crop-search").autocomplete({
+            source: "{{ route('autosuggest.crops') }}",
+            minLength: 2,
+            select: function (event, ui) {
+    $('#crop-search').val(ui.item.value);
+    $('#search-form').submit(); // Make sure your input is inside a form with this ID
+}
+        });
+    });
+</script>
 
-                    <div class="row align-items-center">
-                         <div class="col-lg-5 col-md-12">
-                            <img src="{{ asset('frontend/assets/img/bg/features-lg-img.png') }}" alt="features-lg-img">
-                        </div>
-                        <div class="col-lg-7 col-md-12">
-                            <div class="section-title cta-title  mb-20">
-
-
-                                <h2>Your Happines Guarante</h2>
-                            </div>
-                            <p>Phasellus ligula diam, rhoncus a tincidunt in, auctor non est. Nulla eleifend est non nibh sodales, ut hendrerit nisi egestas. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent condimentum, eros feugiat tincidunt bibendum, urna libero ullamcorper diam, quis interdum nulla nunc sed ipsum.</p>
-
-                        </div>
-
-
-
-
-                    </div>
-
-                </div>
-            </section> --}}
-{{-- @include('frontend.partials.testimonial') --}}
 
 @endsection

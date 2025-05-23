@@ -222,7 +222,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href=#>
+              <a class="dropdown-item d-flex align-items-center" href= {{ route('member.profile') }}>
                 <i class="bi bi-person"></i>
                 <span>{{ __('messages.My Profile') }}</span>
 
@@ -252,16 +252,18 @@
               <!-- <hr class="dropdown-divider">
             </li> -->
 
-            <li>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <a class="dropdown-item d-flex align-items-center" onclick="event.preventDefault(); this.closest('form').submit();" href="{{route('logout')}}">
-                        <i class="bi bi-box-arrow-right"></i>
-                        <span>{{ __('messages.Sign Out') }}</span>
+              <li>
+                     <form method="POST" action="{{ route('logout') }}">
+                           @csrf
+                       <a class="dropdown-item d-flex align-items-center text-danger" 
+                           onclick="event.preventDefault(); this.closest('form').submit();" 
+                           href="{{ route('logout') }}">
+                           <i class="bi bi-box-arrow-right"></i>
+                            <span>{{ __('messages.Sign Out') }}</span>
+                        </a>
+                     </form>
+              </li>
 
-                    </a>
-                </form>
-            </li>
 
             {{-- <li class="d-flex justify-content-center mb-3 mt-3">
                 <form method="POST" action="{{ route('logout') }}">

@@ -12,16 +12,7 @@
 
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
-                        <!-- <form class="d-flex me-5" method="GET" action="#">
-                            <div class="input-group">
-                                <input type="text" name="search" class="form-control" placeholder="Search" value="{{ request('search') }}">
-                                <button type="submit" class="btn btn-primary" title="Search">
-                                    <i class="bi bi-search"></i>
-                                </button>
-                            </div>
-                        </form> -->
-
-                        <!-- <a href="{{ route('wallet.management.create') }}" class="btn btn-primary">+</a> -->
+                        
                          <br>
                          <a href="{{ route('razorpay.index') }}" class="btn btn-success">Recharge</a> 
 

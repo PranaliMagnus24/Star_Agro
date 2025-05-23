@@ -151,7 +151,7 @@ ol[data-list="bullet"] {
   defer>
 </script>
 
-</script>
+
 
 <script>
     function initMap() {

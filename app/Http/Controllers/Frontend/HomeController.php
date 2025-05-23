@@ -23,9 +23,18 @@ use App\Models\FarmerDocument;
 use Modules\Category\App\Models\Category;
 use Modules\Members\App\Models\CropImages;
 use Modules\Members\App\Models\CropManagement;
+use App\Models\Job;
+use Illuminate\Support\Facades\Storage;
 
 use Str;
 use File;
+
+
+use Modules\Location\App\Models\District;
+use Modules\Location\App\Models\Taluka;
+use Modules\Location\App\Models\Village;
+
+
 
 class HomeController extends Controller
 {
@@ -228,6 +237,80 @@ public function mainFaq(Request $request)
     return view('frontend.menus.faq', compact('faqs', 'categories'));
 }
 
+public function mainJob(Request $request)
+{
+    $countries = Country::get(["name", "id"]);
+    $states = State::where('country_id',101)->get(["name", "id"]);
+    $cities = District::where('state_id',4008)->get(["district_name", "id"]);
+    $talukas = Taluka::where('district_id',22)->get(["taluka_name","id"]);
+    $villages=Village::where('taluka_id',221)->get(["village_name","id"]);
+
+    return view('frontend.menus.job', compact('countries', 'states', 'cities', 'talukas','villages'));
+}
+public function submitJobApplication(Request $request)
+{
+    // dd($request)->all();
+    $request->validate([
+        'first_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/'],
+         'last_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/'],
+        'phone' => ['required', 'regex:/^[0-9]{10}$/'],
+        'email'        => 'nullable|email|max:255',
+        'applying_for' => 'required|String',
+        'state'        => 'required|integer',   
+        'district'     => 'required|integer',
+        'taluka'       => 'required|integer',
+        'town'         => 'required|integer',
+        'subject'      => 'nullable|string|max:255',
+        'description'  => 'nullable|string',
+        'cv'           => 'required|file|mimes:pdf,doc,docx|max:2048',
+    ], [
+                'first_name'=> __('messages.The first name field is required.'),
+                 'first_name.regex' => __('messages.First name must contain only letters.'),
+                'last_name'=>__('messages.The last name field is required.'),
+                'last_name.regex' => __('messages.Last name must contain only letters.'),
+                'email.unique' => __('messages.Email already exists.'),
+                'phone.digits' => __('messages.Phone number must be exactly 10 digits.'),
+                'phone'=> __('messages.The phone field is required.'),
+                'district'=>__('messages.The District Field is required'),
+                'taluka'=>__('messages.The Taluka Field is required'),
+                'town'=>__('messages.The village Field is required'),
+                'applying_for' =>__('messages.The Applying for Field is required'),
+                'cv.required'    =>__('messages.Please upload your CV.') ,
+                'cv.mimes'       =>__('messages.CV must be a file of type: PDF, DOC, or DOCX.'),
+                'cv.max'         =>__('messages.CV must not be larger than 2MB.'),
+    ]);
+
+  
+
+    // Upload CV
+    
+     if ($request->hasFile('cv')) {
+        $cv = $request->file('cv');
+        $cvFileName = time() . '_' . $cv->getClientOriginalName();
+        $destinationPath = public_path('upload/cv_uploads');
+        $cv->move($destinationPath, $cvFileName);
+    }
+
+     Job::create([
+        'first_name' => $request->first_name,
+        'last_name' => $request->last_name,
+        'phone' => $request->phone,
+        'email' => $request->email,
+        'applying_for'=>$request->applying_for,
+        'state' => $request->state,
+        'district' => $request->district,
+        'taluka' => $request->taluka,
+        'town' => $request->town,
+        'subject' => $request->subject,
+        'description' => $request->description,
+        'cv' => $cvFileName,
+    ]);
+
+
+    return back()->with('success', 'Application submitted successfully!');
+}
+
+
 //-------------------------------------------------------
 
     public function fetchState(Request $request)
@@ -251,5 +334,23 @@ public function mainFaq(Request $request)
     return response()->json($data);
 
     }
+
+    //fetch talukas 
+    public function fetchTaluka(Request $request)
+{
+    $data['talukas'] = Taluka::where("district_id", $request->district_id)
+                              ->get(["taluka_name", "id"]);
+    return response()->json($data);
+}
+
+//fetch villages
+public function fetchVillage(Request $request)
+{
+    $data['villages'] = Village::where("taluka_id", $request->taluka_id)
+                                ->orderBy("village_name", "asc") 
+                                ->get(["id", "village_name"]);
+
+    return response()->json($data);
+}
 
 }

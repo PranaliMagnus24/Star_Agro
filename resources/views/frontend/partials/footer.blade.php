@@ -18,12 +18,12 @@
                 <div class="col-xl-2 col-lg-2 col-sm-6">
                     <div class="footer-widget mb-30">
                         <div class="f-widget-title">
-                            <h2>Our Links</h2>
+                            <h2>{{__('messages.Important Links') }}</h2>
                         </div>
                         <div class="footer-link">
                             <ul>
                                 <!-- <li><a href="{{ route('home.index')}}">{{ __('messages.Home') }}</a></li> -->
-                                <!-- <li><a href="{{ route('home.about')}}">{{ __('messages.About Us') }}</a></li> -->
+                                <li><a href="{{ route('home.job') }}">{{ __('messages.Career') }}</a></li> 
                                 <li><a href="{{ route('home.faq') }}">{{ __('messages.FAQ') }}</a></li>
                                
                                 <!-- <li><a href="{{ route('home.services')}}">{{ __('messages.Services') }} </a></li> -->
@@ -41,7 +41,7 @@
                 <div class="col-xl-3 col-lg-3 col-sm-6">
                     <div class="footer-widget mb-30">
                         <div class="f-widget-title">
-                            <h2>Our Services</h2>
+                            <h2>{{__('messages.Our Services') }}</h2>
                         </div>
                         <div class="f-contact">
                             <ul>
@@ -95,7 +95,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                       Copyright  © 2025 StarAgro. All rights reserved.
+                     {{__('messages.Copyright  © 2025 StarAgro. All rights reserved.') }} 
                 </div>
                 <div class="col-lg-6 text-right text-xl-right">
 

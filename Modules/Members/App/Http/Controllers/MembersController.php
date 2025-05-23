@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Validation\ValidationException;
 use Spatie\Permission\Models\Role;
+
 use App\Models\City;
 use Modules\Location\App\Models\District;
 use Modules\Location\App\Models\Taluka;
@@ -49,8 +51,8 @@ class MembersController extends Controller
         $countries = Country::get(["name", "id"]);
         $states = State::where('country_id',101)->get(["name", "id"]);
         $cities = District::where('state_id',4008)->get(["district_name", "id"]);
-        $talukas = Taluka::where('district_id')->get();
-        $villages=Village::where('taluka_id')->get();
+        $talukas = Taluka::where('district_id',22)->get(["taluka_name","id"]);
+        $villages=Village::where('taluka_id',221)->get(["village_name","id"]);
         $farmerDocument = FarmerDocuments::where('user_id', $user->id)->first(); 
         return view('members::update_profile', compact('user','countries','states','cities','talukas','villages'));
     }
@@ -60,6 +62,7 @@ class MembersController extends Controller
     ////Update profile
     public function updateProfile(Request $request)
     {
+   
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -73,7 +76,7 @@ class MembersController extends Controller
         $user->last_name = $request->input('last_name');
         $user->name = $request->input('first_name') . ' ' . $request->input('last_name');
         $user->phone = $request->input('phone');
-
+        $user->email = $request->input('email');
         $user->save();
 
     return redirect()->to('/profile?tab=profile-edit')->with('success', 'Profile updated successfully.');
@@ -83,9 +86,8 @@ class MembersController extends Controller
 
 public function store(Request $request): RedirectResponse
 {
-    try{
         // dd($request->all());
-    $request->validate([
+     $request->validate = [
         'gender' => 'required|string',
         'state' => 'required|string',
         'district' => 'required|string',
@@ -95,22 +97,27 @@ public function store(Request $request): RedirectResponse
         'pincode' => 'nullable|string|max:10',
         'referral_code' => 'nullable|string|max:255',
         'known_about_us' => 'nullable|string|max:255',
-        'farmer_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        'solar_dryer' =>  'required|string|max:255',
+        'farmer_certificate' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
         'aadhar_pancard' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         'company_logo' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-        'upload_documents' => 'nullable|string',
+        'upload_documents' => 'required|string',
         'documents' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         'company_name' => 'nullable|string|max:255',
-        'solar_dryer' => 'nullable|string|max:255',
-         'location.latitude' => 'required|numeric',
+        'location.latitude' => 'required|numeric',
         'location.longitude' => 'required|numeric',
         'location.address' => 'required|string|max:255'
-    ]);
+      ];
+    
+    
   
     if (auth()->user()->hasRole('entrepreneur')) {
         $rules['gst_no'] = 'required|string'; 
-    }
+     }
 
+    
+   
+  
     // $request->validate($rules);
     $user = auth()->user();
     $user->gender = $request->gender;
@@ -121,11 +128,14 @@ public function store(Request $request): RedirectResponse
     $user->taluka = $request->taluka;
     $user->town = $request->town;
     $user->referral_code = $request->referral_code;
-    $user->gst_no =$request->gst_no;
+    
     $user->known_about_us = $request->known_about_us;
     $user->solar_dryer = $request->solar_dryer;
 
     $location = Location::where('user_id', $user->id)->first();
+    if ($user->hasRole('entrepreneur')) {
+    $user->gst_no = $request->gst_no;
+}
     if ($location) {
         // Update existing location
         $location->address = $request->location['address'];
@@ -150,6 +160,10 @@ public function store(Request $request): RedirectResponse
     }
 
     $user->save();
+    if (!$user->save()) {
+    \Log::error('User save failed');
+    return redirect()->back()->with('error', 'Failed to save user info.');
+}
     $location = Location::firstOrNew(['user_id' => $user->id]); 
     // $location = Location::firstOrNew(['user_id' => $user->id]);
     $location->address = $request->location['address'];
@@ -204,15 +218,7 @@ public function store(Request $request): RedirectResponse
             $this->uploadDocument($request->file('documents'), $user->id, $documentType);
         }
     }
- return redirect()->to('/profile?tab=profile-change-password')
-                     ->with('success', 'Information updated successfully!');
-} catch (\Exception $e) {
-    return redirect()->to('/profile?tab=profile-change-password')
-                     ->with('error', 'Something went wrong!');
-}
-
-
-
+    return redirect()->to('/profile?tab=profile-change-password')->with('success', 'Information updated successfully!');
 }
 
 private function uploadDocument($file, $userId, $documentType, $farmerDocument = null)
@@ -321,7 +327,7 @@ private function uploadDocument($file, $userId, $documentType, $farmerDocument =
 public function fetchVillage(Request $request)
 {
     $data['villages'] = Village::where("taluka_id", $request->taluka_id)
-                                ->orderBy("village_name", "asc") // Order alphabetically by name
+                                ->orderBy("village_name", "asc") 
                                 ->get(["id", "village_name"]);
 
     return response()->json($data);

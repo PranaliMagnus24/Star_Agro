@@ -145,10 +145,27 @@
                                                     {{ __('messages.My Profile') }}
                                                 </a>
                                             </li>
-                                            <li>
+                                            
+                                             @if(Auth::user()->hasRole('super-admin'))
+                                                <li>
+                                                <a href="{{ route('dashboard') }}" style="color:#76bc02;">
+                                                    {{ __('messages.Dashboard') }}
+                                                </a>
+                                                </li>
+                                                @endif
+                                            
+                                            
 
-                                            </li>
                                             @if(Auth::user()->hasRole('farmer'))
+
+                                            
+                                                <li>
+                                                <a href="{{ route('member') }}" style="color:#76bc02;">
+                                                    {{ __('messages.Dashboard') }}
+                                                </a>
+                                                </li>
+                                            
+
                                              <li>
                                                  <a href="{{ route('crop.index') }}" style="color:#76bc02;">
                                                     {{ __('messages.Crop Management') }}
@@ -173,7 +190,7 @@
                                             @endcan
                                             
                                             <li>
-                                                <a href="{{ route('logout') }}" class="text-success" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                <a href="{{ route('logout') }}" class="text-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                     {{ __('messages.Logout') }}
                                                 </a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

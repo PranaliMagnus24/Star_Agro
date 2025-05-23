@@ -22,6 +22,7 @@
 
    
   <!-- Vendor CSS Files -->
+     
 
    <link href="{{ asset('admin/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
   <link href="{{ asset('admin/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -118,10 +119,10 @@
   @include('members::partials.footer')
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   <!-- Vendor JS Files -->
-  @livewireScripts
-    <script src="{{ asset('admin/assets/js/jquery-3.6.0.min.js')}}"></script>
+  
+  <script src="{{ asset('admin/assets/js/jquery-3.6.0.min.js')}}"></script>
   <script src="{{ asset('admin/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
   <script src="{{ asset('admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('admin/assets/vendor/chart.js/chart.umd.js') }}"></script>

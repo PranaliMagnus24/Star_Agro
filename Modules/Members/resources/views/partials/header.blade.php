@@ -254,7 +254,7 @@
             <li> -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <a class="dropdown-item d-flex align-items-center" onclick="event.preventDefault(); this.closest('form').submit();" href="{{route('logout')}}">
+                    <a class="dropdown-item d-flex align-items-center text-danger" onclick="event.preventDefault(); this.closest('form').submit();" href="{{route('logout')}}">
                         <i class="bi bi-box-arrow-right"></i>
                         <span>{{__('messages.Sign Out') }}</span>
                     </a>

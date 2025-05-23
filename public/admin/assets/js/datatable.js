@@ -1773,7 +1773,93 @@ $(document).ready(function () {
     }
 });
 
-////farmer list table
+////cv list table
+$(document).ready(function () {
+    if ($("#jobApplicationTable").length) {
+        $("#jobApplicationTable").DataTable({
+            serverSide: true,
+            processing: true,
+            responsive: true,
+            ajax: {
+                url: cvUrl,
+                type: "GET",
+            },
+            columns: [
+                {
+                    data: null,
+                    name: "id",
+                    render: function (data, type, row, meta) {
+                        return meta.row + 1;
+                    },
+                },
+
+                { data: "first_name", name: "first_name" },
+                { data: "last_name", name: "last_name" },
+                { data: "phone", name: "phone" },
+                { data: "full_address", name: "full_address" },
+                { data: "email", name: "email" },
+                { data: "applying_for", name: "applying_for" },
+                {
+                    data: "cv_buttons",
+                    name: "cv",
+                    orderable: false,
+                    searchable: false,
+                },
+            ],
+            dom:
+                "<'row mb-3'<'col-sm-4'l><'col-sm-8 d-flex justify-content-end align-items-center gap-2'fB>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row mt-2'<'col-sm-6'i><'col-sm-6 d-flex justify-content-end'p>>",
+            language: {
+                lengthMenu:
+                    '<select class="form-select">' +
+                    '<option value="10">10</option>' +
+                    '<option value="25">25</option>' +
+                    '<option value="50">50</option>' +
+                    '<option value="100">100</option>' +
+                    '<option value="500">500</option>' +
+                    "</select>",
+            },
+            buttons: [
+                {
+                    extend: "collection",
+                    text: '<i class="bi bi-download"></i>',
+                    className: "btn btn-light dropdown-toggle",
+                    buttons: [
+                        {
+                            extend: "csv",
+                            className: "dropdown-item",
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                            },
+                        },
+                        {
+                            extend: "excel",
+                            className: "dropdown-item",
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                            },
+                        },
+                        {
+                            extend: "pdf",
+                            className: "dropdown-item",
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                            },
+                        },
+                        {
+                            extend: "print",
+                            className: "dropdown-item",
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                            },
+                        },
+                    ],
+                },
+            ],
+        });
+    }
+});
 
 ///delete button
 $(document).on("click", ".delete-confirm", function (e) {

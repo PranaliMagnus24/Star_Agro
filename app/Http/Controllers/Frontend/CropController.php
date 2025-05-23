@@ -521,4 +521,20 @@ class CropController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+public function autosuggestCrops(Request $request)
+{
+    $search = $request->get('term'); // jQuery UI uses 'term' by default
+
+    $results = Category::where('subcategory_id', '>', 0)
+        ->where(function ($query) use ($search) {
+            $query->where('category_name', 'like', '%' . $search . '%')
+                  ->orWhere('category_name_marathi', 'like', '%' . $search . '%');
+        })
+        ->pluck('category_name');
+
+    return response()->json($results);
+}
+
+
 }

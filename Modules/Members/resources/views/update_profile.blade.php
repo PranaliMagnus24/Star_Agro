@@ -111,13 +111,7 @@
 
                             <div class="tab-pane fade {{ request('tab') == 'profile-change-password' ? 'show active' : '' }} pt-3"
                                 id="profile-change-password">
-                                <!-- @if(request()->get('tab') === 'profile-change-password')
-                                    @if(session('success'))
-                                    <div class="alert alert-success">{{ session('success') }}</div>
-                                    @elseif(session('error'))
-                                    <div class="alert alert-danger">{{ session('error') }}</div>
-                                    @endif
-                                @endif -->
+                              
 
                             
                                 <!-- More information Form -->
@@ -287,7 +281,7 @@
 
                                         <!-- google location -->
                                     <div class="row mb-3">
-                                    <label for="address-input" class="col-md-4 col-form-label">{{ __('messages.Address') }}</label>
+                                    <label for="address-input" class="col-md-4 col-form-label">{{ __('messages.Address') }} <span class="text-danger">*</span></label>
                                        
                                         <div class="col-md-8">
                                                      <!-- <input type="text" id="address-input" class="form-control" placeholder="Enter Location" value="{{ old('location.address', $user->location['address'] ?? '') }}"> -->
@@ -846,6 +840,7 @@ $('#taluka-dropdown').on('change', function() {
             });
         }
     </script>
+    <!-- active tab -->
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         const urlParams = new URLSearchParams(window.location.search);
